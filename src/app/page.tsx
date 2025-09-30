@@ -1,4 +1,5 @@
-import NavBar from '@/components/LandingPage/NavBar'
+import Footer from '@/components/Landing/Footer'
+import NavBar from '@/components/Landing/NavBar'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import {
@@ -358,7 +359,7 @@ export default async function Home() {
           </Carousel>
         </section>
 
-        <section className="mt-14 py-18">
+        <section className="mt-14 py-18" id="pricing">
           <div className="mb-3 text-center font-bold text-blue-600">
             PRICING
           </div>
@@ -461,7 +462,7 @@ export default async function Home() {
           >
             <g style={{ mixBlendMode: 'color-dodge' }}>
               <g
-                clip-path="url(#paint0_angular_60_5285_clip_path)"
+                clipPath="url(#paint0_angular_60_5285_clip_path)"
                 data-figma-skip-parse="true"
               >
                 <g transform="matrix(0.130251 0.0354316 -0.0354316 0.130251 145.106 1.62081)">
@@ -496,57 +497,7 @@ export default async function Home() {
           </svg>
         </section>
       </main>
-      <footer className="mt-20 border-t bg-black py-10 text-white">
-        <div className="container mx-auto flex justify-between gap-10">
-          <div className="max-w-60">
-            <div className="relative h-20 w-full">
-              <Image
-                src={'/landing/footer-logo.png'}
-                alt="logo"
-                className="object-contain"
-                fill
-              />
-            </div>
-            <p className="mt-4 text-sm text-gray-400">
-              The only Financial Companion you would ever need.
-            </p>
-          </div>
-          <div className="flex w-full justify-end gap-28 md:flex">
-            <div>
-              <div className="text-bold mb-8 text-lg">Product</div>
-              <ul className="space-y-6 text-gray-400">
-                <li>How It Works?</li>
-                <li>Pricing</li>
-                <li>Get Started</li>
-              </ul>
-            </div>
-            <div>
-              <div className="text-bold mb-8 text-lg">Company</div>
-              <ul className="space-y-6 text-gray-400">
-                <li>Who We Are</li>
-                <li>Why Us</li>
-              </ul>
-            </div>
-            <div>
-              <div className="text-bold mb-8 text-lg">Follow Us</div>
-              <ul className="space-y-6 text-gray-400">
-                <li>Instagram</li>
-                <li>LinkedIn</li>
-                <li>Facebook</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        <div className="container mx-auto mt-30 flex justify-between border-t border-t-gray-400 pt-10 text-sm text-gray-400">
-          <div className="flex justify-between">
-            <div className="flex items-center gap-8">
-              <div>Privacy Policy</div> | <div>Terms & Conditions</div> |{' '}
-              <div>Cookie Policy</div>
-            </div>
-          </div>
-          <div className="">© 2025 FinTracker. All rights reserved.</div>
-        </div>
-      </footer>
+      <Footer />
     </>
   )
 }

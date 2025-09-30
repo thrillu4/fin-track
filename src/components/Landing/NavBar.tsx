@@ -15,9 +15,9 @@ const NavBar = () => {
         />
       </Link>
       <div className="hidden gap-10 font-semibold md:flex">
-        <a href="#product">Why Us</a>
-        <a href="#how">How it Works</a>
-        <a href="#pricing">Pricing</a>
+        <Link href={ROUTES.WHO_WE_ARE}>About Us</Link>
+        <Link href={ROUTES.HOW_IT_WORKS}>How it Works</Link>
+        <Link href={`${ROUTES.HOME}#pricing`}>Pricing</Link>
       </div>
       <Button>Live Demo</Button>
     </nav>
