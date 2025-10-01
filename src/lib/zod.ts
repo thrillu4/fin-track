@@ -1,7 +1,7 @@
 import z from 'zod'
 
 export const signInSchema = z.object({
-  email: z.email('Invalid email').min(1, 'Email is required'),
+  email: z.email('Enter valid email').min(3, 'Enter valid email'),
   password: z
     .string('Password is required')
     .min(1, 'Password is required')
@@ -12,7 +12,7 @@ export const signInSchema = z.object({
 export type SignInSchema = z.infer<typeof signInSchema>
 
 export const signUpSchema = signInSchema.extend({
-  name: z.string('Name is required').min(2, 'Name is required'),
+  name: z.string('Name is required').min(2, 'At least 2 characters'),
 })
 
 export type SignUpSchema = z.infer<typeof signUpSchema>

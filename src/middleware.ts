@@ -7,16 +7,9 @@ export default async function middleware(req: NextRequest) {
     req,
     secret: process.env.AUTH_SECRET,
   })
-  let isDemo = false
-  if (token?.email === process.env.DEMO_USER_EMAIL) {
-    isDemo = true
-  }
+  console.log(token)
   const isLoggedIn = !!token
   const { pathname } = req.nextUrl
-
-  if (isDemo) {
-    return
-  }
 
   if (
     isLoggedIn &&

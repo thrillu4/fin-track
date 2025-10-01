@@ -16,11 +16,14 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { HatGlasses } from 'lucide-react'
 import { signIn } from 'next-auth/react'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import DemoUserButton from '../Landing/DemoUserButton'
 
 const LoginForm = () => {
+  const router = useRouter()
+  const [loading, setLoading] = useState(false)
   const [serverError, setServerError] = useState<string | null>(null)
   const form = useForm<SignInSchema>({
     resolver: zodResolver(signInSchema),
@@ -31,6 +34,7 @@ const LoginForm = () => {
   })
 
   async function onSubmit(values: SignInSchema) {
+    setLoading(true)
     const res = await signIn('credentials', {
       email: values.email,
       password: values.password,
@@ -38,6 +42,9 @@ const LoginForm = () => {
     })
     if (res?.error) {
       setServerError('Invalid email or password')
+      setLoading(false)
+    } else {
+      router.push(ROUTES.DASHBOARD)
     }
   }
   return (
@@ -84,7 +91,7 @@ const LoginForm = () => {
         />
         {serverError && <p className="text-sm text-red-500">{serverError}</p>}
 
-        <Button type="submit">Submit</Button>
+        <Button type="submit">{loading ? 'Submitting...' : 'Submit'}</Button>
       </form>
       <div className="mt-6 space-y-6">
         <div className="after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t">
@@ -95,7 +102,7 @@ const LoginForm = () => {
         <Button
           variant="outline"
           className="w-full"
-          onClick={() => signIn('github')}
+          onClick={() => signIn('github', { callbackUrl: ROUTES.DASHBOARD })}
         >
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
             <path

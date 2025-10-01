@@ -17,11 +17,14 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { HatGlasses } from 'lucide-react'
 import { signIn } from 'next-auth/react'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import DemoUserButton from '../Landing/DemoUserButton'
 
 const RegisterForm = () => {
+  const router = useRouter()
+  const [loading, setLoading] = useState(false)
   const [serverError, setServerError] = useState<string | null>(null)
   const form = useForm<SignUpSchema>({
     resolver: zodResolver(signUpSchema),
@@ -33,6 +36,7 @@ const RegisterForm = () => {
   })
 
   async function onSubmit(values: SignUpSchema) {
+    setLoading(true)
     const formData = new FormData()
     formData.set('name', values.name)
     formData.set('email', values.email)
@@ -42,7 +46,9 @@ const RegisterForm = () => {
 
     if (res?.error) {
       setServerError(res.error)
+      setLoading(false)
     } else {
+      router.push(ROUTES.DASHBOARD)
     }
   }
 
@@ -112,7 +118,7 @@ const RegisterForm = () => {
         <Button
           variant="outline"
           className="w-full"
-          onClick={() => signIn('github')}
+          onClick={() => signIn('github', { callbackUrl: ROUTES.DASHBOARD })}
         >
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
             <path
@@ -120,7 +126,7 @@ const RegisterForm = () => {
               fill="currentColor"
             />
           </svg>
-          Login with GitHub
+          Continue with GitHub
         </Button>
 
         <div className="after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t">
