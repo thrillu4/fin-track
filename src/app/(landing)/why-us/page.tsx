@@ -1,4 +1,6 @@
 import { Button } from '@/components/ui/button'
+import { ROUTES } from '@/lib/routes'
+import Link from 'next/link'
 
 export default function WhyUs() {
   const features = [
@@ -52,9 +54,11 @@ export default function WhyUs() {
         </div>
 
         <div className="mt-12">
-          <Button className="rounded-full px-10 py-7 text-lg">
-            Get Started
-          </Button>
+          <Link href={ROUTES.SIGN_UP}>
+            <Button className="rounded-full px-10 py-7 text-lg">
+              Get Started
+            </Button>
+          </Link>
         </div>
       </div>
     </section>

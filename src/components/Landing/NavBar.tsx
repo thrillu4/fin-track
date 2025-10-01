@@ -1,7 +1,7 @@
 import { ROUTES } from '@/lib/routes'
 import Image from 'next/image'
 import Link from 'next/link'
-import { Button } from '../ui/button'
+import DemoUserButton from './DemoUserButton'
 
 const NavBar = () => {
   return (
@@ -19,7 +19,9 @@ const NavBar = () => {
         <Link href={ROUTES.HOW_IT_WORKS}>How it Works</Link>
         <Link href={`${ROUTES.HOME}#pricing`}>Pricing</Link>
       </div>
-      <Button>Live Demo</Button>
+      <DemoUserButton classname="cursor-pointer rounded-full ">
+        Live Demo
+      </DemoUserButton>
     </nav>
   )
 }

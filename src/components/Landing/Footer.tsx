@@ -39,7 +39,14 @@ const Footer = () => {
                   Pricing
                 </Link>
               </li>
-              <li>Get Started</li>
+              <li>
+                <Link
+                  className="transition duration-200 hover:underline"
+                  href={ROUTES.SIGN_UP}
+                >
+                  Get Started
+                </Link>
+              </li>
             </ul>
           </div>
           <div>

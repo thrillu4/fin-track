@@ -1,9 +1,9 @@
-import { LoginForm } from '@/components/login-form'
+import RegisterForm from '@/components/Auth/RegisterForm'
 import { ROUTES } from '@/lib/routes'
 import Image from 'next/image'
 import Link from 'next/link'
 
-export default async function SignIn() {
+export default function SignUp() {
   return (
     <div className="grid min-h-svh lg:grid-cols-2">
       <div className="flex flex-col gap-4 p-6 md:p-10">
@@ -22,13 +22,13 @@ export default async function SignIn() {
         </div>
         <div className="flex flex-1 items-center justify-center">
           <div className="w-full max-w-xs">
-            <LoginForm />
+            <RegisterForm />
           </div>
         </div>
       </div>
       <div className="bg-muted relative hidden lg:block">
         <Image
-          src={'/sign-in.jpg'}
+          src={'/sign-up.jpg'}
           alt="Image"
           fill
           className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
