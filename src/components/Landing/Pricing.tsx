@@ -12,7 +12,7 @@ const Pricing = () => {
         We got a price for <br />
         Everyone
       </h3>
-      <div className="mt-25 grid grid-cols-3 gap-10">
+      <div className="mt-25 grid grid-cols-3 gap-10 dark:text-black">
         {pricing.map(plan => (
           <div key={plan.name} className="rounded-4xl bg-indigo-50 px-9 py-11">
             <div className="text-2xl font-bold">{plan.name}</div>
@@ -29,7 +29,7 @@ const Pricing = () => {
               ))}
             </ul>
             <Link href={ROUTES.SIGN_UP}>
-              <Button className="mt-10 w-full rounded-full py-8 text-lg font-bold">
+              <Button className="mt-10 w-full rounded-full bg-[#0601F6] py-8 text-lg font-bold hover:bg-[#0601F6]/80 dark:text-white">
                 Get Started
               </Button>
             </Link>

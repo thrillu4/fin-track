@@ -34,7 +34,7 @@ export default function Home() {
           </p>
           <div className="mt-8 flex items-center justify-center gap-5">
             <Link href={ROUTES.SIGN_UP}>
-              <Button className="flex rounded-full px-9 py-7 text-lg">
+              <Button className="flex rounded-full bg-[#0601F6] px-9 py-7 text-lg hover:bg-[#0601F6]/80 dark:text-white">
                 Get Started
               </Button>
             </Link>
@@ -50,7 +50,7 @@ export default function Home() {
 
         <Pricing />
 
-        <section className="relative mt-14 rounded-4xl bg-gray-100 py-18">
+        <section className="relative mt-14 rounded-4xl bg-gray-100 py-18 dark:text-black">
           <h2 className="mx-auto max-w-[530px] text-center text-5xl font-bold">
             Let’s get you started with{' '}
             <span className="text-blue-600">FinTrack</span>!
@@ -60,13 +60,13 @@ export default function Home() {
             your finances like a Professional.
           </p>
           <div className="mx-auto mt-10 flex w-fit flex-col items-center gap-4 md:flex-row">
-            <DemoUserButton classname='font-bold" mx-auto mt-10 flex rounded-full px-14 py-8 text-lg'>
+            <DemoUserButton classname='bg-[#0601F6] hover:bg-[#0601F6]/80 dark:text-white font-bold" mx-auto mt-10 flex rounded-full px-14 py-8 text-lg'>
               Continue as Demo User
             </DemoUserButton>
           </div>
 
           <svg
-            className="absolute bottom-0 left-0 z-20"
+            className="absolute bottom-10 left-0 z-20"
             width="279"
             height="276"
             viewBox="0 0 279 276"

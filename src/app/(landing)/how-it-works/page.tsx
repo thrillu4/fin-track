@@ -23,7 +23,7 @@ export default function HowItWorks() {
   ]
 
   return (
-    <section className="min-h-[80vh] bg-white py-16 dark:bg-gray-900">
+    <section className="min-h-[80vh] py-16">
       <div className="container mx-auto px-6 text-center">
         <h2 className="mb-4 text-4xl font-bold">How It Works</h2>
         <p className="mb-12 text-lg text-gray-600 dark:text-gray-300">
@@ -49,7 +49,7 @@ export default function HowItWorks() {
 
         <div className="mt-12 flex justify-center gap-4">
           <Link href={ROUTES.SIGN_UP}>
-            <Button className="cursor-pointer rounded-full px-9 py-7 text-lg">
+            <Button className="cursor-pointer rounded-full bg-[#0601F6] px-9 py-7 text-lg hover:bg-[#0601F6]/80 dark:text-white">
               Create Account
             </Button>
           </Link>

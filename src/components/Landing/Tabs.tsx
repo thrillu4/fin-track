@@ -1,14 +1,14 @@
 import { ROUTES } from '@/lib/routes'
+import { ArrowRight, Check } from 'lucide-react'
+import Image from 'next/image'
 import Link from 'next/link'
 import { Button } from '../ui/button'
-import { ArrowRight, Check } from 'lucide-react'
 import DemoUserButton from './DemoUserButton'
-import Image from 'next/image'
 
 const Tabs = () => {
   return (
     <>
-      <section className="mt-14 flex items-center justify-evenly gap-15 rounded-[56px] bg-teal-50 px-26 py-18">
+      <section className="mt-14 flex items-center justify-evenly gap-15 rounded-[56px] bg-teal-50 px-26 py-18 dark:text-black">
         <div className="max-w-sm space-y-6">
           <div className="inline-flex items-center justify-center rounded-2xl bg-teal-100 p-4">
             <svg
@@ -60,7 +60,7 @@ const Tabs = () => {
         </div>
       </section>
 
-      <section className="mt-14 flex items-center justify-evenly gap-15 rounded-[56px] bg-[#EDEEFC] px-26 pt-18">
+      <section className="mt-14 flex items-center justify-evenly gap-15 rounded-[56px] bg-[#EDEEFC] px-26 pt-18 dark:text-black">
         <div className="relative h-120 w-[350px]">
           <Image
             src={'/landing/iphone.png'}
@@ -122,7 +122,7 @@ const Tabs = () => {
         </div>
       </section>
 
-      <section className="mt-14 flex items-center justify-evenly gap-15 rounded-[56px] bg-orange-50">
+      <section className="mt-14 flex items-center justify-evenly gap-15 rounded-[56px] bg-orange-50 dark:text-black">
         <div className="ml-36 max-w-lg space-y-6 py-18 font-bold">
           <div className="inline-flex items-center justify-center rounded-2xl bg-orange-100 p-4">
             <svg
@@ -187,7 +187,7 @@ const Tabs = () => {
         </div>
       </section>
 
-      <section className="mt-14 flex items-center justify-evenly gap-15 rounded-[56px] bg-fuchsia-100 px-26 py-18">
+      <section className="mt-14 flex items-center justify-evenly gap-15 rounded-[56px] bg-fuchsia-100 px-26 py-18 dark:text-black">
         <div className="relative h-140 w-full max-w-xl">
           <Image
             src={'/landing/invoice.png'}

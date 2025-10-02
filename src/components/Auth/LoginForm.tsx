@@ -91,7 +91,12 @@ const LoginForm = () => {
         />
         {serverError && <p className="text-sm text-red-500">{serverError}</p>}
 
-        <Button type="submit">{loading ? 'Submitting...' : 'Submit'}</Button>
+        <Button
+          type="submit"
+          className="bg-[#0601F6] hover:bg-[#0601F6]/70 dark:text-white"
+        >
+          {loading ? 'Submitting...' : 'Submit'}
+        </Button>
       </form>
       <div className="mt-6 space-y-6">
         <div className="after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t">
@@ -117,7 +122,7 @@ const LoginForm = () => {
             Or continue as Demo User
           </span>
         </div>
-        <DemoUserButton classname="w-full  bg-transparent hover:bg-muted/50 text-black border-2">
+        <DemoUserButton classname="w-full  ">
           <HatGlasses /> Try Demo
         </DemoUserButton>
         <div className="text-center text-sm">

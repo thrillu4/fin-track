@@ -19,7 +19,7 @@ const NavBar = () => {
         <Link href={ROUTES.HOW_IT_WORKS}>How it Works</Link>
         <Link href={`${ROUTES.HOME}#pricing`}>Pricing</Link>
       </div>
-      <DemoUserButton classname="cursor-pointer rounded-full ">
+      <DemoUserButton classname="cursor-pointer rounded-full bg-[#0601F6] dark:text-white  hover:bg-[#0601F6]/80 ">
         Live Demo
       </DemoUserButton>
     </nav>
