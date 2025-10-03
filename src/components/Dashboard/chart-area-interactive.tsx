@@ -1,162 +1,147 @@
-"use client"
+'use client'
 
-import * as React from "react"
-import { Area, AreaChart, CartesianGrid, XAxis } from "recharts"
-
-import { useIsMobile } from "@/hooks/use-mobile"
 import {
   Card,
-  CardAction,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
+} from '@/components/ui/card'
 import {
   ChartConfig,
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
-} from "@/components/ui/chart"
+} from '@/components/ui/chart'
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
-import {
-  ToggleGroup,
-  ToggleGroupItem,
-} from "@/components/ui/toggle-group"
-
-export const description = "An interactive area chart"
+} from '@/components/ui/select'
+import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
+import * as React from 'react'
+import { Area, AreaChart, CartesianGrid, XAxis, YAxis } from 'recharts'
 
 const chartData = [
-  { date: "2024-04-01", desktop: 222, mobile: 150 },
-  { date: "2024-04-02", desktop: 97, mobile: 180 },
-  { date: "2024-04-03", desktop: 167, mobile: 120 },
-  { date: "2024-04-04", desktop: 242, mobile: 260 },
-  { date: "2024-04-05", desktop: 373, mobile: 290 },
-  { date: "2024-04-06", desktop: 301, mobile: 340 },
-  { date: "2024-04-07", desktop: 245, mobile: 180 },
-  { date: "2024-04-08", desktop: 409, mobile: 320 },
-  { date: "2024-04-09", desktop: 59, mobile: 110 },
-  { date: "2024-04-10", desktop: 261, mobile: 190 },
-  { date: "2024-04-11", desktop: 327, mobile: 350 },
-  { date: "2024-04-12", desktop: 292, mobile: 210 },
-  { date: "2024-04-13", desktop: 342, mobile: 380 },
-  { date: "2024-04-14", desktop: 137, mobile: 220 },
-  { date: "2024-04-15", desktop: 120, mobile: 170 },
-  { date: "2024-04-16", desktop: 138, mobile: 190 },
-  { date: "2024-04-17", desktop: 446, mobile: 360 },
-  { date: "2024-04-18", desktop: 364, mobile: 410 },
-  { date: "2024-04-19", desktop: 243, mobile: 180 },
-  { date: "2024-04-20", desktop: 89, mobile: 150 },
-  { date: "2024-04-21", desktop: 137, mobile: 200 },
-  { date: "2024-04-22", desktop: 224, mobile: 170 },
-  { date: "2024-04-23", desktop: 138, mobile: 230 },
-  { date: "2024-04-24", desktop: 387, mobile: 290 },
-  { date: "2024-04-25", desktop: 215, mobile: 250 },
-  { date: "2024-04-26", desktop: 75, mobile: 130 },
-  { date: "2024-04-27", desktop: 383, mobile: 420 },
-  { date: "2024-04-28", desktop: 122, mobile: 180 },
-  { date: "2024-04-29", desktop: 315, mobile: 240 },
-  { date: "2024-04-30", desktop: 454, mobile: 380 },
-  { date: "2024-05-01", desktop: 165, mobile: 220 },
-  { date: "2024-05-02", desktop: 293, mobile: 310 },
-  { date: "2024-05-03", desktop: 247, mobile: 190 },
-  { date: "2024-05-04", desktop: 385, mobile: 420 },
-  { date: "2024-05-05", desktop: 481, mobile: 390 },
-  { date: "2024-05-06", desktop: 498, mobile: 520 },
-  { date: "2024-05-07", desktop: 388, mobile: 300 },
-  { date: "2024-05-08", desktop: 149, mobile: 210 },
-  { date: "2024-05-09", desktop: 227, mobile: 180 },
-  { date: "2024-05-10", desktop: 293, mobile: 330 },
-  { date: "2024-05-11", desktop: 335, mobile: 270 },
-  { date: "2024-05-12", desktop: 197, mobile: 240 },
-  { date: "2024-05-13", desktop: 197, mobile: 160 },
-  { date: "2024-05-14", desktop: 448, mobile: 490 },
-  { date: "2024-05-15", desktop: 473, mobile: 380 },
-  { date: "2024-05-16", desktop: 338, mobile: 400 },
-  { date: "2024-05-17", desktop: 499, mobile: 420 },
-  { date: "2024-05-18", desktop: 315, mobile: 350 },
-  { date: "2024-05-19", desktop: 235, mobile: 180 },
-  { date: "2024-05-20", desktop: 177, mobile: 230 },
-  { date: "2024-05-21", desktop: 82, mobile: 140 },
-  { date: "2024-05-22", desktop: 81, mobile: 120 },
-  { date: "2024-05-23", desktop: 252, mobile: 290 },
-  { date: "2024-05-24", desktop: 294, mobile: 220 },
-  { date: "2024-05-25", desktop: 201, mobile: 250 },
-  { date: "2024-05-26", desktop: 213, mobile: 170 },
-  { date: "2024-05-27", desktop: 420, mobile: 460 },
-  { date: "2024-05-28", desktop: 233, mobile: 190 },
-  { date: "2024-05-29", desktop: 78, mobile: 130 },
-  { date: "2024-05-30", desktop: 340, mobile: 280 },
-  { date: "2024-05-31", desktop: 178, mobile: 230 },
-  { date: "2024-06-01", desktop: 178, mobile: 200 },
-  { date: "2024-06-02", desktop: 470, mobile: 410 },
-  { date: "2024-06-03", desktop: 103, mobile: 160 },
-  { date: "2024-06-04", desktop: 439, mobile: 380 },
-  { date: "2024-06-05", desktop: 88, mobile: 140 },
-  { date: "2024-06-06", desktop: 294, mobile: 250 },
-  { date: "2024-06-07", desktop: 323, mobile: 370 },
-  { date: "2024-06-08", desktop: 385, mobile: 320 },
-  { date: "2024-06-09", desktop: 438, mobile: 480 },
-  { date: "2024-06-10", desktop: 155, mobile: 200 },
-  { date: "2024-06-11", desktop: 92, mobile: 150 },
-  { date: "2024-06-12", desktop: 492, mobile: 420 },
-  { date: "2024-06-13", desktop: 81, mobile: 130 },
-  { date: "2024-06-14", desktop: 426, mobile: 380 },
-  { date: "2024-06-15", desktop: 307, mobile: 350 },
-  { date: "2024-06-16", desktop: 371, mobile: 310 },
-  { date: "2024-06-17", desktop: 475, mobile: 520 },
-  { date: "2024-06-18", desktop: 107, mobile: 170 },
-  { date: "2024-06-19", desktop: 341, mobile: 290 },
-  { date: "2024-06-20", desktop: 408, mobile: 450 },
-  { date: "2024-06-21", desktop: 169, mobile: 210 },
-  { date: "2024-06-22", desktop: 317, mobile: 270 },
-  { date: "2024-06-23", desktop: 480, mobile: 530 },
-  { date: "2024-06-24", desktop: 132, mobile: 180 },
-  { date: "2024-06-25", desktop: 141, mobile: 190 },
-  { date: "2024-06-26", desktop: 434, mobile: 380 },
-  { date: "2024-06-27", desktop: 448, mobile: 490 },
-  { date: "2024-06-28", desktop: 149, mobile: 200 },
-  { date: "2024-06-29", desktop: 103, mobile: 160 },
-  { date: "2024-06-30", desktop: 446, mobile: 400 },
+  { date: '2025-04-01', income: 15420, expenses: 8750 },
+  { date: '2025-04-02', income: 8970, expenses: 12800 },
+  { date: '2025-04-03', income: 12670, expenses: 9200 },
+  { date: '2025-04-04', income: 18420, expenses: 15600 },
+  { date: '2025-04-05', income: 25730, expenses: 18900 },
+  { date: '2025-04-06', income: 21010, expenses: 22400 },
+  { date: '2025-04-07', income: 16450, expenses: 13800 },
+  { date: '2025-04-08', income: 28090, expenses: 19200 },
+  { date: '2025-04-09', income: 5590, expenses: 8100 },
+  { date: '2025-04-10', income: 17610, expenses: 14900 },
+  { date: '2025-04-11', income: 22270, expenses: 21500 },
+  { date: '2025-04-12', income: 19920, expenses: 16100 },
+  { date: '2025-04-13', income: 23420, expenses: 24800 },
+  { date: '2025-04-14', income: 11370, expenses: 17200 },
+  { date: '2025-04-15', income: 10200, expenses: 13700 },
+  { date: '2025-04-16', income: 11380, expenses: 14900 },
+  { date: '2025-04-17', income: 30460, expenses: 22600 },
+  { date: '2025-04-18', income: 24640, expenses: 26100 },
+  { date: '2025-04-19', income: 16430, expenses: 13800 },
+  { date: '2025-04-20', income: 7890, expenses: 11500 },
+  { date: '2025-04-21', income: 11370, expenses: 16000 },
+  { date: '2025-04-22', income: 15240, expenses: 13700 },
+  { date: '2025-04-23', income: 11380, expenses: 18300 },
+  { date: '2025-04-24', income: 26370, expenses: 19900 },
+  { date: '2025-04-25', income: 15150, expenses: 17500 },
+  { date: '2025-04-26', income: 6750, expenses: 10300 },
+  { date: '2025-04-27', income: 26030, expenses: 28200 },
+  { date: '2025-04-28', income: 10220, expenses: 13800 },
+  { date: '2025-04-29', income: 21450, expenses: 16400 },
+  { date: '2025-04-30', income: 30540, expenses: 24800 },
+  { date: '2025-05-01', income: 13650, expenses: 17200 },
+  { date: '2025-05-02', income: 19930, expenses: 21100 },
+  { date: '2025-05-03', income: 16470, expenses: 14900 },
+  { date: '2025-05-04', income: 26250, expenses: 28200 },
+  { date: '2025-05-05', income: 32810, expenses: 25900 },
+  { date: '2025-05-06', income: 33980, expenses: 35200 },
+  { date: '2025-05-07', income: 26380, expenses: 20000 },
+  { date: '2025-05-08', income: 12490, expenses: 16100 },
+  { date: '2025-05-09', income: 15270, expenses: 13800 },
+  { date: '2025-05-10', income: 19930, expenses: 23300 },
+  { date: '2025-05-11', income: 22750, expenses: 18700 },
+  { date: '2025-05-12', income: 14970, expenses: 16400 },
+  { date: '2025-05-13', income: 14970, expenses: 12600 },
+  { date: '2025-05-14', income: 30480, expenses: 32900 },
+  { date: '2025-05-15', income: 32230, expenses: 24800 },
+  { date: '2025-05-16', income: 22980, expenses: 26000 },
+  { date: '2025-05-17', income: 33990, expenses: 28200 },
+  { date: '2025-05-18', income: 21450, expenses: 21500 },
+  { date: '2025-05-19', income: 15950, expenses: 13800 },
+  { date: '2025-05-20', income: 13770, expenses: 18300 },
+  { date: '2025-05-21', income: 6820, expenses: 11400 },
+  { date: '2025-05-22', income: 6810, expenses: 10200 },
+  { date: '2025-05-23', income: 17520, expenses: 19900 },
+  { date: '2025-05-24', income: 19940, expenses: 17200 },
+  { date: '2025-05-25', income: 14010, expenses: 17500 },
+  { date: '2025-05-26', income: 15130, expenses: 13700 },
+  { date: '2025-05-27', income: 28200, expenses: 30600 },
+  { date: '2025-05-28', income: 15830, expenses: 14900 },
+  { date: '2025-05-29', income: 6780, expenses: 10300 },
+  { date: '2025-05-30', income: 22400, expenses: 18800 },
+  { date: '2025-05-31', income: 13780, expenses: 18300 },
+  { date: '2025-06-01', income: 13780, expenses: 16000 },
+  { date: '2025-06-02', income: 31700, expenses: 26100 },
+  { date: '2025-06-03', income: 9030, expenses: 12600 },
+  { date: '2025-06-04', income: 29890, expenses: 24800 },
+  { date: '2025-06-05', income: 7880, expenses: 11400 },
+  { date: '2025-06-06', income: 19940, expenses: 17500 },
+  { date: '2025-06-07', income: 22030, expenses: 25700 },
+  { date: '2025-06-08', income: 26250, expenses: 19200 },
+  { date: '2025-06-09', income: 29880, expenses: 32800 },
+  { date: '2025-06-10', income: 13550, expenses: 16000 },
+  { date: '2025-06-11', income: 7920, expenses: 11500 },
+  { date: '2025-06-12', income: 33520, expenses: 28200 },
+  { date: '2025-06-13', income: 6810, expenses: 10300 },
+  { date: '2025-06-14', income: 28860, expenses: 24800 },
+  { date: '2025-06-15', income: 20870, expenses: 21500 },
+  { date: '2025-06-16', income: 25210, expenses: 21100 },
+  { date: '2025-06-17', income: 32250, expenses: 35200 },
+  { date: '2025-06-18', income: 9070, expenses: 13700 },
+  { date: '2025-06-19', income: 23110, expenses: 19900 },
+  { date: '2025-06-20', income: 27680, expenses: 30500 },
+  { date: '2025-06-21', income: 13690, expenses: 16100 },
+  { date: '2025-06-22', income: 21570, expenses: 18700 },
+  { date: '2025-06-23', income: 32800, expenses: 36300 },
+  { date: '2025-06-24', income: 11320, expenses: 13800 },
+  { date: '2025-06-25', income: 11410, expenses: 14900 },
+  { date: '2025-06-26', income: 29540, expenses: 24800 },
+  { date: '2025-06-27', income: 30480, expenses: 32900 },
+  { date: '2025-06-28', income: 12490, expenses: 16000 },
+  { date: '2025-06-29', income: 9030, expenses: 12600 },
+  { date: '2025-06-30', income: 30460, expenses: 26000 },
 ]
 
 const chartConfig = {
-  visitors: {
-    label: "Visitors",
+  activity: {
+    label: 'Activity',
   },
-  desktop: {
-    label: "Desktop",
-    color: "var(--primary)",
+  income: {
+    label: 'Income',
+    color: 'var(--primary)',
   },
-  mobile: {
-    label: "Mobile",
-    color: "var(--primary)",
+  expenses: {
+    label: 'Expenses',
+    color: 'var(--primary)',
   },
 } satisfies ChartConfig
 
-export function ChartAreaInteractive() {
-  const isMobile = useIsMobile()
-  const [timeRange, setTimeRange] = React.useState("90d")
+export default function BankActivityChart() {
+  const [timeRange, setTimeRange] = React.useState('90d')
 
-  React.useEffect(() => {
-    if (isMobile) {
-      setTimeRange("7d")
-    }
-  }, [isMobile])
-
-  const filteredData = chartData.filter((item) => {
+  const filteredData = chartData.filter(item => {
     const date = new Date(item.date)
-    const referenceDate = new Date("2024-06-30")
+    const referenceDate = new Date('2025-06-30')
     let daysToSubtract = 90
-    if (timeRange === "30d") {
+    if (timeRange === '30d') {
       daysToSubtract = 30
-    } else if (timeRange === "7d") {
+    } else if (timeRange === '7d') {
       daysToSubtract = 7
     }
     const startDate = new Date(referenceDate)
@@ -164,33 +149,47 @@ export function ChartAreaInteractive() {
     return date >= startDate
   })
 
+  const totalIncome = filteredData.reduce((sum, item) => sum + item.income, 0)
+  const totalExpenses = filteredData.reduce(
+    (sum, item) => sum + item.expenses,
+    0,
+  )
+  const balance = totalIncome - totalExpenses
+
+  const formatCurrency = (value: number) => {
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    }).format(value)
+  }
+
   return (
-    <Card className="@container/card">
-      <CardHeader>
-        <CardTitle>Total Visitors</CardTitle>
-        <CardDescription>
-          <span className="hidden @[540px]/card:block">
-            Total for the last 3 months
-          </span>
-          <span className="@[540px]/card:hidden">Last 3 months</span>
-        </CardDescription>
-        <CardAction>
+    <Card className="w-full gap-0">
+      <CardHeader className="flex flex-col gap-2 space-y-0 border-b py-5 sm:flex-row">
+        <div className="flex flex-1 flex-col justify-center gap-1">
+          <CardTitle>Bank Activity</CardTitle>
+          <CardDescription>
+            Income and expenses for selected period
+          </CardDescription>
+        </div>
+        <div className="flex flex-col gap-2 sm:flex-row">
           <ToggleGroup
             type="single"
             value={timeRange}
             onValueChange={setTimeRange}
             variant="outline"
-            className="hidden *:data-[slot=toggle-group-item]:!px-4 @[767px]/card:flex"
+            className="hidden sm:flex"
           >
-            <ToggleGroupItem value="90d">Last 3 months</ToggleGroupItem>
-            <ToggleGroupItem value="30d">Last 30 days</ToggleGroupItem>
-            <ToggleGroupItem value="7d">Last 7 days</ToggleGroupItem>
+            <ToggleGroupItem value="90d">3 months</ToggleGroupItem>
+            <ToggleGroupItem value="30d">30 days</ToggleGroupItem>
+            <ToggleGroupItem value="7d">7 days</ToggleGroupItem>
           </ToggleGroup>
           <Select value={timeRange} onValueChange={setTimeRange}>
             <SelectTrigger
-              className="flex w-40 **:data-[slot=select-value]:block **:data-[slot=select-value]:truncate @[767px]/card:hidden"
-              size="sm"
-              aria-label="Select a value"
+              className="w-full sm:hidden"
+              aria-label="Select period"
             >
               <SelectValue placeholder="Last 3 months" />
             </SelectTrigger>
@@ -206,82 +205,115 @@ export function ChartAreaInteractive() {
               </SelectItem>
             </SelectContent>
           </Select>
-        </CardAction>
+        </div>
       </CardHeader>
       <CardContent className="px-2 pt-4 sm:px-6 sm:pt-6">
+        <div className="mb-6 grid gap-4 sm:grid-cols-3">
+          <div className="rounded-lg border p-4">
+            <div className="text-muted-foreground text-sm">Income</div>
+            <div className="text-2xl font-bold">
+              {formatCurrency(totalIncome)}
+            </div>
+          </div>
+          <div className="rounded-lg border p-4">
+            <div className="text-muted-foreground text-sm">Expenses</div>
+            <div className="text-2xl font-bold">
+              {formatCurrency(totalExpenses)}
+            </div>
+          </div>
+          <div className="rounded-lg border p-4">
+            <div className="text-muted-foreground text-sm">Balance</div>
+            <div className="text-2xl font-bold">{formatCurrency(balance)}</div>
+          </div>
+        </div>
         <ChartContainer
           config={chartConfig}
-          className="aspect-auto h-[250px] w-full"
+          className="aspect-auto h-[300px] w-full"
         >
           <AreaChart data={filteredData}>
             <defs>
-              <linearGradient id="fillDesktop" x1="0" y1="0" x2="0" y2="1">
+              <linearGradient id="fillIncome" x1="0" y1="0" x2="0" y2="1">
                 <stop
                   offset="5%"
-                  stopColor="var(--color-desktop)"
-                  stopOpacity={1.0}
-                />
-                <stop
-                  offset="95%"
-                  stopColor="var(--color-desktop)"
-                  stopOpacity={0.1}
-                />
-              </linearGradient>
-              <linearGradient id="fillMobile" x1="0" y1="0" x2="0" y2="1">
-                <stop
-                  offset="5%"
-                  stopColor="var(--color-mobile)"
+                  stopColor="var(--color-income)"
                   stopOpacity={0.8}
                 />
                 <stop
                   offset="95%"
-                  stopColor="var(--color-mobile)"
+                  stopColor="var(--color-income)"
+                  stopOpacity={0.1}
+                />
+              </linearGradient>
+              <linearGradient id="fillExpenses" x1="0" y1="0" x2="0" y2="1">
+                <stop
+                  offset="5%"
+                  stopColor="var(--color-expenses)"
+                  stopOpacity={0.8}
+                />
+                <stop
+                  offset="95%"
+                  stopColor="var(--color-expenses)"
                   stopOpacity={0.1}
                 />
               </linearGradient>
             </defs>
-            <CartesianGrid vertical={false} />
+            <CartesianGrid
+              vertical={false}
+              strokeDasharray="3 3"
+              opacity={0.3}
+            />
             <XAxis
               dataKey="date"
               tickLine={false}
               axisLine={false}
               tickMargin={8}
               minTickGap={32}
-              tickFormatter={(value) => {
+              tickFormatter={value => {
                 const date = new Date(value)
-                return date.toLocaleDateString("en-US", {
-                  month: "short",
-                  day: "numeric",
+                return date.toLocaleDateString('en-US', {
+                  month: 'short',
+                  day: 'numeric',
                 })
               }}
+            />
+            <YAxis
+              tickLine={false}
+              axisLine={false}
+              tickMargin={8}
+              tickFormatter={value => `$${(value / 1000).toFixed(0)}k`}
             />
             <ChartTooltip
               cursor={false}
               content={
                 <ChartTooltipContent
-                  labelFormatter={(value) => {
-                    return new Date(value).toLocaleDateString("en-US", {
-                      month: "short",
-                      day: "numeric",
+                  labelFormatter={value => {
+                    return new Date(value).toLocaleDateString('en-US', {
+                      month: 'long',
+                      day: 'numeric',
+                      year: 'numeric',
                     })
                   }}
+                  formatter={(value, name) => [
+                    formatCurrency(Number(value)),
+                    name === 'income' ? 'Income' : 'Expenses',
+                  ]}
                   indicator="dot"
                 />
               }
             />
             <Area
-              dataKey="mobile"
-              type="natural"
-              fill="url(#fillMobile)"
-              stroke="var(--color-mobile)"
-              stackId="a"
+              dataKey="income"
+              type="monotone"
+              fill="url(#fillIncome)"
+              stroke="var(--color-income)"
+              strokeWidth={2}
             />
             <Area
-              dataKey="desktop"
-              type="natural"
-              fill="url(#fillDesktop)"
-              stroke="var(--color-desktop)"
-              stackId="a"
+              dataKey="expenses"
+              type="monotone"
+              fill="url(#fillExpenses)"
+              stroke="var(--color-expenses)"
+              strokeWidth={2}
             />
           </AreaChart>
         </ChartContainer>
