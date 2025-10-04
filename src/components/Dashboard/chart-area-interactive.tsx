@@ -166,7 +166,7 @@ export default function BankActivityChart() {
   }
 
   return (
-    <Card className="w-full gap-0">
+    <Card className="w-full gap-0 py-2">
       <CardHeader className="flex flex-col gap-2 space-y-0 border-b py-5 sm:flex-row">
         <div className="flex flex-1 flex-col justify-center gap-1">
           <CardTitle>Bank Activity</CardTitle>
@@ -226,10 +226,7 @@ export default function BankActivityChart() {
             <div className="text-2xl font-bold">{formatCurrency(balance)}</div>
           </div>
         </div>
-        <ChartContainer
-          config={chartConfig}
-          className="aspect-auto h-[300px] w-full"
-        >
+        <ChartContainer config={chartConfig} className="max-h-[250px] w-full">
           <AreaChart data={filteredData}>
             <defs>
               <linearGradient id="fillIncome" x1="0" y1="0" x2="0" y2="1">

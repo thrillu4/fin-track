@@ -71,8 +71,8 @@ const QuickTransfer = () => {
         <CarouselNext className="-right-10" />
       </Carousel>
       <form className="mt-8 flex items-center justify-between">
-        <div className="opacity-60">Write Amount</div>
-        <div className="flex max-w-[260px]">
+        <div className="ml-5 text-sm opacity-60">Write Amount</div>
+        <div className="flex max-w-[230px]">
           <Input
             className="rounded-l-full px-6"
             type="number"

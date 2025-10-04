@@ -87,7 +87,7 @@ export function ChartPieLabelList() {
       <CardContent className="flex-1 pb-0">
         <ChartContainer
           config={chartConfig}
-          className="mx-auto aspect-square font-bold [&_.recharts-text]:fill-white"
+          className="mx-auto h-93 w-full font-bold [&_.recharts-text]:fill-white"
         >
           <PieChart>
             <ChartTooltip
