@@ -8,14 +8,23 @@ generator client {
 }
 
 model User {
-  id            String          @id @default(cuid())
+  id            String    @id @default(cuid())
   name          String?
-  email         String          @unique
+  email         String    @unique
   password      String?
   emailVerified DateTime?
   image         String?
+
+  // Relations
   accounts      Account[]
+  cards         Card[]
+  transactions  Transaction[]
+  invoices      Invoice[]
+  investments   Investment[]
+  loans         Loan[]
+  profile       Profile?
   sessions      Session[]
+  authAccounts  AuthAccount[]
   // Optional for WebAuthn support
   Authenticator Authenticator[]
 
@@ -23,7 +32,7 @@ model User {
   updatedAt DateTime @updatedAt
 }
 
-model Account {
+model AuthAccount {
   userId            String
   type              String
   provider          String
@@ -76,4 +85,109 @@ model Authenticator {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@id([userId, credentialID])
+}
+
+model Profile {
+  id       String  @id @default(cuid())
+  userId   String  @unique
+  fullName String?
+  location String?
+  phone    String?
+  bio      String?
+  currency String? @default("USD")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Account {
+  id            String   @id @default(cuid())
+  userId        String
+  bankName      String
+  accountType   String // savings / checking / etc.
+  accountNumber String   @unique
+  balance       Float    @default(0)
+  currency      String   @default("USD")
+  createdAt     DateTime @default(now())
+
+  user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  cards        Card[]
+  transactions Transaction[]
+}
+
+model Card {
+  id          String   @id @default(cuid())
+  userId      String
+  accountId   String
+  cardNumber  String   @unique
+  cardType    String // debit / credit
+  cardBrand   String? // Visa / Mastercard
+  expiryMonth Int
+  expiryYear  Int
+  cvv         String
+  balance     Float    @default(0)
+  createdAt   DateTime @default(now())
+
+  user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  account      Account       @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  transactions Transaction[]
+}
+
+model Transaction {
+  id          String   @id @default(cuid())
+  userId      String
+  accountId   String?
+  cardId      String?
+  type        String // income / expense / transfer
+  category    String?
+  amount      Float
+  currency    String   @default("USD")
+  description String?
+  date        DateTime @default(now())
+
+  user    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  account Account? @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  card    Card?    @relation(fields: [cardId], references: [id], onDelete: Cascade)
+}
+
+model Invoice {
+  id          String   @id @default(cuid())
+  userId      String
+  receiver    String
+  amount      Float
+  currency    String   @default("USD")
+  status      String // paid / pending / overdue
+  dueDate     DateTime
+  issuedAt    DateTime @default(now())
+  description String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Investment {
+  id             String   @id @default(cuid())
+  userId         String
+  name           String
+  type           String // stock / crypto / bond / fund
+  amountInvested Float
+  currentValue   Float
+  profitLoss     Float    @default(0)
+  currency       String   @default("USD")
+  createdAt      DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Loan {
+  id           String   @id @default(cuid())
+  userId       String
+  loanType     String // personal / mortgage / car / etc.
+  amount       Float
+  interestRate Float
+  balance      Float
+  startDate    DateTime
+  dueDate      DateTime
+  status       String // active / paid / overdue
+  createdAt    DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

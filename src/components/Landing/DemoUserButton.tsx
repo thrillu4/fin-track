@@ -14,8 +14,8 @@ const DemoUserButton = ({
     <Button
       onClick={() =>
         signIn('credentials', {
-          email: 'demo@demo.com',
-          password: 'demouser',
+          email: 'demo1@demo.com',
+          password: '123321123',
           redirect: true,
           callbackUrl: ROUTES.DASHBOARD,
         })
