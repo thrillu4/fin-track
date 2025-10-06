@@ -47,9 +47,7 @@ const Accounts = () => {
               See All
             </Button>
           </div>
-          <div className="flex items-center gap-7">
-            <CreditCard />
-          </div>
+          <CreditCard take={1} />
         </div>
         <div className="col-start-1 col-end-5">
           <h3 className="mb-5 py-0.5 text-2xl font-bold">

@@ -31,7 +31,7 @@ const LastTransaction = () => {
     },
   ]
   return (
-    <div className="bg-sidebar flex min-h-[280px] flex-col gap-6 rounded-3xl p-7">
+    <div className="bg-sidebar flex min-h-[240px] flex-col gap-4 rounded-3xl p-5">
       {list.map(item => (
         <div
           key={item.id}

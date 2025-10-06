@@ -17,10 +17,7 @@ export default function Page() {
               See All
             </Button>
           </div>
-          <div className="flex items-center gap-7">
-            <CreditCard />
-            <CreditCard />
-          </div>
+          <CreditCard take={3} />
         </div>
         <div className="col-start-5 col-end-7">
           <h3 className="mb-5 py-0.5 text-2xl font-bold">Resent Transaction</h3>

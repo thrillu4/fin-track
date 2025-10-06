@@ -2,12 +2,7 @@
 
 import { Bar, BarChart, CartesianGrid, LabelList, XAxis } from 'recharts'
 
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-} from '@/components/ui/card'
+import { Card, CardContent } from '@/components/ui/card'
 import {
   ChartConfig,
   ChartContainer,
@@ -36,9 +31,6 @@ const chartConfig = {
 export function MyExpense() {
   return (
     <Card>
-      <CardHeader>
-        <CardDescription>April - September 2025</CardDescription>
-      </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig} className="max-h-[195px] w-full">
           <BarChart

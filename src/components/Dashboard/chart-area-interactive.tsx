@@ -21,102 +21,9 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
+import { getBankActivityData } from '@/lib/actions/getBankActivity'
 import * as React from 'react'
 import { Area, AreaChart, CartesianGrid, XAxis, YAxis } from 'recharts'
-
-const chartData = [
-  { date: '2025-04-01', income: 15420, expenses: 8750 },
-  { date: '2025-04-02', income: 8970, expenses: 12800 },
-  { date: '2025-04-03', income: 12670, expenses: 9200 },
-  { date: '2025-04-04', income: 18420, expenses: 15600 },
-  { date: '2025-04-05', income: 25730, expenses: 18900 },
-  { date: '2025-04-06', income: 21010, expenses: 22400 },
-  { date: '2025-04-07', income: 16450, expenses: 13800 },
-  { date: '2025-04-08', income: 28090, expenses: 19200 },
-  { date: '2025-04-09', income: 5590, expenses: 8100 },
-  { date: '2025-04-10', income: 17610, expenses: 14900 },
-  { date: '2025-04-11', income: 22270, expenses: 21500 },
-  { date: '2025-04-12', income: 19920, expenses: 16100 },
-  { date: '2025-04-13', income: 23420, expenses: 24800 },
-  { date: '2025-04-14', income: 11370, expenses: 17200 },
-  { date: '2025-04-15', income: 10200, expenses: 13700 },
-  { date: '2025-04-16', income: 11380, expenses: 14900 },
-  { date: '2025-04-17', income: 30460, expenses: 22600 },
-  { date: '2025-04-18', income: 24640, expenses: 26100 },
-  { date: '2025-04-19', income: 16430, expenses: 13800 },
-  { date: '2025-04-20', income: 7890, expenses: 11500 },
-  { date: '2025-04-21', income: 11370, expenses: 16000 },
-  { date: '2025-04-22', income: 15240, expenses: 13700 },
-  { date: '2025-04-23', income: 11380, expenses: 18300 },
-  { date: '2025-04-24', income: 26370, expenses: 19900 },
-  { date: '2025-04-25', income: 15150, expenses: 17500 },
-  { date: '2025-04-26', income: 6750, expenses: 10300 },
-  { date: '2025-04-27', income: 26030, expenses: 28200 },
-  { date: '2025-04-28', income: 10220, expenses: 13800 },
-  { date: '2025-04-29', income: 21450, expenses: 16400 },
-  { date: '2025-04-30', income: 30540, expenses: 24800 },
-  { date: '2025-05-01', income: 13650, expenses: 17200 },
-  { date: '2025-05-02', income: 19930, expenses: 21100 },
-  { date: '2025-05-03', income: 16470, expenses: 14900 },
-  { date: '2025-05-04', income: 26250, expenses: 28200 },
-  { date: '2025-05-05', income: 32810, expenses: 25900 },
-  { date: '2025-05-06', income: 33980, expenses: 35200 },
-  { date: '2025-05-07', income: 26380, expenses: 20000 },
-  { date: '2025-05-08', income: 12490, expenses: 16100 },
-  { date: '2025-05-09', income: 15270, expenses: 13800 },
-  { date: '2025-05-10', income: 19930, expenses: 23300 },
-  { date: '2025-05-11', income: 22750, expenses: 18700 },
-  { date: '2025-05-12', income: 14970, expenses: 16400 },
-  { date: '2025-05-13', income: 14970, expenses: 12600 },
-  { date: '2025-05-14', income: 30480, expenses: 32900 },
-  { date: '2025-05-15', income: 32230, expenses: 24800 },
-  { date: '2025-05-16', income: 22980, expenses: 26000 },
-  { date: '2025-05-17', income: 33990, expenses: 28200 },
-  { date: '2025-05-18', income: 21450, expenses: 21500 },
-  { date: '2025-05-19', income: 15950, expenses: 13800 },
-  { date: '2025-05-20', income: 13770, expenses: 18300 },
-  { date: '2025-05-21', income: 6820, expenses: 11400 },
-  { date: '2025-05-22', income: 6810, expenses: 10200 },
-  { date: '2025-05-23', income: 17520, expenses: 19900 },
-  { date: '2025-05-24', income: 19940, expenses: 17200 },
-  { date: '2025-05-25', income: 14010, expenses: 17500 },
-  { date: '2025-05-26', income: 15130, expenses: 13700 },
-  { date: '2025-05-27', income: 28200, expenses: 30600 },
-  { date: '2025-05-28', income: 15830, expenses: 14900 },
-  { date: '2025-05-29', income: 6780, expenses: 10300 },
-  { date: '2025-05-30', income: 22400, expenses: 18800 },
-  { date: '2025-05-31', income: 13780, expenses: 18300 },
-  { date: '2025-06-01', income: 13780, expenses: 16000 },
-  { date: '2025-06-02', income: 31700, expenses: 26100 },
-  { date: '2025-06-03', income: 9030, expenses: 12600 },
-  { date: '2025-06-04', income: 29890, expenses: 24800 },
-  { date: '2025-06-05', income: 7880, expenses: 11400 },
-  { date: '2025-06-06', income: 19940, expenses: 17500 },
-  { date: '2025-06-07', income: 22030, expenses: 25700 },
-  { date: '2025-06-08', income: 26250, expenses: 19200 },
-  { date: '2025-06-09', income: 29880, expenses: 32800 },
-  { date: '2025-06-10', income: 13550, expenses: 16000 },
-  { date: '2025-06-11', income: 7920, expenses: 11500 },
-  { date: '2025-06-12', income: 33520, expenses: 28200 },
-  { date: '2025-06-13', income: 6810, expenses: 10300 },
-  { date: '2025-06-14', income: 28860, expenses: 24800 },
-  { date: '2025-06-15', income: 20870, expenses: 21500 },
-  { date: '2025-06-16', income: 25210, expenses: 21100 },
-  { date: '2025-06-17', income: 32250, expenses: 35200 },
-  { date: '2025-06-18', income: 9070, expenses: 13700 },
-  { date: '2025-06-19', income: 23110, expenses: 19900 },
-  { date: '2025-06-20', income: 27680, expenses: 30500 },
-  { date: '2025-06-21', income: 13690, expenses: 16100 },
-  { date: '2025-06-22', income: 21570, expenses: 18700 },
-  { date: '2025-06-23', income: 32800, expenses: 36300 },
-  { date: '2025-06-24', income: 11320, expenses: 13800 },
-  { date: '2025-06-25', income: 11410, expenses: 14900 },
-  { date: '2025-06-26', income: 29540, expenses: 24800 },
-  { date: '2025-06-27', income: 30480, expenses: 32900 },
-  { date: '2025-06-28', income: 12490, expenses: 16000 },
-  { date: '2025-06-29', income: 9030, expenses: 12600 },
-  { date: '2025-06-30', income: 30460, expenses: 26000 },
-]
 
 const chartConfig = {
   activity: {
@@ -132,28 +39,36 @@ const chartConfig = {
   },
 } satisfies ChartConfig
 
+interface ChartDataPoint {
+  date: string
+  income: number
+  expenses: number
+}
+
 export default function BankActivityChart() {
   const [timeRange, setTimeRange] = React.useState('90d')
+  const [chartData, setChartData] = React.useState<ChartDataPoint[]>([])
+  const [loading, setLoading] = React.useState(true)
 
-  const filteredData = chartData.filter(item => {
-    const date = new Date(item.date)
-    const referenceDate = new Date('2025-06-30')
-    let daysToSubtract = 90
-    if (timeRange === '30d') {
-      daysToSubtract = 30
-    } else if (timeRange === '7d') {
-      daysToSubtract = 7
+  React.useEffect(() => {
+    const loadData = async () => {
+      setLoading(true)
+      try {
+        const days = timeRange === '7d' ? 7 : timeRange === '30d' ? 30 : 90
+        const data = await getBankActivityData(days)
+        setChartData(data)
+      } catch (error) {
+        console.error('Failed to load bank activity data:', error)
+      } finally {
+        setLoading(false)
+      }
     }
-    const startDate = new Date(referenceDate)
-    startDate.setDate(startDate.getDate() - daysToSubtract)
-    return date >= startDate
-  })
 
-  const totalIncome = filteredData.reduce((sum, item) => sum + item.income, 0)
-  const totalExpenses = filteredData.reduce(
-    (sum, item) => sum + item.expenses,
-    0,
-  )
+    loadData()
+  }, [timeRange])
+
+  const totalIncome = chartData.reduce((sum, item) => sum + item.income, 0)
+  const totalExpenses = chartData.reduce((sum, item) => sum + item.expenses, 0)
   const balance = totalIncome - totalExpenses
 
   const formatCurrency = (value: number) => {
@@ -208,112 +123,129 @@ export default function BankActivityChart() {
         </div>
       </CardHeader>
       <CardContent className="px-2 pt-4 sm:px-6 sm:pt-6">
-        <div className="mb-6 grid gap-4 sm:grid-cols-3">
-          <div className="rounded-lg border p-4">
-            <div className="text-muted-foreground text-sm">Income</div>
-            <div className="text-2xl font-bold">
-              {formatCurrency(totalIncome)}
+        {loading ? (
+          <div className="flex h-[360px] items-center justify-center">
+            <div className="text-muted-foreground">Loading...</div>
+          </div>
+        ) : chartData.length === 0 ? (
+          <div className="flex h-[360px] items-center justify-center">
+            <div className="text-muted-foreground">No data available</div>
+          </div>
+        ) : (
+          <>
+            <div className="mb-6 grid gap-4 sm:grid-cols-3">
+              <div className="rounded-lg border p-4">
+                <div className="text-muted-foreground text-sm">Income</div>
+                <div className="text-2xl font-bold">
+                  {formatCurrency(totalIncome)}
+                </div>
+              </div>
+              <div className="rounded-lg border p-4">
+                <div className="text-muted-foreground text-sm">Expenses</div>
+                <div className="text-2xl font-bold">
+                  {formatCurrency(totalExpenses)}
+                </div>
+              </div>
+              <div className="rounded-lg border p-4">
+                <div className="text-muted-foreground text-sm">Balance</div>
+                <div className="text-2xl font-bold">
+                  {formatCurrency(balance)}
+                </div>
+              </div>
             </div>
-          </div>
-          <div className="rounded-lg border p-4">
-            <div className="text-muted-foreground text-sm">Expenses</div>
-            <div className="text-2xl font-bold">
-              {formatCurrency(totalExpenses)}
-            </div>
-          </div>
-          <div className="rounded-lg border p-4">
-            <div className="text-muted-foreground text-sm">Balance</div>
-            <div className="text-2xl font-bold">{formatCurrency(balance)}</div>
-          </div>
-        </div>
-        <ChartContainer config={chartConfig} className="max-h-[250px] w-full">
-          <AreaChart data={filteredData}>
-            <defs>
-              <linearGradient id="fillIncome" x1="0" y1="0" x2="0" y2="1">
-                <stop
-                  offset="5%"
-                  stopColor="var(--color-income)"
-                  stopOpacity={0.8}
+            <ChartContainer
+              config={chartConfig}
+              className="max-h-[250px] w-full"
+            >
+              <AreaChart data={chartData}>
+                <defs>
+                  <linearGradient id="fillIncome" x1="0" y1="0" x2="0" y2="1">
+                    <stop
+                      offset="5%"
+                      stopColor="var(--color-income)"
+                      stopOpacity={0.8}
+                    />
+                    <stop
+                      offset="95%"
+                      stopColor="var(--color-income)"
+                      stopOpacity={0.1}
+                    />
+                  </linearGradient>
+                  <linearGradient id="fillExpenses" x1="0" y1="0" x2="0" y2="1">
+                    <stop
+                      offset="5%"
+                      stopColor="var(--color-expenses)"
+                      stopOpacity={0.8}
+                    />
+                    <stop
+                      offset="95%"
+                      stopColor="var(--color-expenses)"
+                      stopOpacity={0.1}
+                    />
+                  </linearGradient>
+                </defs>
+                <CartesianGrid
+                  vertical={false}
+                  strokeDasharray="3 3"
+                  opacity={0.3}
                 />
-                <stop
-                  offset="95%"
-                  stopColor="var(--color-income)"
-                  stopOpacity={0.1}
-                />
-              </linearGradient>
-              <linearGradient id="fillExpenses" x1="0" y1="0" x2="0" y2="1">
-                <stop
-                  offset="5%"
-                  stopColor="var(--color-expenses)"
-                  stopOpacity={0.8}
-                />
-                <stop
-                  offset="95%"
-                  stopColor="var(--color-expenses)"
-                  stopOpacity={0.1}
-                />
-              </linearGradient>
-            </defs>
-            <CartesianGrid
-              vertical={false}
-              strokeDasharray="3 3"
-              opacity={0.3}
-            />
-            <XAxis
-              dataKey="date"
-              tickLine={false}
-              axisLine={false}
-              tickMargin={8}
-              minTickGap={32}
-              tickFormatter={value => {
-                const date = new Date(value)
-                return date.toLocaleDateString('en-US', {
-                  month: 'short',
-                  day: 'numeric',
-                })
-              }}
-            />
-            <YAxis
-              tickLine={false}
-              axisLine={false}
-              tickMargin={8}
-              tickFormatter={value => `$${(value / 1000).toFixed(0)}k`}
-            />
-            <ChartTooltip
-              cursor={false}
-              content={
-                <ChartTooltipContent
-                  labelFormatter={value => {
-                    return new Date(value).toLocaleDateString('en-US', {
-                      month: 'long',
+                <XAxis
+                  dataKey="date"
+                  tickLine={false}
+                  axisLine={false}
+                  tickMargin={8}
+                  minTickGap={32}
+                  tickFormatter={value => {
+                    const date = new Date(value)
+                    return date.toLocaleDateString('en-US', {
+                      month: 'short',
                       day: 'numeric',
-                      year: 'numeric',
                     })
                   }}
-                  formatter={(value, name) => [
-                    formatCurrency(Number(value)),
-                    name === 'income' ? 'Income' : 'Expenses',
-                  ]}
-                  indicator="dot"
                 />
-              }
-            />
-            <Area
-              dataKey="income"
-              type="monotone"
-              fill="url(#fillIncome)"
-              stroke="var(--color-income)"
-              strokeWidth={2}
-            />
-            <Area
-              dataKey="expenses"
-              type="monotone"
-              fill="url(#fillExpenses)"
-              stroke="var(--color-expenses)"
-              strokeWidth={2}
-            />
-          </AreaChart>
-        </ChartContainer>
+                <YAxis
+                  tickLine={false}
+                  axisLine={false}
+                  tickMargin={8}
+                  tickFormatter={value => `$${(value / 1000).toFixed(0)}k`}
+                />
+                <ChartTooltip
+                  cursor={false}
+                  content={
+                    <ChartTooltipContent
+                      labelFormatter={value => {
+                        return new Date(value).toLocaleDateString('en-US', {
+                          month: 'long',
+                          day: 'numeric',
+                          year: 'numeric',
+                        })
+                      }}
+                      formatter={(value, name) => [
+                        formatCurrency(Number(value)),
+                        name === 'income' ? 'Income' : 'Expenses',
+                      ]}
+                      indicator="dot"
+                    />
+                  }
+                />
+                <Area
+                  dataKey="income"
+                  type="monotone"
+                  fill="url(#fillIncome)"
+                  stroke="var(--color-income)"
+                  strokeWidth={2}
+                />
+                <Area
+                  dataKey="expenses"
+                  type="monotone"
+                  fill="url(#fillExpenses)"
+                  stroke="var(--color-expenses)"
+                  strokeWidth={2}
+                />
+              </AreaChart>
+            </ChartContainer>
+          </>
+        )}
       </CardContent>
     </Card>
   )

@@ -14,10 +14,7 @@ const Transactions = () => {
                 See All
               </Button>
             </div>
-            <div className="flex items-center gap-7">
-              <CreditCard />
-              <CreditCard />
-            </div>
+            <CreditCard take={2} />
           </div>
         </div>
         <div className="col-start-5 col-end-7">
