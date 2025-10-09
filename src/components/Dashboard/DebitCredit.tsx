@@ -1,7 +1,7 @@
+// components/debit-credit.tsx
 'use client'
 
-import { Bar, BarChart, CartesianGrid, XAxis } from 'recharts'
-
+import { Button } from '@/components/ui/button'
 import {
   Card,
   CardContent,
@@ -14,16 +14,13 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from '@/components/ui/chart'
-
-const chartData = [
-  { day: 'Monday', debit: 1250, credit: 890 },
-  { day: 'Tuesday', debit: 980, credit: 1100 },
-  { day: 'Wednesday', debit: 1420, credit: 760 },
-  { day: 'Thursday', debit: 1100, credit: 920 },
-  { day: 'Friday', debit: 1380, credit: 1050 },
-  { day: 'Saturday', debit: 890, credit: 480 },
-  { day: 'Sunday', debit: 540, credit: 220 },
-]
+import {
+  getWeeklyTransactions,
+  WeeklyData,
+} from '@/lib/actions/getWeeklyTransactions'
+import { ChevronLeft, ChevronRight, Loader2 } from 'lucide-react'
+import { useState, useTransition } from 'react'
+import { Bar, BarChart, CartesianGrid, XAxis } from 'recharts'
 
 const chartConfig = {
   debit: {
@@ -36,31 +33,112 @@ const chartConfig = {
   },
 } satisfies ChartConfig
 
-export function DebitCredit() {
-  const totalDebit = chartData.reduce((sum, day) => sum + day.debit, 0)
-  const totalCredit = chartData.reduce((sum, day) => sum + day.credit, 0)
+interface DebitCreditProps {
+  initialData: WeeklyData
+}
+
+export function DebitCredit({ initialData }: DebitCreditProps) {
+  const [data, setData] = useState<WeeklyData>(initialData)
+  const [weekOffset, setWeekOffset] = useState(0)
+  const [isPending, startTransition] = useTransition()
+  const [error, setError] = useState<string | null>(null)
+
+  const fetchData = async (offset: number) => {
+    startTransition(async () => {
+      try {
+        setError(null)
+        const result = await getWeeklyTransactions(offset)
+        setData(result)
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'An error occurred')
+        console.error('Error fetching data:', err)
+      }
+    })
+  }
+
+  const handlePreviousWeek = () => {
+    const newOffset = weekOffset - 1
+    setWeekOffset(newOffset)
+    fetchData(newOffset)
+  }
+
+  const handleNextWeek = () => {
+    const newOffset = weekOffset + 1
+    setWeekOffset(newOffset)
+    fetchData(newOffset)
+  }
+
+  const handleCurrentWeek = () => {
+    setWeekOffset(0)
+    fetchData(0)
+  }
+
+  if (error) {
+    return (
+      <Card>
+        <CardContent className="flex h-[400px] flex-col items-center justify-center gap-4">
+          <p className="text-destructive">Error: {error}</p>
+          <Button onClick={() => fetchData(weekOffset)} variant="outline">
+            Try Again
+          </Button>
+        </CardContent>
+      </Card>
+    )
+  }
 
   return (
     <Card>
-      <CardHeader className="flex items-center justify-between">
-        <CardDescription>
-          ${totalDebit.toLocaleString()} Debited & $
-          {totalCredit.toLocaleString()} Credited in this Week
-        </CardDescription>
-        <CardDescription className="flex items-center gap-8">
-          <div className="flex items-center gap-2.5">
-            <div className="h-2.5 w-2.5 rounded-xs bg-[var(--debit)]" />
-            Debit
+      <CardHeader className="space-y-4">
+        <div className="flex items-center justify-between">
+          <div className="space-y-1">
+            <CardDescription>
+              ${data.totalDebit.toLocaleString()} Debited & $
+              {data.totalCredit.toLocaleString()} Credited
+            </CardDescription>
+            <p className="text-muted-foreground text-sm">
+              {data.weekStart} - {data.weekEnd}
+            </p>
           </div>
-          <div className="flex items-center gap-2.5">
-            <div className="h-2.5 w-2.5 rounded-xs bg-[var(--credit)]" />
-            Credit
+          <div className="flex items-center gap-2">
+            <Button
+              variant="outline"
+              size="icon"
+              onClick={handlePreviousWeek}
+              disabled={isPending}
+              className="h-8 w-8"
+            >
+              {isPending ? (
+                <Loader2 className="h-4 w-4 animate-spin" />
+              ) : (
+                <ChevronLeft className="h-4 w-4" />
+              )}
+            </Button>
+            {weekOffset !== 0 && (
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={handleCurrentWeek}
+                disabled={isPending}
+                className="h-8"
+              >
+                Current
+              </Button>
+            )}
+            <Button
+              variant="outline"
+              size="icon"
+              onClick={handleNextWeek}
+              disabled={weekOffset >= 0 || isPending}
+              className="h-8 w-8"
+            >
+              <ChevronRight className="h-4 w-4" />
+            </Button>
           </div>
-        </CardDescription>
+        </div>
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig} className="max-h-[260px] w-full">
-          <BarChart accessibilityLayer data={chartData}>
+          <BarChart accessibilityLayer data={data.chartData}>
             <CartesianGrid vertical={false} />
             <XAxis
               dataKey="day"

@@ -14,7 +14,7 @@ const Transactions = () => {
                 See All
               </Button>
             </div>
-            <CreditCard take={2} />
+            <CreditCard take={4} />
           </div>
         </div>
         <div className="col-start-5 col-end-7">

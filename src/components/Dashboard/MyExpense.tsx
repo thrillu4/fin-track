@@ -1,5 +1,6 @@
 'use client'
 
+import { useEffect, useState } from 'react'
 import { Bar, BarChart, CartesianGrid, LabelList, XAxis } from 'recharts'
 
 import { Card, CardContent } from '@/components/ui/card'
@@ -9,17 +10,9 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from '@/components/ui/chart'
+import { getMonthlyExpenses } from '@/lib/actions/getMonthlyExpenses'
 
-export const description = 'A bar chart with a label'
-
-const chartData = [
-  { month: 'April', expense: 1200 },
-  { month: 'May', expense: 2209 },
-  { month: 'June', expense: 2214 },
-  { month: 'July', expense: 3186 },
-  { month: 'August', expense: 1305 },
-  { month: 'September', expense: 2237 },
-]
+export const description = 'A bar chart with expenses from database'
 
 const chartConfig = {
   expense: {
@@ -28,7 +21,50 @@ const chartConfig = {
   },
 } satisfies ChartConfig
 
+type ChartData = {
+  month: string
+  expense: number
+}
+
 export function MyExpense() {
+  const [chartData, setChartData] = useState<ChartData[]>([])
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await getMonthlyExpenses()
+        setChartData(data)
+      } catch (error) {
+        console.error('Failed to fetch expense data:', error)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+
+    fetchData()
+  }, [])
+
+  if (isLoading) {
+    return (
+      <Card>
+        <CardContent className="flex h-[195px] items-center justify-center">
+          <p className="text-muted-foreground">Loading...</p>
+        </CardContent>
+      </Card>
+    )
+  }
+
+  if (chartData.length === 0) {
+    return (
+      <Card>
+        <CardContent className="flex h-[195px] items-center justify-center">
+          <p className="text-muted-foreground">No expense data available</p>
+        </CardContent>
+      </Card>
+    )
+  }
+
   return (
     <Card>
       <CardContent>

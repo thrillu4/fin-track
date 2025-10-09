@@ -1,34 +1,63 @@
+import { auth } from '@/auth'
 import CreditCard from '@/components/Dashboard/CreditCard'
 import { DebitCredit } from '@/components/Dashboard/DebitCredit'
 import FlexRowTabs from '@/components/Dashboard/FlexRowTabs'
 import InvoicesSent from '@/components/Dashboard/InvoicesSent'
 import LastTransaction from '@/components/Dashboard/LastTransaction'
 import { Button } from '@/components/ui/button'
+import { getWeeklyTransactions } from '@/lib/actions/getWeeklyTransactions'
+import { prisma } from '@/lib/prisma'
+import { ROUTES } from '@/lib/routes'
+import Link from 'next/link'
 
-const Accounts = () => {
+const Accounts = async () => {
+  const session = await auth()
+
+  if (!session?.user?.email) return
+
+  const email = session.user.email
+
+  const user = await prisma.user.findUnique({
+    where: { email },
+    select: {
+      cards: {
+        take: 1,
+      },
+      transactions: true,
+    },
+  })
+
+  const amountCalculation = (type: 'income' | 'expense' | 'transfer') => {
+    return user?.transactions
+      .filter(tr => tr.type === type)
+      .reduce((acc, curr) => curr.amount + acc, 0)
+  }
+
+  const initialData = await getWeeklyTransactions(0)
+
   const accounts = [
     {
       src: '/dash/accounts/balance.png',
       title: 'My Balance',
-      amount: 12750,
+      amount: user?.cards[0].balance,
       color: '#FFF5D9',
     },
     {
       src: '/dash/accounts/income.png',
       title: 'Income',
-      amount: 5600,
+      amount: amountCalculation('income'),
       color: '#E7EDFF',
     },
     {
       src: '/dash/accounts/expense.png',
       title: 'Expense',
-      amount: 34680,
+      amount: amountCalculation('expense'),
       color: '#FFE0EB',
     },
     {
       src: '/dash/accounts/saving.png',
-      title: 'Total Saving',
-      amount: 79200,
+      title: 'Transfer',
+      amount: amountCalculation('transfer'),
       color: '#DCFAF8',
     },
   ]
@@ -43,9 +72,11 @@ const Accounts = () => {
         <div className="col-start-5 col-end-7">
           <div className="mb-5 flex items-center justify-between">
             <h3 className="text-2xl font-bold">My Cards</h3>
-            <Button variant={'link'} className="py-0">
-              See All
-            </Button>
+            <Link href={ROUTES.CREDIT_CARDS}>
+              <Button variant={'link'} className="py-0">
+                See All
+              </Button>
+            </Link>
           </div>
           <CreditCard take={1} />
         </div>
@@ -53,7 +84,7 @@ const Accounts = () => {
           <h3 className="mb-5 py-0.5 text-2xl font-bold">
             Debit & Credit Overview
           </h3>
-          <DebitCredit />
+          <DebitCredit initialData={initialData} />
         </div>
         <div className="col-start-5 col-end-7">
           <h3 className="mb-6 text-2xl font-bold">Invoices Sent</h3>

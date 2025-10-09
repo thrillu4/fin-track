@@ -8,7 +8,7 @@ interface Data {
   percent?: number
 }
 
-const FlexRowTabs = ({ data }: { data: Data[] }) => {
+const FlexRowTabs = async ({ data }: { data: Data[] }) => {
   return (
     <div className="bg-sidebar col-span-6 flex items-center justify-between rounded-3xl px-9 py-6 tracking-wide">
       {data.map((item, i) => (
@@ -23,7 +23,7 @@ const FlexRowTabs = ({ data }: { data: Data[] }) => {
             <div className="text-gray-500">{item.title}</div>
             <div className="text-2xl font-bold">
               {item.percent
-                ? `${item.percent}%`
+                ? `${item.percent.toFixed(2)}%`
                 : `$${item.amount!.toFixed(2)}`}
             </div>
           </div>

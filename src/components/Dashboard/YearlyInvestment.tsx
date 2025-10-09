@@ -18,14 +18,10 @@ import {
 
 export const description = 'A line chart showing yearly total investments'
 
-const chartData = [
-  { year: '2019', investment: 125000 },
-  { year: '2020', investment: 185000 },
-  { year: '2021', investment: 245000 },
-  { year: '2022', investment: 198000 },
-  { year: '2023', investment: 267000 },
-  { year: '2024', investment: 312000 },
-]
+interface ChartData {
+  year: string
+  investment: number
+}
 
 const chartConfig = {
   investment: {
@@ -34,18 +30,18 @@ const chartConfig = {
   },
 } satisfies ChartConfig
 
-export function YearlyInvestment() {
+export function YearlyInvestment({ data }: { data: ChartData[] }) {
   return (
     <Card>
       <CardHeader>
         <CardTitle>Yearly Total Investment</CardTitle>
-        <CardDescription>2019 - 2024</CardDescription>
+        <CardDescription>2021 - 2025</CardDescription>
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig}>
           <LineChart
             accessibilityLayer
-            data={chartData}
+            data={data}
             margin={{
               left: 12,
               right: 12,

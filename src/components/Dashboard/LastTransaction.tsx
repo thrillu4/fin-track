@@ -1,64 +1,74 @@
+import { auth } from '@/auth'
+import { prisma } from '@/lib/prisma'
 import Image from 'next/image'
 
-const LastTransaction = () => {
-  const list = [
-    {
-      id: 1,
-      title: 'Spotify Subscription',
-      date: new Date('2025-10-01'),
-      amount: -15.99,
-      category: 'Shopping',
-      card: '1234456712337891',
-      src: '/dash/transactions/bell.png',
+const LastTransaction = async () => {
+  const session = await auth()
+
+  if (!session?.user?.email) return
+
+  const email = session.user.email
+
+  const user = await prisma.user.findUnique({
+    where: { email },
+    select: {
+      cards: { take: 1 },
+      transactions: {
+        orderBy: {
+          date: 'desc',
+        },
+        take: 3,
+      },
     },
-    {
-      id: 2,
-      title: 'Mobile Service',
-      date: new Date('2025-10-02'),
-      amount: -340,
-      category: 'Service',
-      card: '1234456712337891',
-      src: '/dash/transactions/service.png',
-    },
-    {
-      id: 3,
-      title: 'Emilly Wilson',
-      date: new Date('2025-10-03'),
-      amount: 789.0,
-      category: 'income',
-      card: '1234456712337891',
-      src: '/dash/transactions/user.png',
-    },
-  ]
+  })
+
   return (
-    <div className="bg-sidebar flex min-h-[240px] flex-col gap-4 rounded-3xl p-5">
-      {list.map(item => (
+    <div className="bg-sidebar flex min-h-[235px] flex-col gap-3 rounded-3xl p-5">
+      {user?.transactions.map(item => (
         <div
           key={item.id}
           className="grid grid-cols-4 items-center justify-center text-center"
         >
           <div className="flex items-center gap-4 text-left">
             <div
-              className={`${item.category === 'entertainment' ? 'bg-[var(--chart-3)]' : item.category === 'Shopping' ? 'bg-[var(--chart-4)]' : item.category === 'groceries' ? 'bg-[var(--chart-2)]' : item.category === 'education' ? 'bg-[var(--chart-1)]' : 'bg-[var(--chart-5)]'} flex items-center justify-center rounded-full p-3.5`}
+              className={`${item.category === 'Entertainment' ? 'bg-[var(--chart-3)]' : item.category === 'Shopping' ? 'bg-[var(--chart-4)]' : item.category === 'Food' ? 'bg-[var(--chart-2)]' : item.category === 'Investment' ? 'bg-[var(--chart-1)]' : 'bg-[var(--chart-5)]'} flex items-center justify-center rounded-full p-3.5`}
             >
               <Image
-                src={item.src}
-                alt={item.category}
+                src={
+                  item.category === 'Transport'
+                    ? '/dash/transactions/Transport.png'
+                    : item.category === 'Food'
+                      ? '/dash/transactions/Food.png'
+                      : item.category === 'Shopping'
+                        ? '/dash/transactions/Shopping.png'
+                        : item.category === 'Entertainment'
+                          ? '/dash/transactions/Entertainment.png'
+                          : item.category === 'Investment'
+                            ? '/dash/transactions/Investment.png'
+                            : item.category === 'Salary'
+                              ? '/dash/transactions/Salary.png'
+                              : '/dash/transactions/service.png'
+                }
+                alt={item.category || 'logo'}
                 width={25}
                 height={25}
               />
             </div>
             <div>
-              <div>{item.title}</div>
+              <div>{item.description}</div>
               <div className="opacity-60">{item.date.toLocaleDateString()}</div>
             </div>
           </div>
           <div>{item.category}</div>
-          <div>{item.card.slice(-8)}</div>
+          <div>{user.cards[0].cardNumber.slice(-8, -4) + ' ' + '****'}</div>
           <div
-            className={`${item.amount > 0 ? 'text-green-500' : 'text-red-500'} font-medium`}
+            className={`${item.type === 'income' ? 'text-green-500' : 'text-red-500'} font-medium`}
           >
-            {item.amount}$
+            {item.type === 'income'
+              ? `$${item.amount.toFixed(2)}`
+              : item.type === 'expense'
+                ? `-$${item.amount.toFixed(2)}`
+                : `-$${item.amount.toFixed(2)}`}
           </div>
         </div>
       ))}

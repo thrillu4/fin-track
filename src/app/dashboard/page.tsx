@@ -5,6 +5,8 @@ import CreditCard from '@/components/Dashboard/CreditCard'
 import QuickTransfer from '@/components/Dashboard/QuickTransfer'
 import RecentTransaction from '@/components/Dashboard/RecentTransaction'
 import { Button } from '@/components/ui/button'
+import { ROUTES } from '@/lib/routes'
+import Link from 'next/link'
 
 export default function Page() {
   return (
@@ -13,11 +15,13 @@ export default function Page() {
         <div className="col-start-1 col-end-5">
           <div className="mb-5 flex items-center justify-between">
             <h3 className="text-2xl font-bold">My Cards</h3>
-            <Button variant={'link'} className="py-0">
-              See All
-            </Button>
+            <Link href={ROUTES.CREDIT_CARDS}>
+              <Button variant={'link'} className="py-0">
+                See All
+              </Button>
+            </Link>
           </div>
-          <CreditCard take={3} />
+          <CreditCard take={4} />
         </div>
         <div className="col-start-5 col-end-7">
           <h3 className="mb-5 py-0.5 text-2xl font-bold">Resent Transaction</h3>

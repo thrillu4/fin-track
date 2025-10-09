@@ -66,7 +66,7 @@ export function NavMain() {
                     pathName === tab.url
                       ? 'border-primary text-primary border-l-8'
                       : ''
-                  } text-base font-medium`}
+                  } cursor-pointer text-base font-medium`}
                 >
                   {tab.icon && <tab.icon />}
                   <span>{tab.title}</span>

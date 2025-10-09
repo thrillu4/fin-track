@@ -48,19 +48,15 @@ interface ChartDataPoint {
 export default function BankActivityChart() {
   const [timeRange, setTimeRange] = React.useState('90d')
   const [chartData, setChartData] = React.useState<ChartDataPoint[]>([])
-  const [loading, setLoading] = React.useState(true)
 
   React.useEffect(() => {
     const loadData = async () => {
-      setLoading(true)
       try {
         const days = timeRange === '7d' ? 7 : timeRange === '30d' ? 30 : 90
         const data = await getBankActivityData(days)
         setChartData(data)
       } catch (error) {
         console.error('Failed to load bank activity data:', error)
-      } finally {
-        setLoading(false)
       }
     }
 
@@ -123,11 +119,7 @@ export default function BankActivityChart() {
         </div>
       </CardHeader>
       <CardContent className="px-2 pt-4 sm:px-6 sm:pt-6">
-        {loading ? (
-          <div className="flex h-[360px] items-center justify-center">
-            <div className="text-muted-foreground">Loading...</div>
-          </div>
-        ) : chartData.length === 0 ? (
+        {chartData.length === 0 ? (
           <div className="flex h-[360px] items-center justify-center">
             <div className="text-muted-foreground">No data available</div>
           </div>

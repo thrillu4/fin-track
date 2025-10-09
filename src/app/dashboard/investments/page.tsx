@@ -1,28 +1,66 @@
+import { auth } from '@/auth'
 import FlexRowTabs from '@/components/Dashboard/FlexRowTabs'
 import { MonthlyRevenue } from '@/components/Dashboard/MonthlyRevenue'
+import MyInvestments from '@/components/Dashboard/MyInvestments'
+import TrendingStock from '@/components/Dashboard/TrendingStock'
 import { YearlyInvestment } from '@/components/Dashboard/YearlyInvestment'
+import { getMonthlyRevenue } from '@/lib/actions/getMontlyRevenue'
+import { getYearlyInvestment } from '@/lib/actions/getYearlyInvestment'
+import { prisma } from '@/lib/prisma'
 
-const Investments = () => {
+const Investments = async () => {
+  const session = await auth()
+
+  if (!session?.user?.email) return
+
+  const email = session.user.email
+
+  const user = await prisma.user.findUnique({
+    where: { email },
+    select: {
+      investments: true,
+    },
+  })
+
+  const totalInvested = user?.investments.reduce(
+    (prev, curr) => curr.amountInvested + prev,
+    0,
+  )
+  const currInvValue = user?.investments.reduce(
+    (prev, curr) => curr.currentValue + prev,
+    0,
+  )
+  let rateReturn
+  if (!totalInvested || !currInvValue) {
+    rateReturn = 0
+  } else {
+    rateReturn = ((totalInvested - currInvValue) / currInvValue) * 100
+  }
+
+  const chartData = await getYearlyInvestment()
+
   const investments = [
     {
       src: '/dash/investments/bag.png',
       title: 'Total Invested Amount',
-      amount: 15000,
+      amount: totalInvested,
       color: '#bce9db',
     },
     {
       src: '/dash/investments/pie.png',
-      title: 'Number of Investments',
-      amount: 1259,
+      title: 'Current Investments Value',
+      amount: currInvValue,
       color: '#c2afbb',
     },
     {
       src: '/dash/investments/repeat.png',
       title: 'Rate of Return',
       color: '#c0cfe0',
-      percent: 5.77,
+      percent: rateReturn,
     },
   ]
+
+  const data = await getMonthlyRevenue()
   return (
     <>
       <div className="grid w-full grid-cols-6 gap-x-7 gap-y-6 px-10 py-8">
@@ -31,11 +69,21 @@ const Investments = () => {
           <h3 className="mb-5 py-0.5 text-2xl font-bold">
             Yearly Total Investment
           </h3>
-          <YearlyInvestment />
+          <YearlyInvestment data={chartData} />
         </div>
         <div className="col-start-4 col-end-7">
           <h3 className="mb-5 py-0.5 text-2xl font-bold">Monthly Revenue</h3>
-          <MonthlyRevenue />
+          <MonthlyRevenue data={data} />
+        </div>
+        <div className="col-start-1 col-end-5">
+          <h3 className="mb-5 py-0.5 text-2xl font-bold">My Investments</h3>
+          <MyInvestments />
+        </div>
+        <div className="col-start-5 col-end-7">
+          <h3 className="mb-5 py-0.5 text-2xl font-bold">Trending Stock</h3>
+          <div className="rounded-3xl bg-[var(--sidebar)] p-5">
+            <TrendingStock />
+          </div>
         </div>
       </div>
     </>

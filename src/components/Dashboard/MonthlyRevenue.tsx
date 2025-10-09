@@ -17,15 +17,10 @@ import {
 } from '@/components/ui/chart'
 
 export const description = 'A linear line chart showing monthly revenue'
-
-const chartData = [
-  { month: 'January', revenue: 45000 },
-  { month: 'February', revenue: 22000 },
-  { month: 'March', revenue: 48000 },
-  { month: 'April', revenue: 61000 },
-  { month: 'May', revenue: 25000 },
-  { month: 'June', revenue: 67000 },
-]
+interface ChartData {
+  month: string
+  revenue: number
+}
 
 const chartConfig = {
   revenue: {
@@ -34,18 +29,18 @@ const chartConfig = {
   },
 } satisfies ChartConfig
 
-export function MonthlyRevenue() {
+export function MonthlyRevenue({ data }: { data: ChartData[] }) {
   return (
     <Card>
       <CardHeader>
         <CardTitle>Monthly Revenue</CardTitle>
-        <CardDescription>January - June 2024</CardDescription>
+        <CardDescription>September - October 2025</CardDescription>
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig}>
           <LineChart
             accessibilityLayer
-            data={chartData}
+            data={data}
             margin={{
               left: 12,
               right: 12,
