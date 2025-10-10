@@ -16,36 +16,7 @@ const InvoicesSent = async () => {
     },
   })
   const colors = ['#aee9c9', '#f8f2d2', '#a8baee', '#e5a8f1']
-  const invoices = [
-    {
-      src: '/dash/invoices/apple.png',
-      title: 'Apple Store',
-      amount: 455,
-      color: '#aee9c9',
-      time: '5h ago',
-    },
-    {
-      src: '/dash/invoices/user2.png',
-      title: 'Michael',
-      amount: 150,
-      color: '#f8f2d2',
-      time: '2 days ago',
-    },
-    {
-      src: '/dash/invoices/ps.png',
-      title: 'Playstation',
-      amount: 1087,
-      color: '#a8baee',
-      time: '5 days ago',
-    },
-    {
-      src: '/dash/invoices/user3.png',
-      title: 'William',
-      amount: 90,
-      color: '#e5a8f1',
-      time: '10 days ago',
-    },
-  ]
+
   return (
     <div className="bg-sidebar flex flex-col gap-6 rounded-3xl px-6 py-8">
       {user?.invoices.map((inv, i) => (

@@ -1,9 +1,9 @@
 import { auth } from '@/auth'
 import FlexRowTabs from '@/components/Dashboard/FlexRowTabs'
-import { MonthlyRevenue } from '@/components/Dashboard/MonthlyRevenue'
-import MyInvestments from '@/components/Dashboard/MyInvestments'
-import TrendingStock from '@/components/Dashboard/TrendingStock'
-import { YearlyInvestment } from '@/components/Dashboard/YearlyInvestment'
+import { MonthlyRevenue } from '@/components/Dashboard/Investments/MonthlyRevenue'
+import MyInvestments from '@/components/Dashboard/Investments/MyInvestments'
+import TrendingStock from '@/components/Dashboard/Investments/TrendingStock'
+import { YearlyInvestment } from '@/components/Dashboard/Investments/YearlyInvestment'
 import { getMonthlyRevenue } from '@/lib/actions/getMontlyRevenue'
 import { getYearlyInvestment } from '@/lib/actions/getYearlyInvestment'
 import { prisma } from '@/lib/prisma'
@@ -81,7 +81,7 @@ const Investments = async () => {
         </div>
         <div className="col-start-5 col-end-7">
           <h3 className="mb-5 py-0.5 text-2xl font-bold">Trending Stock</h3>
-          <div className="rounded-3xl bg-[var(--sidebar)] p-5">
+          <div className="rounded-3xl bg-[var(--sidebar)] px-1 py-3">
             <TrendingStock />
           </div>
         </div>

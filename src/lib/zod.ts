@@ -16,3 +16,21 @@ export const signUpSchema = signInSchema.extend({
 })
 
 export type SignUpSchema = z.infer<typeof signUpSchema>
+
+export const AddCardFormSchema = z.object({
+  type: z.enum(['Debit', 'Credit'], {
+    error: 'Enter Debit or Credit',
+  }),
+  name: z.string('Card Holder name is required!').min(6),
+  number: z
+    .string('Please enter your card number')
+    .regex(/^\d{16}$/, 'Card number must be 16 digits'),
+  expiration: z
+    .string('Please fill this field')
+    .regex(/^\d{4}$/, 'Card number must be 4 digits'),
+  brand: z.enum(['Visa', 'MasterCard'], {
+    error: 'Enter Visa or MasterCard',
+  }),
+})
+
+export type AddCardFormValues = z.infer<typeof AddCardFormSchema>

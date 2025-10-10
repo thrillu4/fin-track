@@ -1,6 +1,6 @@
 import CreditCard from '@/components/Dashboard/CreditCard'
-import { DataTable } from '@/components/Dashboard/data-table'
-import { MyExpense } from '@/components/Dashboard/MyExpense'
+import { DataTable } from '@/components/Dashboard/Transactions/DataTable'
+import { MyExpense } from '@/components/Dashboard/Transactions/MyExpense'
 import { Button } from '@/components/ui/button'
 const Transactions = () => {
   return (
