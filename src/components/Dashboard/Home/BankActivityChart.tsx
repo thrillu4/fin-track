@@ -22,7 +22,8 @@ import {
 } from '@/components/ui/select'
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
 import { getBankActivityData } from '@/lib/actions/getBankActivity'
-import * as React from 'react'
+import { LoaderCircle } from 'lucide-react'
+import { useEffect, useState } from 'react'
 import { Area, AreaChart, CartesianGrid, XAxis, YAxis } from 'recharts'
 
 const chartConfig = {
@@ -46,10 +47,10 @@ interface ChartDataPoint {
 }
 
 export default function BankActivityChart() {
-  const [timeRange, setTimeRange] = React.useState('90d')
-  const [chartData, setChartData] = React.useState<ChartDataPoint[]>([])
+  const [timeRange, setTimeRange] = useState('90d')
+  const [chartData, setChartData] = useState<ChartDataPoint[] | null>(null)
 
-  React.useEffect(() => {
+  useEffect(() => {
     const loadData = async () => {
       try {
         const days = timeRange === '7d' ? 7 : timeRange === '30d' ? 30 : 90
@@ -63,8 +64,10 @@ export default function BankActivityChart() {
     loadData()
   }, [timeRange])
 
-  const totalIncome = chartData.reduce((sum, item) => sum + item.income, 0)
-  const totalExpenses = chartData.reduce((sum, item) => sum + item.expenses, 0)
+  const totalIncome =
+    chartData?.reduce((sum, item) => sum + item.income, 0) || 0
+  const totalExpenses =
+    chartData?.reduce((sum, item) => sum + item.expenses, 0) || 0
   const balance = totalIncome - totalExpenses
 
   const formatCurrency = (value: number) => {
@@ -119,9 +122,13 @@ export default function BankActivityChart() {
         </div>
       </CardHeader>
       <CardContent className="px-2 pt-4 sm:px-6 sm:pt-6">
-        {chartData.length === 0 ? (
+        {chartData === null ? (
           <div className="flex h-[360px] items-center justify-center">
-            <div className="text-muted-foreground">No data available</div>
+            <LoaderCircle className="animate-spin" />
+          </div>
+        ) : chartData.length === 0 ? (
+          <div className="flex h-[360px] items-center justify-center">
+            <LoaderCircle className="animate-spin" />
           </div>
         ) : (
           <>

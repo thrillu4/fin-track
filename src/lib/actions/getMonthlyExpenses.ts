@@ -1,7 +1,7 @@
 'use server'
 
-import { auth } from '@/auth' // или ваш метод аутентификации
-import { prisma } from '@/lib/prisma' // ваш prisma client
+import { auth } from '@/auth'
+import { prisma } from '@/lib/prisma'
 
 export async function getMonthlyExpenses() {
   const session = await auth()
@@ -12,7 +12,6 @@ export async function getMonthlyExpenses() {
 
   const email = session.user.email
 
-  // Получаем транзакции за последние 6 месяцев
   const sixMonthsAgo = new Date()
   sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 6)
 
@@ -37,7 +36,6 @@ export async function getMonthlyExpenses() {
     },
   })
 
-  // Группируем транзакции по месяцам
   const monthlyData = transactions?.transactions.reduce(
     (acc, transaction) => {
       const monthKey = transaction.date.toLocaleString('en-US', {
@@ -55,11 +53,10 @@ export async function getMonthlyExpenses() {
     {} as Record<string, number>,
   )
 
-  // Формируем массив для графика
   const chartData = Object.entries(monthlyData ?? {}).map(
     ([month, expense]) => ({
       month,
-      expense: Math.round(expense * 100) / 100, // Округляем до 2 знаков
+      expense: Math.round(expense * 100) / 100,
     }),
   )
 

@@ -17,6 +17,7 @@ import {
   ChartTooltipContent,
 } from '@/components/ui/chart'
 import { getExpensesByCategory } from '@/lib/actions/getExpensesByCategory'
+import { LoaderCircle } from 'lucide-react'
 
 interface ExpenseData {
   key: string
@@ -61,19 +62,15 @@ const chartConfig = {
 } satisfies ChartConfig
 
 export function ChartPieLabelList() {
-  const [chartData, setChartData] = React.useState<ExpenseData[]>([])
-  const [loading, setLoading] = React.useState(true)
+  const [chartData, setChartData] = React.useState<ExpenseData[] | null>(null)
 
   React.useEffect(() => {
     const loadData = async () => {
-      setLoading(true)
       try {
         const data = await getExpensesByCategory()
         setChartData(data)
       } catch (error) {
         console.error('Failed to load expenses data:', error)
-      } finally {
-        setLoading(false)
       }
     }
 
@@ -92,9 +89,9 @@ export function ChartPieLabelList() {
         </CardDescription>
       </CardHeader>
       <CardContent className="flex-1 pb-0">
-        {loading ? (
-          <div className="flex h-93 items-center justify-center">
-            <div className="text-muted-foreground">Loading...</div>
+        {chartData === null ? (
+          <div className="flex h-[360px] items-center justify-center">
+            <LoaderCircle className="animate-spin" />
           </div>
         ) : chartData.length === 0 ? (
           <div className="flex h-93 items-center justify-center">

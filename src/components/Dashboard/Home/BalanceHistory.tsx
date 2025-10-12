@@ -17,6 +17,7 @@ import {
   ChartTooltipContent,
 } from '@/components/ui/chart'
 import { getBalanceHistory } from '@/lib/actions/getBalanceHistory'
+import { LoaderCircle } from 'lucide-react'
 
 interface BalanceData {
   month: string
@@ -31,19 +32,15 @@ const chartConfig = {
 } satisfies ChartConfig
 
 export function BalanceHistory() {
-  const [chartData, setChartData] = React.useState<BalanceData[]>([])
-  const [loading, setLoading] = React.useState(true)
+  const [chartData, setChartData] = React.useState<BalanceData[] | null>(null)
 
   React.useEffect(() => {
     const loadData = async () => {
-      setLoading(true)
       try {
         const data = await getBalanceHistory()
         setChartData(data)
       } catch (error) {
         console.error('Failed to load balance history:', error)
-      } finally {
-        setLoading(false)
       }
     }
 
@@ -53,9 +50,9 @@ export function BalanceHistory() {
   return (
     <Card>
       <CardContent className="h-[250px] w-full">
-        {loading ? (
-          <div className="flex h-full items-center justify-center">
-            <div className="text-muted-foreground">Loading...</div>
+        {chartData === null ? (
+          <div className="flex h-[360px] items-center justify-center">
+            <LoaderCircle className="animate-spin" />
           </div>
         ) : chartData.length === 0 ? (
           <div className="flex h-full items-center justify-center">

@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button'
 import { ROUTES } from '@/lib/routes'
 import Link from 'next/link'
 
-export default function Page() {
+export default async function Page() {
   return (
     <>
       <div className="grid w-full grid-cols-6 gap-x-7 gap-y-6 p-6">

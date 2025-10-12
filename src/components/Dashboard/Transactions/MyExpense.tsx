@@ -11,6 +11,7 @@ import {
   ChartTooltipContent,
 } from '@/components/ui/chart'
 import { getMonthlyExpenses } from '@/lib/actions/getMonthlyExpenses'
+import { LoaderCircle } from 'lucide-react'
 
 export const description = 'A bar chart with expenses from database'
 
@@ -26,9 +27,8 @@ type ChartData = {
   expense: number
 }
 
-export function MyExpense() {
-  const [chartData, setChartData] = useState<ChartData[]>([])
-  const [isLoading, setIsLoading] = useState(true)
+export function MyExpense({ data }: { data: ChartData[] }) {
+  const [chartData, setChartData] = useState<ChartData[] | null>(data)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -37,69 +37,59 @@ export function MyExpense() {
         setChartData(data)
       } catch (error) {
         console.error('Failed to fetch expense data:', error)
-      } finally {
-        setIsLoading(false)
       }
     }
 
     fetchData()
   }, [])
 
-  if (isLoading) {
-    return (
-      <Card>
-        <CardContent className="flex h-[195px] items-center justify-center">
-          <p className="text-muted-foreground">Loading...</p>
-        </CardContent>
-      </Card>
-    )
-  }
-
-  if (chartData.length === 0) {
-    return (
-      <Card>
-        <CardContent className="flex h-[195px] items-center justify-center">
-          <p className="text-muted-foreground">No expense data available</p>
-        </CardContent>
-      </Card>
-    )
-  }
-
   return (
     <Card>
-      <CardContent>
-        <ChartContainer config={chartConfig} className="max-h-[195px] w-full">
-          <BarChart
-            accessibilityLayer
-            data={chartData}
-            margin={{
-              top: 20,
-            }}
-          >
-            <CartesianGrid vertical={false} />
-            <XAxis
-              dataKey="month"
-              tickLine={false}
-              tickMargin={10}
-              axisLine={false}
-              tickFormatter={value => value.slice(0, 3)}
-            />
-            <ChartTooltip
-              cursor={false}
-              content={<ChartTooltipContent hideLabel />}
-            />
-            <Bar dataKey="expense" fill="var(--color-expense)" radius={8}>
-              <LabelList
-                position="top"
-                offset={12}
-                className="fill-foreground"
-                fontSize={12}
-                formatter={(value: number) => `$${value}`}
+      {chartData === null ? (
+        <div className="flex h-[195px] items-center justify-center">
+          <LoaderCircle className="animate-spin" />
+        </div>
+      ) : chartData.length === 0 ? (
+        <Card>
+          <CardContent className="flex h-[195px] items-center justify-center">
+            <p className="text-muted-foreground">No expense data available</p>
+          </CardContent>
+        </Card>
+      ) : (
+        <CardContent>
+          <ChartContainer config={chartConfig} className="max-h-[195px] w-full">
+            <BarChart
+              accessibilityLayer
+              data={chartData}
+              margin={{
+                top: 20,
+              }}
+            >
+              <CartesianGrid vertical={false} />
+              <XAxis
+                dataKey="month"
+                tickLine={false}
+                tickMargin={10}
+                axisLine={false}
+                tickFormatter={value => value.slice(0, 3)}
               />
-            </Bar>
-          </BarChart>
-        </ChartContainer>
-      </CardContent>
+              <ChartTooltip
+                cursor={false}
+                content={<ChartTooltipContent hideLabel />}
+              />
+              <Bar dataKey="expense" fill="var(--color-expense)" radius={8}>
+                <LabelList
+                  position="top"
+                  offset={12}
+                  className="fill-foreground"
+                  fontSize={12}
+                  formatter={(value: number) => `$${value}`}
+                />
+              </Bar>
+            </BarChart>
+          </ChartContainer>
+        </CardContent>
+      )}
     </Card>
   )
 }

@@ -12,6 +12,7 @@ import {
   ChevronRight,
   ChevronsLeft,
   ChevronsRight,
+  LoaderCircle,
   TrendingDown,
   TrendingUp,
 } from 'lucide-react'
@@ -180,7 +181,7 @@ export function DataTable() {
     return (
       <div className="flex w-full flex-col gap-6 p-4 lg:p-6">
         <div className="flex h-64 items-center justify-center">
-          <p className="text-muted-foreground">Loading transactions...</p>
+          <LoaderCircle className="animate-spin" />
         </div>
       </div>
     )
