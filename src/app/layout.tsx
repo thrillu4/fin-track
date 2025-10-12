@@ -1,4 +1,5 @@
 import { ThemeProvider } from '@/components/Dashboard/theme-provider'
+import { Toaster } from '@/components/ui/sonner'
 import type { Metadata } from 'next'
 import './globals.css'
 
@@ -30,6 +31,7 @@ export default function RootLayout({
           enableColorScheme
         >
           {children}
+          <Toaster richColors />
         </ThemeProvider>
       </body>
     </html>

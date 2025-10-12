@@ -21,10 +21,16 @@ export const AddCardFormSchema = z.object({
   type: z.enum(['Debit', 'Credit'], {
     error: 'Enter Debit or Credit',
   }),
-  name: z.string('Card Holder name is required!').min(6),
+  name: z
+    .string('Card Holder name is required!')
+    .min(6, { error: 'Must contain at least 6 characters' }),
   number: z
     .string('Please enter your card number')
     .regex(/^\d{16}$/, 'Card number must be 16 digits'),
+  cvv: z
+    .string('CVV is required')
+    .length(3, { error: 'Must contain 3 digits' })
+    .regex(/^\d+$/, 'Only digits'),
   expiration: z
     .string('Please fill this field')
     .regex(/^\d{4}$/, 'Card number must be 4 digits'),

@@ -20,8 +20,13 @@ import {
   InputOTPSeparator,
   InputOTPSlot,
 } from '@/components/ui/input-otp'
+import { createNewCard } from '@/lib/actions/createNewCard'
+import { useState } from 'react'
+import { toast } from 'sonner'
 
 const AddNewCardForm = () => {
+  const [serverError, setServerError] = useState('')
+  const [loading, setLoading] = useState(false)
   const form = useForm<AddCardFormValues>({
     resolver: zodResolver(AddCardFormSchema),
     defaultValues: {
@@ -30,22 +35,35 @@ const AddNewCardForm = () => {
       number: '',
       expiration: '',
       brand: 'Visa',
+      cvv: '',
     },
   })
 
-  function onSubmit(values: AddCardFormValues) {
-    console.log(values)
+  async function onSubmit(values: AddCardFormValues) {
+    setLoading(true)
+    const result = await createNewCard(values)
+
+    if (result.error) {
+      setServerError(result.error)
+      setLoading(false)
+    }
+
+    if (result.success) {
+      toast.success('Card Successfully Added!', {})
+      setLoading(false)
+      form.reset()
+    }
   }
   return (
     <div className="rounded-3xl bg-[var(--sidebar)] px-10 py-7">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
-          <div className="grid grid-cols-2 gap-8">
+          <div className="grid grid-cols-3 gap-8">
             <FormField
               control={form.control}
               name="number"
               render={({ field }) => (
-                <FormItem className="col-start-1 col-end-3">
+                <FormItem className="col-start-1 col-end-4">
                   <FormLabel>Card Number</FormLabel>
                   <FormControl>
                     <InputOTP {...field} maxLength={16}>
@@ -109,6 +127,27 @@ const AddNewCardForm = () => {
             />
             <FormField
               control={form.control}
+              name="cvv"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>CVV</FormLabel>
+                  <FormControl className="max-w-max">
+                    <Input
+                      inputMode="numeric"
+                      pattern="\d*"
+                      placeholder="***"
+                      {...field}
+                      type="password"
+                      maxLength={3}
+                    />
+                  </FormControl>
+
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
               name="type"
               render={({ field }) => (
                 <FormItem className="">
@@ -151,8 +190,11 @@ const AddNewCardForm = () => {
             />
           </div>
           <Button type="submit" className="mt-10 w-40 text-lg font-semibold">
-            Add Card
+            {loading ? 'Loading...' : 'Add Card'}
           </Button>
+          {serverError && (
+            <p className="text-destructive pt-2 text-sm">{serverError}</p>
+          )}
         </form>
       </Form>
     </div>
