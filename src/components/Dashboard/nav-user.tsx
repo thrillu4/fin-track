@@ -1,9 +1,7 @@
 'use client'
 import {
-  IconCreditCard,
   IconDotsVertical,
   IconLogout,
-  IconNotification,
   IconUserCircle,
 } from '@tabler/icons-react'
 
@@ -99,21 +97,6 @@ export function NavUser({ user }: { user: User | undefined }) {
                 <Link href={ROUTES.PROFILE} className="flex items-center gap-2">
                   <IconUserCircle />
                   Profile
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <Link href={ROUTES.BILLING} className="flex items-center gap-2">
-                  <IconCreditCard />
-                  Billing
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <Link
-                  href={ROUTES.NOTIFICATIONS}
-                  className="flex items-center gap-2"
-                >
-                  <IconNotification />
-                  Notifications
                 </Link>
               </DropdownMenuItem>
             </DropdownMenuGroup>

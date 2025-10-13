@@ -55,10 +55,10 @@ const AddNewCardForm = () => {
     }
   }
   return (
-    <div className="rounded-3xl bg-[var(--sidebar)] px-10 py-7">
+    <div className="rounded-3xl bg-[var(--sidebar)] px-10 py-10">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
-          <div className="grid grid-cols-3 gap-8">
+          <div className="grid grid-cols-3 gap-10">
             <FormField
               control={form.control}
               name="number"

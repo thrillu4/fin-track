@@ -16,25 +16,27 @@ import {
   ChartTooltipContent,
 } from '@/components/ui/chart'
 
-export const description = 'A linear line chart showing monthly revenue'
+export const description =
+  'A linear line chart showing yearly investment profit'
+
 interface ChartData {
-  month: string
-  revenue: number
+  year: string
+  profit: number
 }
 
 const chartConfig = {
-  revenue: {
-    label: 'Revenue',
+  profit: {
+    label: 'Profit',
     color: 'hsl(var(--chart-1))',
   },
 } satisfies ChartConfig
 
-export function MonthlyRevenue({ data }: { data: ChartData[] }) {
+export function YearlyProfit({ data }: { data: ChartData[] }) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Monthly Revenue</CardTitle>
-        <CardDescription>September - October 2025</CardDescription>
+        <CardTitle> Investment Profit</CardTitle>
+        <CardDescription>2021 - 2025</CardDescription>
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig}>
@@ -48,11 +50,10 @@ export function MonthlyRevenue({ data }: { data: ChartData[] }) {
           >
             <CartesianGrid vertical={false} />
             <XAxis
-              dataKey="month"
+              dataKey="year"
               tickLine={false}
               axisLine={false}
               tickMargin={8}
-              tickFormatter={value => value.slice(0, 3)}
             />
             <YAxis
               tickLine={false}
@@ -69,7 +70,7 @@ export function MonthlyRevenue({ data }: { data: ChartData[] }) {
               }
             />
             <Line
-              dataKey="revenue"
+              dataKey="profit"
               type="linear"
               stroke="var(--primary)"
               strokeWidth={2}

@@ -9,19 +9,14 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from '@/components/ui/sidebar'
-import { CircleQuestionMark, Search, Settings } from 'lucide-react'
 import { ROUTES } from '@/lib/routes'
+import { CircleQuestionMark, Search } from 'lucide-react'
 import Link from 'next/link'
 
 export function NavSecondary({
   ...props
 }: React.ComponentPropsWithoutRef<typeof SidebarGroup>) {
   const navSecondary = [
-    {
-      title: 'Settings',
-      url: ROUTES.SETTINGS,
-      icon: Settings,
-    },
     {
       title: 'Get Help',
       url: ROUTES.HELP,

@@ -43,7 +43,7 @@ const MyInvestments = async () => {
             </div>
           </div>
           <div className="flex-1 space-y-1">
-            <div>${inv.currentValue}</div>
+            <div>${inv.currentValue.toFixed(2)}</div>
             <div className="text-gray-400">Investment Value</div>
           </div>
           <div className="flex-1 space-y-1">

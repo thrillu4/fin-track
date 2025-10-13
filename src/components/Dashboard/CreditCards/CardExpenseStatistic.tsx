@@ -24,7 +24,7 @@ export function CardExpenseStatistic({ data }: { data: PropsData[] }) {
     return {
       category: obj.category,
       amount: +(obj._sum.amount ?? 0).toFixed(2),
-      fill: `var(--chart-${i + 1}`,
+      fill: `var(--chart-${i + 1})`,
     }
   })
 
@@ -32,7 +32,7 @@ export function CardExpenseStatistic({ data }: { data: PropsData[] }) {
     const key = item.category ?? `unknown-${i}`
     acc[key] = {
       label: item.category ?? 'Unknown',
-      color: `var(--chart-${(i % 5) + 1})`,
+      color: `var(--chart-${i + 1}`,
     }
     return acc
   }, {} as ChartConfig)
@@ -67,10 +67,11 @@ export function CardExpenseStatistic({ data }: { data: PropsData[] }) {
         </ChartContainer>
       </CardContent>
       <CardFooter className="mx-auto grid grid-cols-2 gap-4">
-        {data.slice(1).map((obj, i) => (
+        {data.map((obj, i) => (
           <div key={i} className="flex items-center justify-center gap-3">
             <div
-              className={`h-[15px] w-[15px] rounded-full bg-[var(--chart-${i + 1})]`}
+              style={{ backgroundColor: `var(--chart-${i + 1})` }}
+              className={`h-[15px] w-[15px] rounded-full`}
             />
             <div className="flex-1">{obj.category}</div>
           </div>

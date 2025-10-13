@@ -28,9 +28,6 @@ interface ExpenseData {
 }
 
 const chartConfig = {
-  percent: {
-    label: '%',
-  },
   Salary: {
     label: 'Salary',
     color: 'var(--chart-1)',
@@ -63,7 +60,7 @@ const chartConfig = {
 
 export function ChartPieLabelList() {
   const [chartData, setChartData] = React.useState<ExpenseData[] | null>(null)
-
+  console.log(chartData)
   React.useEffect(() => {
     const loadData = async () => {
       try {
@@ -109,19 +106,7 @@ export function ChartPieLabelList() {
           >
             <PieChart>
               <ChartTooltip
-                content={
-                  <ChartTooltipContent
-                    nameKey="percent"
-                    hideLabel
-                    formatter={(value, name, props) => {
-                      const payload = props.payload as ExpenseData
-                      return [
-                        `${value}% ($${payload.amount.toLocaleString()})`,
-                        payload.transaction,
-                      ]
-                    }}
-                  />
-                }
+                content={<ChartTooltipContent nameKey="key" hideLabel />}
               />
               <Pie data={chartData} dataKey="percent">
                 <LabelList

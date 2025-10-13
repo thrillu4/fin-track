@@ -1,11 +1,11 @@
 import { auth } from '@/auth'
 import FlexRowTabs from '@/components/Dashboard/FlexRowTabs'
-import { MonthlyRevenue } from '@/components/Dashboard/Investments/MonthlyRevenue'
 import MyInvestments from '@/components/Dashboard/Investments/MyInvestments'
 import TrendingStock from '@/components/Dashboard/Investments/TrendingStock'
 import { YearlyInvestment } from '@/components/Dashboard/Investments/YearlyInvestment'
-import { getMonthlyRevenue } from '@/lib/actions/getMontlyRevenue'
+import { YearlyProfit } from '@/components/Dashboard/Investments/YearlyProfit'
 import { getYearlyInvestment } from '@/lib/actions/getYearlyInvestment'
+import { getYearlyProfit } from '@/lib/actions/getYearlyProfit'
 import { prisma } from '@/lib/prisma'
 
 const Investments = async () => {
@@ -60,7 +60,8 @@ const Investments = async () => {
     },
   ]
 
-  const data = await getMonthlyRevenue()
+  const data = await getYearlyProfit()
+
   return (
     <>
       <div className="grid w-full grid-cols-6 gap-x-7 gap-y-6 px-10 py-8">
@@ -72,8 +73,10 @@ const Investments = async () => {
           <YearlyInvestment data={chartData} />
         </div>
         <div className="col-start-4 col-end-7">
-          <h3 className="mb-5 py-0.5 text-2xl font-bold">Monthly Revenue</h3>
-          <MonthlyRevenue data={data} />
+          <h3 className="mb-5 py-0.5 text-2xl font-bold">
+            Yearly Investment Profit
+          </h3>
+          <YearlyProfit data={data} />
         </div>
         <div className="col-start-1 col-end-5">
           <h3 className="mb-5 py-0.5 text-2xl font-bold">My Investments</h3>

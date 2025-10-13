@@ -34,7 +34,7 @@ export function YearlyInvestment({ data }: { data: ChartData[] }) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Yearly Total Investment</CardTitle>
+        <CardTitle> Total Investment</CardTitle>
         <CardDescription>2021 - 2025</CardDescription>
       </CardHeader>
       <CardContent>

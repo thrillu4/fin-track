@@ -9,11 +9,9 @@ export const ROUTES = {
   TRANSACTIONS: '/dashboard/transactions',
   ACCOUNTS: '/dashboard/accounts',
   INVESTMENTS: '/dashboard/investments',
-  CREDIT_CARDS: '/dashboard/credit-cards',
+  CREDIT_CARDS: '/dashboard/cards',
   LOANS: '/dashboard/loans',
-  SETTINGS: '/dashboard/settings',
   PROFILE: '/dashboard/profile',
-  BILLING: '/dashboard/billing',
   NOTIFICATIONS: '/dashboard/notifications',
   HELP: '/dashboard/help',
 }

@@ -34,8 +34,8 @@ async function main() {
   )
 
   for (const user of users) {
-    for (let i = 0; i < 2; i++) {
-      const account = await prisma.account.create({
+    for (let i = 0; i < 1; i++) {
+      const account = await prisma.userAccount.create({
         data: {
           userId: user.id,
           bankName: faker.company.name(),
@@ -51,7 +51,7 @@ async function main() {
       })
 
       // --- 3. CARDS ---
-      for (let j = 0; j < 2; j++) {
+      for (let j = 0; j < 5; j++) {
         await prisma.card.create({
           data: {
             userId: user.id,
@@ -72,11 +72,29 @@ async function main() {
       }
 
       // --- 4. TRANSACTIONS ---
-      for (let t = 0; t < 15; t++) {
+      const totalTransactions = 400
+      const cards = await prisma.card.findMany({
+        where: { accountId: account.id },
+      })
+      const cardDistribution = [0.4, 0.3, 0.2, 0.1]
+
+      function randomDate(from: Date, to: Date) {
+        return new Date(
+          from.getTime() + Math.random() * (to.getTime() - from.getTime()),
+        )
+      }
+
+      async function createTransaction(
+        userId: string,
+        accountId: string,
+        cardId: string,
+        date: Date,
+      ) {
         await prisma.transaction.create({
           data: {
-            userId: user.id,
-            accountId: account.id,
+            userId,
+            accountId,
+            cardId,
             type: faker.helpers.arrayElement(['income', 'expense', 'transfer']),
             category: faker.helpers.arrayElement([
               'Food',
@@ -92,13 +110,54 @@ async function main() {
               fractionDigits: 2,
             }),
             description: faker.commerce.productName(),
-            date: faker.date.recent({ days: 30 }),
+            date,
+            currency: 'USD',
           },
         })
       }
 
+      const transactionPromises = []
+
+      for (let i = 0; i < totalTransactions; i++) {
+        const rand = Math.random()
+        let cumulative = 0
+        let cardIndex = 0
+        for (let j = 0; j < cardDistribution.length; j++) {
+          cumulative += cardDistribution[j]
+          if (rand <= cumulative) {
+            cardIndex = j
+            break
+          }
+        }
+        const card = cards[cardIndex]
+
+        let date: Date
+        if (i < 200) {
+          date = randomDate(new Date(2021, 0, 1), new Date())
+        } else if (i < 300) {
+          const threeMonthsAgo = new Date()
+          threeMonthsAgo.setMonth(threeMonthsAgo.getMonth() - 3)
+          date = randomDate(threeMonthsAgo, new Date())
+        } else if (i < 360) {
+          const oneMonthAgo = new Date()
+          oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1)
+          date = randomDate(oneMonthAgo, new Date())
+        } else {
+          const oneWeekAgo = new Date()
+          oneWeekAgo.setDate(oneWeekAgo.getDate() - 7)
+          date = randomDate(oneWeekAgo, new Date())
+        }
+
+        transactionPromises.push(
+          createTransaction(user.id, account.id, card.id, date),
+        )
+      }
+
+      await Promise.all(transactionPromises)
+      console.log('💸 400 Transactions created successfully!')
+
       // --- 5. INVOICES ---
-      for (let inv = 0; inv < 5; inv++) {
+      for (let inv = 0; inv < 10; inv++) {
         await prisma.invoice.create({
           data: {
             userId: user.id,
@@ -118,7 +177,7 @@ async function main() {
       }
 
       // --- 6. INVESTMENTS ---
-      for (let inv = 0; inv < 5; inv++) {
+      for (let inv = 0; inv < 50; inv++) {
         const invested = faker.number.float({
           min: 500,
           max: 10000,
@@ -141,12 +200,13 @@ async function main() {
             currentValue: current,
             profitLoss: current - invested,
             currency: 'USD',
+            createdAt: randomDate(new Date(2021, 0, 1), new Date()),
           },
         })
       }
 
       // --- 7. LOANS ---
-      for (let l = 0; l < 3; l++) {
+      for (let l = 0; l < 8; l++) {
         const amount = faker.number.float({
           min: 1000,
           max: 20000,

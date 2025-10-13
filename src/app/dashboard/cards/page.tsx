@@ -15,6 +15,11 @@ const CreditCards = async () => {
 
   const user = await prisma.user.findUnique({
     where: { email },
+    include: {
+      _count: {
+        select: { cards: true },
+      },
+    },
   })
 
   const data = await prisma.transaction.groupBy({
@@ -38,7 +43,7 @@ const CreditCards = async () => {
       <div className="grid w-full grid-cols-6 gap-x-7 gap-y-6 p-6">
         <div className="col-start-1 col-end-7">
           <h3 className="mb-5 py-0.5 text-2xl font-bold">My Cards</h3>
-          <CreditCard take={6} />
+          <CreditCard take={user?._count.cards || 0} />
         </div>
         <div className="col-start-1 col-end-3">
           <h3 className="mb-5 py-0.5 text-2xl font-bold">
