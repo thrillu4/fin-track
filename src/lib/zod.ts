@@ -40,3 +40,14 @@ export const AddCardFormSchema = z.object({
 })
 
 export type AddCardFormValues = z.infer<typeof AddCardFormSchema>
+
+export const EditProfileSchema = z.object({
+  email: z.email('Enter valid email'),
+  name: z.string().min(3, { error: 'Minimum 3 characters' }),
+  currency: z.string('Only USD supported'),
+  location: z.string().optional(),
+  phone: z.string().min(5, { error: 'Too short for phone number' }),
+  bio: z.string().max(100, { error: '100 character max' }),
+})
+
+export type EditProfileType = z.infer<typeof EditProfileSchema>
