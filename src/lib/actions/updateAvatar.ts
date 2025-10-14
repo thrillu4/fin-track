@@ -22,7 +22,7 @@ export const updateAvatar = async (url: string) => {
     data: { image: url },
   })
 
-  if (!updateImage) throw new Error('Failed to update avatar!')
+  if (!updateImage) return { error: 'Failed to update avatar!' }
 
   revalidatePath(ROUTES.PROFILE)
 }

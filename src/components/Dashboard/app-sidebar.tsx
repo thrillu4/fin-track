@@ -15,11 +15,23 @@ import {
 } from '@/components/ui/sidebar'
 import { ROUTES } from '@/lib/routes'
 import Link from 'next/link'
+import { prisma } from '@/lib/prisma'
 
 export async function AppSidebar({
   ...props
 }: React.ComponentProps<typeof Sidebar>) {
-  const user = await auth()
+  const session = await auth()
+
+  if (!session?.user?.email) return
+
+  const email = session.user.email
+
+  const user = await prisma.user.findUnique({
+    where: { email },
+  })
+
+  if (!user) return
+
   return (
     <Sidebar collapsible="offcanvas" {...props}>
       <SidebarHeader>
@@ -59,7 +71,7 @@ export async function AppSidebar({
         <NavSecondary className="mt-auto" />
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={user?.user} />
+        <NavUser user={user} />
       </SidebarFooter>
     </Sidebar>
   )

@@ -60,7 +60,6 @@ const chartConfig = {
 
 export function ChartPieLabelList() {
   const [chartData, setChartData] = React.useState<ExpenseData[] | null>(null)
-  console.log(chartData)
   React.useEffect(() => {
     const loadData = async () => {
       try {

@@ -33,9 +33,8 @@ const Profile = async () => {
               <div className="relative h-[150px] w-[150px]">
                 <Image
                   src={user.image || '/dash/demo-logo.png'}
-                  width={150}
-                  height={150}
-                  className="rounded-full"
+                  fill
+                  className="rounded-full object-cover"
                   alt="avatar"
                 />
                 <UploadImage />
