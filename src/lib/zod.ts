@@ -4,7 +4,6 @@ export const signInSchema = z.object({
   email: z.email('Enter valid email').min(3, 'Enter valid email'),
   password: z
     .string('Password is required')
-    .min(1, 'Password is required')
     .min(8, 'Password must be more than 8 characters')
     .max(32, 'Password must be less than 32 characters'),
 })
@@ -51,3 +50,22 @@ export const EditProfileSchema = z.object({
 })
 
 export type EditProfileType = z.infer<typeof EditProfileSchema>
+
+export const ChangePasswordSchema = z
+  .object({
+    currentPassword: z
+      .string()
+      .min(8, 'Current password must be at least 8 characters'),
+    newPassword: z
+      .string()
+      .min(8, 'New password must be at least 8 characters'),
+    confirmNewPassword: z
+      .string()
+      .min(8, 'Confirm password must be at least 8 characters'),
+  })
+  .refine(data => data.newPassword === data.confirmNewPassword, {
+    message: 'Passwords do not match',
+    path: ['confirmNewPassword'],
+  })
+
+export type ChangePasswordType = z.infer<typeof ChangePasswordSchema>

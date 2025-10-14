@@ -1,16 +1,10 @@
 'use server'
 
-import { auth } from '@/auth'
 import { prisma } from '@/lib/prisma'
+import { checkUser } from '../userCheck'
 
 export async function getTransactions() {
-  const session = await auth()
-
-  if (!session?.user?.email) {
-    throw new Error('Unauthorized')
-  }
-
-  const email = session.user.email
+  const { email } = await checkUser()
 
   const transactions = await prisma.user.findUnique({
     where: {
@@ -49,13 +43,7 @@ export async function getTransactions() {
 }
 
 export async function getTransactionStats() {
-  const session = await auth()
-
-  if (!session?.user?.email) {
-    throw new Error('Unauthorized')
-  }
-
-  const email = session.user.email
+  const { email } = await checkUser()
 
   const transactions = await prisma.user.findUnique({
     where: {

@@ -1,10 +1,10 @@
 // app/actions/transactions.ts
 'use server'
 
-import { auth } from '@/auth'
 import { prisma } from '@/lib/prisma'
+import { endOfWeek, format, startOfWeek } from 'date-fns'
 import { eachDayOfInterval } from 'date-fns/eachDayOfInterval'
-import { startOfWeek, endOfWeek, format } from 'date-fns'
+import { checkUser } from '../userCheck'
 
 export type ChartData = {
   day: string
@@ -24,19 +24,7 @@ export async function getWeeklyTransactions(
   weekOffset: number = 0,
 ): Promise<WeeklyData> {
   try {
-    const session = await auth()
-
-    if (!session?.user?.email) {
-      throw new Error('Unauthorized')
-    }
-
-    const user = await prisma.user.findUnique({
-      where: { email: session.user.email },
-    })
-
-    if (!user) {
-      throw new Error('User not found')
-    }
+    const { user } = await checkUser()
 
     const recentTransactions = await prisma.transaction.findMany({
       where: {

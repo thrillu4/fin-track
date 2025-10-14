@@ -1,21 +1,11 @@
-import { auth } from '@/auth'
 import FlexRowTabs from '@/components/Dashboard/FlexRowTabs'
 import { LoansChart } from '@/components/Dashboard/Loans/LoansChart'
 import YourLoans from '@/components/Dashboard/Loans/YourLoans'
 import { prisma } from '@/lib/prisma'
+import { checkUser } from '@/lib/userCheck'
 
 const Loans = async () => {
-  const session = await auth()
-
-  if (!session?.user?.email) return
-
-  const email = session.user.email
-
-  const user = await prisma.user.findUnique({
-    where: { email },
-  })
-
-  if (!user) throw new Error('Unauthorize')
+  const { user } = await checkUser()
 
   const loansCategory = await prisma.loan.groupBy({
     where: { userId: user?.id },

@@ -1,4 +1,3 @@
-import { auth } from '@/auth'
 import FlexRowTabs from '@/components/Dashboard/FlexRowTabs'
 import MyInvestments from '@/components/Dashboard/Investments/MyInvestments'
 import TrendingStock from '@/components/Dashboard/Investments/TrendingStock'
@@ -7,13 +6,10 @@ import { YearlyProfit } from '@/components/Dashboard/Investments/YearlyProfit'
 import { getYearlyInvestment } from '@/lib/actions/getYearlyInvestment'
 import { getYearlyProfit } from '@/lib/actions/getYearlyProfit'
 import { prisma } from '@/lib/prisma'
+import { checkUser } from '@/lib/userCheck'
 
 const Investments = async () => {
-  const session = await auth()
-
-  if (!session?.user?.email) return
-
-  const email = session.user.email
+  const { email } = await checkUser()
 
   const user = await prisma.user.findUnique({
     where: { email },

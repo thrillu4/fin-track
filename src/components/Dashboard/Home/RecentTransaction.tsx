@@ -1,14 +1,12 @@
-import { auth } from '@/auth'
 import { prisma } from '@/lib/prisma'
+import { checkUser } from '@/lib/userCheck'
 import Image from 'next/image'
 
 const RecentTransaction = async () => {
-  const user = await auth()
-
-  if (!user?.user?.email) return
+  const { email } = await checkUser()
 
   const transaction = await prisma.user.findUnique({
-    where: { email: user.user.email },
+    where: { email },
     select: {
       transactions: { take: 3 },
     },

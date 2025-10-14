@@ -5,13 +5,10 @@ import { CardExpenseStatistic } from '@/components/Dashboard/CreditCards/CardExp
 import CardList from '@/components/Dashboard/CreditCards/CardList'
 import CardSetting from '@/components/Dashboard/CreditCards/CardSetting'
 import { prisma } from '@/lib/prisma'
+import { checkUser } from '@/lib/userCheck'
 
 const CreditCards = async () => {
-  const session = await auth()
-
-  if (!session?.user?.email) return
-
-  const email = session.user.email
+  const { email } = await checkUser()
 
   const user = await prisma.user.findUnique({
     where: { email },

@@ -1,16 +1,10 @@
 'use server'
 
-import { auth } from '@/auth'
 import { prisma } from '@/lib/prisma'
+import { checkUser } from '../userCheck'
 
 export async function getMonthlyExpenses() {
-  const session = await auth()
-
-  if (!session?.user?.email) {
-    throw new Error('Unauthorized')
-  }
-
-  const email = session.user.email
+  const { email } = await checkUser()
 
   const sixMonthsAgo = new Date()
   sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 6)

@@ -93,12 +93,12 @@ export function NavUser({ user }: { user: User }) {
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-              <DropdownMenuItem>
-                <Link href={ROUTES.PROFILE} className="flex items-center gap-2">
+              <Link href={ROUTES.PROFILE}>
+                <DropdownMenuItem className="flex items-center gap-2">
                   <IconUserCircle />
                   Profile
-                </Link>
-              </DropdownMenuItem>
+                </DropdownMenuItem>
+              </Link>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuItem

@@ -1,6 +1,6 @@
 'use server'
-import { auth } from '@/auth'
 import { prisma } from '../prisma'
+import { checkUser } from '../userCheck'
 
 interface ChartDataPoint {
   date: string
@@ -9,13 +9,7 @@ interface ChartDataPoint {
 }
 
 export async function getBankActivityData(days: number = 90) {
-  const session = await auth()
-
-  if (!session?.user?.email) {
-    throw new Error('Unauthorized')
-  }
-
-  const email = session.user.email
+  const { email } = await checkUser()
 
   const startDate = new Date()
   startDate.setDate(startDate.getDate() - days)

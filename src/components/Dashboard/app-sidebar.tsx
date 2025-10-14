@@ -1,6 +1,5 @@
 import * as React from 'react'
 
-import { auth } from '@/auth'
 import { NavMain } from '@/components/Dashboard/nav-main'
 import { NavSecondary } from '@/components/Dashboard/nav-secondary'
 import { NavUser } from '@/components/Dashboard/nav-user'
@@ -14,23 +13,13 @@ import {
   SidebarMenuItem,
 } from '@/components/ui/sidebar'
 import { ROUTES } from '@/lib/routes'
+import { checkUser } from '@/lib/userCheck'
 import Link from 'next/link'
-import { prisma } from '@/lib/prisma'
 
 export async function AppSidebar({
   ...props
 }: React.ComponentProps<typeof Sidebar>) {
-  const session = await auth()
-
-  if (!session?.user?.email) return
-
-  const email = session.user.email
-
-  const user = await prisma.user.findUnique({
-    where: { email },
-  })
-
-  if (!user) return
+  const { user } = await checkUser()
 
   return (
     <Sidebar collapsible="offcanvas" {...props}>

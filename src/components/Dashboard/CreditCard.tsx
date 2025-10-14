@@ -1,12 +1,12 @@
-import { auth } from '@/auth'
 import { prisma } from '@/lib/prisma'
+import { checkUser } from '@/lib/userCheck'
 import Image from 'next/image'
 
 const CreditCard = async ({ take }: { take: number }) => {
-  const user = await auth()
-  if (!user?.user?.email) return
+  const { email, user } = await checkUser()
+
   const cards = await prisma.user.findUnique({
-    where: { email: user.user.email },
+    where: { email },
     select: {
       cards: { take },
     },
@@ -39,7 +39,7 @@ const CreditCard = async ({ take }: { take: number }) => {
             <div className="flex items-center gap-20">
               <div>
                 <div className="opacity-70">Card Holder</div>
-                <div className="font-medium">{user.user?.name}</div>
+                <div className="font-medium">{user.name}</div>
               </div>
               <div>
                 <div className="opacity-70">Expiry</div>

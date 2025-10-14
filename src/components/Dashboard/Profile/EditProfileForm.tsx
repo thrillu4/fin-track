@@ -11,16 +11,25 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
+import { editUserData } from '@/lib/actions/editUserData'
 import { EditProfileSchema, EditProfileType } from '@/lib/zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Profile, User } from '@prisma/client'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { toast } from 'sonner'
 
 interface UserAccount extends User {
   profile: Profile | null
 }
 
-const EditProfileForm = ({ user }: { user: UserAccount }) => {
+interface ProfileProps {
+  user: UserAccount
+  protection: boolean
+}
+
+const EditProfileForm = ({ user, protection }: ProfileProps) => {
+  const [loading, setLoading] = useState(false)
   const { name, email } = user
   const form = useForm<EditProfileType>({
     resolver: zodResolver(EditProfileSchema),
@@ -35,8 +44,11 @@ const EditProfileForm = ({ user }: { user: UserAccount }) => {
     mode: 'onChange',
   })
 
-  function onSubmit(values: EditProfileType) {
-    console.log(values)
+  async function onSubmit(data: EditProfileType) {
+    setLoading(true)
+    await editUserData(data)
+    toast.success('Profile updated successfully!')
+    setLoading(false)
   }
 
   return (
@@ -62,6 +74,7 @@ const EditProfileForm = ({ user }: { user: UserAccount }) => {
         <FormField
           control={form.control}
           name="email"
+          disabled={protection}
           render={({ field }) => (
             <FormItem>
               <FormLabel>Email Address</FormLabel>
@@ -69,7 +82,9 @@ const EditProfileForm = ({ user }: { user: UserAccount }) => {
                 <Input placeholder="example@email.com" {...field} />
               </FormControl>
               <FormDescription>
-                This is your public email address.
+                {protection
+                  ? 'You cannot change email address as a demo user '
+                  : 'This is your public email address.'}
               </FormDescription>
               <FormMessage />
             </FormItem>
@@ -149,10 +164,10 @@ const EditProfileForm = ({ user }: { user: UserAccount }) => {
         <div className="col-span-2 flex justify-end">
           <Button
             disabled={!form.formState.isDirty || !form.formState.isValid}
-            className="flex w-1/5 rounded-3xl text-lg font-bold"
+            className="flex w-1/6 rounded-3xl font-bold"
             type="submit"
           >
-            Save Changes
+            {loading ? 'Changing...' : 'Save Changes'}
           </Button>
         </div>
       </form>

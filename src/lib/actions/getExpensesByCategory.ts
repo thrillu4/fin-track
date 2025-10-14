@@ -1,7 +1,7 @@
 'use server'
 
-import { auth } from '@/auth'
 import { prisma } from '@/lib/prisma'
+import { checkUser } from '../userCheck'
 
 interface ExpenseByCategory {
   key: string
@@ -22,13 +22,7 @@ const categoryColors: Record<string, string> = {
 }
 
 export async function getExpensesByCategory() {
-  const session = await auth()
-
-  if (!session?.user?.email) {
-    throw new Error('Unauthorized')
-  }
-
-  const email = session.user.email
+  const { email } = await checkUser()
 
   const currentYear = new Date().getFullYear()
   const startDate = new Date(currentYear, 0, 1)

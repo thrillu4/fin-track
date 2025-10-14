@@ -1,7 +1,7 @@
 'use server'
 
-import { auth } from '@/auth'
 import { prisma } from '../prisma'
+import { checkUser } from '../userCheck'
 
 interface CardFormData {
   brand: 'Visa' | 'MasterCard'
@@ -14,17 +14,13 @@ interface CardFormData {
 
 export const createNewCard = async (obj: CardFormData) => {
   const { brand, expiration, name, number, type, cvv } = obj
-  const session = await auth()
-
-  if (!session?.user?.email) throw new Error('Unauthorize')
+  const { email } = await checkUser()
 
   if (!brand || !expiration || !name || !number || !type || !cvv) {
     return {
       error: 'Incorrect data information, please check input',
     }
   }
-
-  const email = session.user.email
 
   const user = await prisma.user.findUnique({
     where: { email },

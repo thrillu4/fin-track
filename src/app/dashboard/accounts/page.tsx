@@ -1,21 +1,17 @@
-import { auth } from '@/auth'
-import CreditCard from '@/components/Dashboard/CreditCard'
 import { DebitCredit } from '@/components/Dashboard/Accounts/DebitCredit'
-import FlexRowTabs from '@/components/Dashboard/FlexRowTabs'
 import InvoicesSent from '@/components/Dashboard/Accounts/InvoicesSent'
 import LastTransaction from '@/components/Dashboard/Accounts/LastTransaction'
+import CreditCard from '@/components/Dashboard/CreditCard'
+import FlexRowTabs from '@/components/Dashboard/FlexRowTabs'
 import { Button } from '@/components/ui/button'
 import { getWeeklyTransactions } from '@/lib/actions/getWeeklyTransactions'
 import { prisma } from '@/lib/prisma'
 import { ROUTES } from '@/lib/routes'
+import { checkUser } from '@/lib/userCheck'
 import Link from 'next/link'
 
 const Accounts = async () => {
-  const session = await auth()
-
-  if (!session?.user?.email) return
-
-  const email = session.user.email
+  const { email } = await checkUser()
 
   const user = await prisma.user.findUnique({
     where: { email },

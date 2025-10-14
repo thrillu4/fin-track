@@ -1,24 +1,27 @@
-import { auth } from '@/auth'
+import ChangePasswordForm from '@/components/Dashboard/Profile/ChangePasswordForm'
 import EditProfileForm from '@/components/Dashboard/Profile/EditProfileForm'
 import UploadImage from '@/components/Dashboard/Profile/UploadImage'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { prisma } from '@/lib/prisma'
+import { checkUser } from '@/lib/userCheck'
+import { LockKeyhole } from 'lucide-react'
 
 import Image from 'next/image'
 
 const Profile = async () => {
-  const session = await auth()
-
-  if (!session?.user?.email) return
-
-  const email = session.user.email
+  const { email } = await checkUser()
 
   const user = await prisma.user.findUnique({
     where: { email },
     include: { profile: true },
   })
 
-  if (!user) return
+  if (!user) throw new Error('User not found!')
+
+  let protectedDemoEmail = false
+  if (user.email === process.env.DEMO_USER_EMAIL) {
+    protectedDemoEmail = true
+  } // demo user protection
 
   return (
     <div className="px-10 py-8">
@@ -40,11 +43,19 @@ const Profile = async () => {
                 <UploadImage />
               </div>
               <div>
-                <EditProfileForm user={user} />
+                <EditProfileForm user={user} protection={protectedDemoEmail} />
               </div>
             </div>
           </TabsContent>
-          <TabsContent value="password">Change your password here.</TabsContent>
+          <TabsContent
+            value="password"
+            className="grid grid-cols-2 gap-14 pt-12"
+          >
+            <ChangePasswordForm />
+            <div className="flex items-center justify-center rounded-4xl bg-[var(--secondary)]">
+              <LockKeyhole className="h-full w-full max-w-[200px] animate-pulse text-[var(--primary)]" />
+            </div>
+          </TabsContent>
         </Tabs>
       </div>
     </div>

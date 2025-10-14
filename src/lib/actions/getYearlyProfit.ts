@@ -1,20 +1,10 @@
 'use server'
 
-import { auth } from '@/auth'
 import { prisma } from '../prisma'
+import { checkUser } from '../userCheck'
 
 export const getYearlyProfit = async () => {
-  const session = await auth()
-
-  if (!session?.user?.email) throw new Error('Unauthorized')
-
-  const email = session.user.email
-
-  const user = await prisma.user.findUnique({
-    where: { email },
-  })
-
-  if (!user) throw new Error('Unauthorized')
+  const { user } = await checkUser()
 
   const investments = await prisma.investment.findMany({
     where: {
