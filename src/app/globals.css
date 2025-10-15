@@ -152,14 +152,25 @@
   }
 }
 
-.theme-default,
-.theme-default-scaled {
+.theme-neutral,
+.theme-neutral-scaled {
   --primary: var(--color-neutral-600);
   --primary-foreground: var(--color-neutral-50);
 
   @variant dark {
     --primary: var(--color-neutral-500);
     --primary-foreground: var(--color-neutral-50);
+  }
+}
+
+.theme-indigo,
+.theme-indigo-scaled {
+  --primary: var(--color-indigo-600);
+  --primary-foreground: var(--color-indigo-50);
+
+  @variant dark {
+    --primary: var(--color-indigo-500);
+    --primary-foreground: var(--color-indigo-50);
   }
 }
 
@@ -260,17 +271,6 @@
   @variant dark {
     --primary: var(--color-purple-800);
     --primary-foreground: var(--color-purple-50);
-  }
-}
-
-.theme-indigo,
-.theme-indigo-scaled {
-  --primary: var(--color-indigo-600);
-  --primary-foreground: var(--color-indigo-50);
-
-  @variant dark {
-    --primary: var(--color-indigo-500);
-    --primary-foreground: var(--color-indigo-50);
   }
 }
 

@@ -69,3 +69,15 @@ export const ChangePasswordSchema = z
   })
 
 export type ChangePasswordType = z.infer<typeof ChangePasswordSchema>
+
+export const ContactFormSchema = z.object({
+  name: z.string().min(3, { error: 'Minimum 3 characters' }),
+  email: z.email('Enter valid email'),
+  message: z
+    .string()
+    .min(5, {
+      error: 'Please write your message first, at least 5 characters.',
+    }),
+})
+
+export type ContactFormType = z.infer<typeof ContactFormSchema>

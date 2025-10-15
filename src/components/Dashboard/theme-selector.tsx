@@ -6,7 +6,6 @@ import {
   SelectContent,
   SelectGroup,
   SelectItem,
-  SelectLabel,
   SelectSeparator,
   SelectTrigger,
   SelectValue,
@@ -15,9 +14,10 @@ import { useThemeConfig } from './active-theme'
 
 const DEFAULT_THEMES = [
   {
-    name: 'Default',
-    value: 'default',
+    name: 'Indigo',
+    value: 'indigo',
   },
+
   {
     name: 'Blue',
     value: 'blue',
@@ -47,12 +47,12 @@ const DEFAULT_THEMES = [
     value: 'green',
   },
   {
-    name: 'Amber',
-    value: 'amber',
+    name: 'Neutral',
+    value: 'neutral',
   },
   {
-    name: 'Indigo',
-    value: 'indigo',
+    name: 'Amber',
+    value: 'amber',
   },
 ]
 
@@ -78,7 +78,6 @@ export function ThemeSelector() {
         </SelectTrigger>
         <SelectContent align="end">
           <SelectGroup>
-            <SelectLabel>Default</SelectLabel>
             {DEFAULT_THEMES.map(theme => (
               <SelectItem key={theme.name} value={theme.value}>
                 {theme.name}
