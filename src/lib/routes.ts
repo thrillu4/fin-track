@@ -12,6 +12,5 @@ export const ROUTES = {
   CREDIT_CARDS: '/dashboard/cards',
   LOANS: '/dashboard/loans',
   PROFILE: '/dashboard/profile',
-  NOTIFICATIONS: '/dashboard/notifications',
   HELP: '/dashboard/help',
 }
