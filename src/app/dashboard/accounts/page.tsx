@@ -65,13 +65,13 @@ const Accounts = async () => {
   ]
   return (
     <>
-      <div className="grid w-full grid-cols-6 gap-x-7 gap-y-6 px-10 py-8">
+      <div className="w-full gap-x-7 gap-y-6 px-10 py-8 sm:grid sm:grid-cols-6">
         <FlexRowTabs data={accounts} />
-        <div className="col-start-1 col-end-5">
+        <div className="sm:col-start-1 sm:col-end-5">
           <h3 className="mb-5 py-0.5 text-2xl font-bold">Resent Transaction</h3>
           <LastTransaction />
         </div>
-        <div className="col-start-5 col-end-7">
+        <div className="sm:col-start-5 sm:col-end-7">
           <div className="mb-5 flex items-center justify-between">
             <h3 className="text-2xl font-bold">My Cards</h3>
             <Link href={ROUTES.CREDIT_CARDS}>
@@ -82,13 +82,13 @@ const Accounts = async () => {
           </div>
           <CreditCard take={1} />
         </div>
-        <div className="col-start-1 col-end-5">
+        <div className="sm:col-start-1 sm:col-end-5">
           <h3 className="mb-5 py-0.5 text-2xl font-bold">
             Debit & Credit Overview
           </h3>
           <DebitCredit initialData={initialData} />
         </div>
-        <div className="col-start-5 col-end-7">
+        <div className="sm:col-start-5 sm:col-end-7">
           <h3 className="mb-6 text-2xl font-bold">Invoices Sent</h3>
           <InvoicesSent />
         </div>

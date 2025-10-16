@@ -6,6 +6,7 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  useSidebar,
 } from '@/components/ui/sidebar'
 import { ROUTES } from '@/lib/routes'
 import {
@@ -20,6 +21,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
 export function NavMain() {
+  const { isMobile, setOpenMobile } = useSidebar()
   const tabs = [
     {
       title: 'Dashboard',
@@ -61,6 +63,11 @@ export function NavMain() {
             <SidebarMenuItem key={tab.title}>
               <Link href={tab.url} className="w-full">
                 <SidebarMenuButton
+                  onClick={() => {
+                    if (isMobile) {
+                      setOpenMobile(false)
+                    }
+                  }}
                   tooltip={tab.title}
                   className={` ${
                     pathName === tab.url

@@ -1,11 +1,13 @@
 'use client'
 
+import { Palette } from 'lucide-react'
 import { Label } from '../ui/label'
 import {
   Select,
   SelectContent,
   SelectGroup,
   SelectItem,
+  SelectLabel,
   SelectSeparator,
   SelectTrigger,
   SelectValue,
@@ -68,16 +70,21 @@ export function ThemeSelector() {
         <SelectTrigger
           id="theme-selector"
           size="sm"
-          className="justify-start *:data-[slot=select-value]:w-12"
+          className="h-10 justify-start px-1 *:data-[slot=select-value]:w-12 sm:h-8 sm:px-2"
         >
           <span className="text-muted-foreground hidden sm:block">
             Select a theme:
           </span>
-          <span className="text-muted-foreground block sm:hidden">Theme</span>
-          <SelectValue placeholder="Select a theme" />
+          <span className="text-muted-foreground block sm:hidden">
+            <Palette className="text-primary" />
+          </span>
+          <div className="hidden sm:block">
+            <SelectValue placeholder="Select a theme" />
+          </div>
         </SelectTrigger>
         <SelectContent align="end">
           <SelectGroup>
+            <SelectLabel>Theme</SelectLabel>
             {DEFAULT_THEMES.map(theme => (
               <SelectItem key={theme.name} value={theme.value}>
                 {theme.name}

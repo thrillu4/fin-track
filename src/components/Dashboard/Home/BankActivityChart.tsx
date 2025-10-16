@@ -24,7 +24,14 @@ import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
 import { getBankActivityData } from '@/lib/actions/getBankActivity'
 import { LoaderCircle } from 'lucide-react'
 import { useEffect, useState } from 'react'
-import { Area, AreaChart, CartesianGrid, XAxis, YAxis } from 'recharts'
+import {
+  Area,
+  AreaChart,
+  CartesianGrid,
+  ResponsiveContainer,
+  XAxis,
+  YAxis,
+} from 'recharts'
 
 const chartConfig = {
   activity: {
@@ -88,7 +95,7 @@ export default function BankActivityChart() {
       <CardHeader className="flex flex-col gap-2 space-y-0 border-b py-5 sm:flex-row">
         <div className="flex flex-1 flex-col justify-center gap-1">
           <CardTitle>Bank Activity</CardTitle>
-          <CardDescription>
+          <CardDescription className="text-xs md:text-base">
             Income and expenses for selected period
           </CardDescription>
         </div>
@@ -132,128 +139,145 @@ export default function BankActivityChart() {
           </div>
         ) : (
           <>
-            <div className="mb-6 grid gap-4 sm:grid-cols-3">
-              <div className="rounded-lg border p-4">
-                <div className="text-muted-foreground text-sm">Income</div>
-                <div className="text-2xl font-bold">
+            <div className="mb-6 flex justify-between sm:grid sm:grid-cols-3 sm:justify-baseline sm:gap-4">
+              <div className="rounded-lg border p-2 sm:p-4">
+                <div className="text-muted-foreground text-xs sm:text-sm">
+                  Income
+                </div>
+                <div className="font-bold md:text-2xl">
                   {formatCurrency(totalIncome)}
                 </div>
               </div>
-              <div className="rounded-lg border p-4">
-                <div className="text-muted-foreground text-sm">Expenses</div>
-                <div className="text-2xl font-bold">
+              <div className="rounded-lg border p-2 sm:p-4">
+                <div className="text-muted-foreground text-xs sm:text-sm">
+                  Expenses
+                </div>
+                <div className="font-bold md:text-2xl">
                   {formatCurrency(totalExpenses)}
                 </div>
               </div>
-              <div className="rounded-lg border p-4">
-                <div className="text-muted-foreground text-sm">Balance</div>
-                <div className="text-2xl font-bold">
+              <div className="rounded-lg border p-2 sm:p-4">
+                <div className="text-muted-foreground text-xs sm:text-sm">
+                  Balance
+                </div>
+                <div className="font-bold md:text-2xl">
                   {formatCurrency(balance)}
                 </div>
               </div>
             </div>
             <ChartContainer
               config={chartConfig}
-              className="max-h-[250px] w-full"
+              className="h-[250px] w-full md:max-h-[250px]"
             >
-              {chartData.length > 0 ? (
-                <AreaChart data={chartData}>
-                  <defs>
-                    <linearGradient id="fillIncome" x1="0" y1="0" x2="0" y2="1">
-                      <stop
-                        offset="5%"
-                        stopColor="var(--color-income)"
-                        stopOpacity={0.8}
-                      />
-                      <stop
-                        offset="95%"
-                        stopColor="var(--color-income)"
-                        stopOpacity={0.1}
-                      />
-                    </linearGradient>
-                    <linearGradient
-                      id="fillExpenses"
-                      x1="0"
-                      y1="0"
-                      x2="0"
-                      y2="1"
-                    >
-                      <stop
-                        offset="5%"
-                        stopColor="var(--color-expenses)"
-                        stopOpacity={0.8}
-                      />
-                      <stop
-                        offset="95%"
-                        stopColor="var(--color-expenses)"
-                        stopOpacity={0.1}
-                      />
-                    </linearGradient>
-                  </defs>
-                  <CartesianGrid
-                    vertical={false}
-                    strokeDasharray="3 3"
-                    opacity={0.3}
-                  />
-                  <XAxis
-                    dataKey="date"
-                    tickLine={false}
-                    axisLine={false}
-                    tickMargin={8}
-                    minTickGap={32}
-                    tickFormatter={value => {
-                      const date = new Date(value)
-                      return date.toLocaleDateString('en-US', {
-                        month: 'short',
-                        day: 'numeric',
-                      })
-                    }}
-                  />
-                  <YAxis
-                    tickLine={false}
-                    axisLine={false}
-                    tickMargin={8}
-                    tickFormatter={value => `$${(value / 1000).toFixed(0)}k`}
-                  />
-                  <ChartTooltip
-                    cursor={false}
-                    content={
-                      <ChartTooltipContent
-                        labelFormatter={value => {
-                          return new Date(value).toLocaleDateString('en-US', {
-                            month: 'long',
-                            day: 'numeric',
-                            year: 'numeric',
-                          })
-                        }}
-                        formatter={(value, name) => [
-                          formatCurrency(Number(value)),
-                          name === 'income' ? 'Income' : 'Expenses',
-                        ]}
-                        indicator="dot"
-                      />
-                    }
-                  />
-                  <Area
-                    dataKey="income"
-                    type="monotone"
-                    fill="url(#fillIncome)"
-                    stroke="var(--color-income)"
-                    strokeWidth={2}
-                  />
-                  <Area
-                    dataKey="expenses"
-                    type="monotone"
-                    fill="url(#fillExpenses)"
-                    stroke="var(--color-expenses)"
-                    strokeWidth={2}
-                  />
-                </AreaChart>
-              ) : (
-                <div className="text-muted-foreground flex items-center justify-center">
-                  No data available
-                </div>
-              )}
+              <ResponsiveContainer width="100%" height="100%">
+                {chartData.length > 0 ? (
+                  <AreaChart
+                    data={chartData}
+                    margin={{ top: 10, right: 10, left: -20, bottom: 0 }}
+                  >
+                    <defs>
+                      <linearGradient
+                        id="fillIncome"
+                        x1="0"
+                        y1="0"
+                        x2="0"
+                        y2="1"
+                      >
+                        <stop
+                          offset="5%"
+                          stopColor="var(--color-income)"
+                          stopOpacity={0.8}
+                        />
+                        <stop
+                          offset="95%"
+                          stopColor="var(--color-income)"
+                          stopOpacity={0.1}
+                        />
+                      </linearGradient>
+                      <linearGradient
+                        id="fillExpenses"
+                        x1="0"
+                        y1="0"
+                        x2="0"
+                        y2="1"
+                      >
+                        <stop
+                          offset="5%"
+                          stopColor="var(--color-expenses)"
+                          stopOpacity={0.8}
+                        />
+                        <stop
+                          offset="95%"
+                          stopColor="var(--color-expenses)"
+                          stopOpacity={0.1}
+                        />
+                      </linearGradient>
+                    </defs>
+                    <CartesianGrid
+                      vertical={false}
+                      strokeDasharray="3 3"
+                      opacity={0.3}
+                    />
+                    <XAxis
+                      dataKey="date"
+                      tickLine={false}
+                      axisLine={false}
+                      tickMargin={8}
+                      minTickGap={32}
+                      tickFormatter={value => {
+                        const date = new Date(value)
+                        return date.toLocaleDateString('en-US', {
+                          month: 'short',
+                          day: 'numeric',
+                        })
+                      }}
+                    />
+                    <YAxis
+                      tickLine={false}
+                      axisLine={false}
+                      tickMargin={8}
+                      tickFormatter={value => `$${(value / 1000).toFixed(0)}k`}
+                    />
+                    <ChartTooltip
+                      cursor={false}
+                      content={
+                        <ChartTooltipContent
+                          labelFormatter={value => {
+                            return new Date(value).toLocaleDateString('en-US', {
+                              month: 'long',
+                              day: 'numeric',
+                              year: 'numeric',
+                            })
+                          }}
+                          formatter={(value, name) => [
+                            formatCurrency(Number(value)),
+                            name === 'income' ? 'Income' : 'Expenses',
+                          ]}
+                          indicator="dot"
+                        />
+                      }
+                    />
+                    <Area
+                      dataKey="income"
+                      type="monotone"
+                      fill="url(#fillIncome)"
+                      stroke="var(--color-income)"
+                      strokeWidth={2}
+                    />
+                    <Area
+                      dataKey="expenses"
+                      type="monotone"
+                      fill="url(#fillExpenses)"
+                      stroke="var(--color-expenses)"
+                      strokeWidth={2}
+                    />
+                  </AreaChart>
+                ) : (
+                  <div className="text-muted-foreground flex items-center justify-center">
+                    No data available
+                  </div>
+                )}
+              </ResponsiveContainer>
             </ChartContainer>
           </>
         )}

@@ -55,12 +55,12 @@ const CreditCard = async ({ take }: { take: number }) => {
           return (
             <div
               key={card.id}
-              className="bg-primary flex min-h-[235px] w-full max-w-[350px] flex-col justify-between rounded-3xl p-6 tracking-widest text-white"
+              className="bg-primary flex max-h-[265px] w-full flex-col gap-y-6 rounded-3xl p-5 tracking-widest text-white sm:justify-between sm:p-6 md:max-w-[350px]"
             >
               <div className="flex items-center justify-between">
                 <div>
-                  <div className="opacity-70">Balance</div>
-                  <div className="text-xl">${card.balance}</div>
+                  <div className="text-xs opacity-70 sm:text-base">Balance</div>
+                  <div className="sm:text-xl">${card.balance}</div>
                 </div>
                 <Image
                   src={'/dash/emv.png'}
@@ -69,18 +69,22 @@ const CreditCard = async ({ take }: { take: number }) => {
                   height={34}
                 />
               </div>
-              <div className="flex items-center gap-20">
+              <div className="flex items-center gap-14 sm:gap-20">
                 <div>
-                  <div className="opacity-70">Card Holder</div>
-                  <div className="font-medium">{user.name}</div>
+                  <div className="text-xs opacity-70 sm:text-base">
+                    Card Holder
+                  </div>
+                  <div className="text-sm font-medium sm:text-base">
+                    {user.name}
+                  </div>
                 </div>
                 <div>
-                  <div className="opacity-70">Expiry</div>
-                  <div className="font-medium">{`${card.expiryMonth}/${card.expiryYear.toString().slice(-2)}`}</div>
+                  <div className="text-xs opacity-70 sm:text-base">Expiry</div>
+                  <div className="text-sm font-medium sm:text-base">{`${card.expiryMonth}/${card.expiryYear.toString().slice(-2)}`}</div>
                 </div>
               </div>
               <div className="flex items-center justify-between border-t-2 pt-4">
-                <div className="text-[22px] font-bold">{hiddenNumber}</div>
+                <div className="font-bold sm:text-[22px]">{hiddenNumber}</div>
                 {card.cardType === 'Visa' ? (
                   <Image
                     src={'/dash/visa.png'}

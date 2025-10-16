@@ -188,7 +188,7 @@ export function DataTable() {
   }
 
   return (
-    <div className="flex w-full flex-col gap-6 p-4 lg:p-6">
+    <div className="flex w-full flex-col gap-6 sm:p-4 lg:p-6">
       <div className="flex flex-col gap-4">
         <div className="flex items-center justify-between">
           <div>

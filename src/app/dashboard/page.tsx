@@ -11,10 +11,10 @@ import Link from 'next/link'
 export default async function Page() {
   return (
     <>
-      <div className="grid w-full grid-cols-6 gap-x-7 gap-y-6 p-6">
-        <div className="col-start-1 col-end-5">
+      <div className="grid w-full grid-cols-1 gap-x-7 gap-y-6 p-6 md:grid-cols-6">
+        <div className="md:col-start-1 md:col-end-5">
           <div className="mb-5 flex items-center justify-between">
-            <h3 className="text-2xl font-bold">My Cards</h3>
+            <h3 className="text-xl font-bold md:text-2xl">My Cards</h3>
             <Link href={ROUTES.CREDIT_CARDS}>
               <Button variant={'link'} className="py-0">
                 See All
@@ -23,25 +23,35 @@ export default async function Page() {
           </div>
           <CreditCard take={4} />
         </div>
-        <div className="col-start-5 col-end-7">
-          <h3 className="mb-5 py-0.5 text-2xl font-bold">Resent Transaction</h3>
+        <div className="md:col-start-5 md:col-end-7">
+          <h3 className="mb-5 py-0.5 text-xl font-bold md:text-2xl">
+            Resent Transaction
+          </h3>
           <RecentTransaction />
         </div>
-        <div className="col-start-1 col-end-5">
-          <h3 className="mb-5 py-0.5 text-2xl font-bold">Your Activity</h3>
+        <div className="md:col-start-1 md:col-end-5">
+          <h3 className="mb-5 py-0.5 text-xl font-bold md:text-2xl">
+            Your Activity
+          </h3>
           <BankActivityChart />
         </div>
-        <div className="col-start-5 col-end-7">
-          <h3 className="mb-5 py-0.5 text-2xl font-bold">Expense Statistics</h3>
+        <div className="md:col-start-5 md:col-end-7">
+          <h3 className="mb-5 py-0.5 text-xl font-bold md:text-2xl">
+            Expense Statistics
+          </h3>
           <ChartPieLabelList />
         </div>
-        <div className="col-start-1 col-end-3">
-          <h3 className="mb-5 py-0.5 text-2xl font-bold">Quick Transfer</h3>
+        <div className="md:col-start-1 md:col-end-3">
+          <h3 className="mb-5 py-0.5 text-xl font-bold md:text-2xl">
+            Quick Transfer
+          </h3>
 
           <QuickTransfer />
         </div>
-        <div className="col-start-3 col-end-7">
-          <h3 className="mb-5 py-0.5 text-2xl font-bold">Balance History</h3>
+        <div className="md:col-start-3 md:col-end-7">
+          <h3 className="mb-5 py-0.5 text-xl font-bold md:text-2xl">
+            Balance History
+          </h3>
           <BalanceHistory />
         </div>
       </div>

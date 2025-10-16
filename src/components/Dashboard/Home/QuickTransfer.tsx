@@ -56,7 +56,7 @@ const QuickTransfer = () => {
   }
 
   return (
-    <div className="mr-5 py-9 pr-6 pl-1">
+    <div className="mr-5 py-9 pl-1 sm:pr-6">
       <Carousel
         opts={{
           loop: true,
@@ -66,7 +66,7 @@ const QuickTransfer = () => {
           {transfers.map(item => (
             <CarouselItem
               key={item.id}
-              className={`${picked === item.id ? 'border-primary rounded-2xl border-4' : 'border-4 border-transparent'} flex cursor-pointer flex-col items-center justify-center gap-4 py-2 pl-0 select-none md:basis-1/2 lg:basis-1/3`}
+              className={`${picked === item.id ? 'border-primary rounded-2xl border-4' : 'border-4 border-transparent'} flex basis-1/2 cursor-pointer flex-col items-center justify-center gap-4 py-2 pl-0 select-none md:basis-1/2 lg:basis-1/3`}
               onClick={() =>
                 item.id === picked ? setPicked(null) : setPicked(item.id)
               }
@@ -83,7 +83,7 @@ const QuickTransfer = () => {
       </Carousel>
       <form
         onSubmit={handleSend}
-        className="mt-8 flex items-center justify-between"
+        className="mt-8 flex flex-col items-center justify-between gap-2 sm:flex-row"
       >
         <div className="ml-5 text-sm opacity-60">Write Amount</div>
         <div className="flex max-w-[230px]">

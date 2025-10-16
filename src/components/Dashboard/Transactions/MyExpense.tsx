@@ -56,7 +56,7 @@ export function MyExpense({ data }: { data: ChartData[] }) {
           </CardContent>
         </Card>
       ) : (
-        <CardContent>
+        <CardContent className="px-1 sm:px-6">
           <ChartContainer config={chartConfig} className="max-h-[195px] w-full">
             <BarChart
               accessibilityLayer

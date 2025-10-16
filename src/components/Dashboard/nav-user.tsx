@@ -28,7 +28,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 export function NavUser({ user }: { user: User }) {
-  const { isMobile } = useSidebar()
+  const { isMobile, setOpenMobile } = useSidebar()
 
   return (
     <SidebarMenu>
@@ -93,7 +93,14 @@ export function NavUser({ user }: { user: User }) {
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-              <Link href={ROUTES.PROFILE}>
+              <Link
+                href={ROUTES.PROFILE}
+                onClick={() => {
+                  if (isMobile) {
+                    setOpenMobile(false)
+                  }
+                }}
+              >
                 <DropdownMenuItem className="flex items-center gap-2">
                   <IconUserCircle />
                   Profile

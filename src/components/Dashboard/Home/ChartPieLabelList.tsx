@@ -84,7 +84,7 @@ export function ChartPieLabelList() {
           January - {currentMonth} {currentYear}
         </CardDescription>
       </CardHeader>
-      <CardContent className="flex-1 pb-0">
+      <CardContent className="flex-1 px-0 pb-0 sm:px-6">
         {chartData === null ? (
           <div className="flex h-[360px] items-center justify-center">
             <LoaderCircle className="animate-spin" />
@@ -101,7 +101,7 @@ export function ChartPieLabelList() {
         ) : (
           <ChartContainer
             config={chartConfig}
-            className="mx-auto h-93 w-full font-bold [&_.recharts-text]:fill-white"
+            className="mx-auto h-50 w-full font-bold sm:h-93 [&_.recharts-text]:fill-white"
           >
             <PieChart>
               <ChartTooltip
@@ -112,7 +112,7 @@ export function ChartPieLabelList() {
                   dataKey="key"
                   className="fill-background"
                   stroke="none"
-                  fontSize={14}
+                  fontSize={12}
                   formatter={(value: string) => {
                     const config =
                       chartConfig[value as keyof typeof chartConfig]

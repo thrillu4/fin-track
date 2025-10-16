@@ -6,6 +6,7 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  useSidebar,
 } from '@/components/ui/sidebar'
 import { ROUTES } from '@/lib/routes'
 import { CircleQuestionMark, Search } from 'lucide-react'
@@ -17,6 +18,7 @@ export function NavSecondary({
   ...props
 }: ComponentPropsWithoutRef<typeof SidebarGroup>) {
   const [open, setOpen] = useState(false)
+  const { isMobile, setOpenMobile } = useSidebar()
 
   useEffect(() => {
     const down = (e: KeyboardEvent) => {
@@ -34,7 +36,14 @@ export function NavSecondary({
       <SidebarGroupContent>
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton asChild>
+            <SidebarMenuButton
+              onClick={() => {
+                if (isMobile) {
+                  setOpenMobile(false)
+                }
+              }}
+              asChild
+            >
               <Link href={ROUTES.HELP}>
                 <div className="flex items-center gap-2 group-data-[collapsible=icon]:size-8! group-data-[collapsible=icon]:p-2! [&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0">
                   <CircleQuestionMark />

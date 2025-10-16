@@ -20,7 +20,7 @@ const RecentTransaction = async () => {
     },
   })
   return (
-    <div className="bg-background flex flex-col gap-2.5 rounded-3xl p-6">
+    <div className="bg-background flex flex-col gap-2.5 rounded-3xl py-4 sm:p-6">
       {transaction?.transactions.length === 0 ? (
         <Empty className="md:p-3">
           <EmptyHeader>

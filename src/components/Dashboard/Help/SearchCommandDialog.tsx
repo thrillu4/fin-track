@@ -7,6 +7,7 @@ import {
   CommandItem,
   CommandList,
 } from '@/components/ui/command'
+import { useSidebar } from '@/components/ui/sidebar'
 import { searchDashboard } from '@/lib/actions/searchDashboard'
 import { ROUTES } from '@/lib/routes'
 import { useRouter } from 'next/navigation'
@@ -91,6 +92,7 @@ const SearchCommandDialog = ({
   })
   const [loading, setLoading] = useState(false)
   const router = useRouter()
+  const { isMobile, setOpenMobile } = useSidebar()
 
   useEffect(() => {
     setLoading(true)
@@ -104,6 +106,9 @@ const SearchCommandDialog = ({
 
   const handleSelect = (url: string) => {
     router.push(url)
+    if (isMobile) {
+      setOpenMobile(false)
+    }
     setOpen(false)
   }
 
