@@ -2,6 +2,14 @@
 
 import { Card, CardContent } from '@/components/ui/card'
 import {
+  Empty,
+  EmptyDescription,
+  EmptyHeader,
+  EmptyMedia,
+  EmptyTitle,
+} from '@/components/ui/empty'
+import { TrendingUpDown } from 'lucide-react'
+import {
   Bar,
   BarChart,
   CartesianGrid,
@@ -36,7 +44,19 @@ export function LoansChart({ loans }: LoanChartProps) {
     },
     [],
   )
-
+  if (loans.length === 0) {
+    return (
+      <Empty className="border">
+        <EmptyHeader>
+          <EmptyMedia variant="icon">
+            <TrendingUpDown />
+          </EmptyMedia>
+          <EmptyTitle>Loans data is empty</EmptyTitle>
+          <EmptyDescription>No data found</EmptyDescription>
+        </EmptyHeader>
+      </Empty>
+    )
+  }
   return (
     <Card>
       <CardContent>

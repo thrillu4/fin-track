@@ -35,9 +35,36 @@ const Loans = async () => {
     }
   })
 
+  const emptyData = [
+    {
+      src: `/dash/loans/car.png`,
+      title: 'Car Loans',
+      amount: 0,
+      color: '#FFF5D9',
+    },
+    {
+      src: `/dash/loans/education.png`,
+      title: 'Education Loans',
+      amount: 0,
+      color: '#DCFAF8',
+    },
+    {
+      src: `/dash/loans/mortgage.png`,
+      title: 'Mortgage Loans',
+      amount: 0,
+      color: '#e6e0e0',
+    },
+    {
+      src: `/dash/loans/personal.png`,
+      title: 'Personal Loans',
+      amount: 0,
+      color: '#E7EDFF',
+    },
+  ]
+
   return (
     <div className="grid w-full grid-cols-6 gap-x-7 gap-y-6 p-6">
-      <FlexRowTabs data={data} />
+      <FlexRowTabs data={data.length > 0 ? data : emptyData} />
       <div className="col-span-6">
         <h3 className="mb-5 py-0.5 text-2xl font-bold">Your Loans</h3>
         <YourLoans data={loans} />

@@ -1,5 +1,13 @@
+import {
+  Empty,
+  EmptyDescription,
+  EmptyHeader,
+  EmptyMedia,
+  EmptyTitle,
+} from '@/components/ui/empty'
 import { prisma } from '@/lib/prisma'
 import { checkUser } from '@/lib/userCheck'
+import { Captions } from 'lucide-react'
 import Image from 'next/image'
 
 const InvoicesSent = async () => {
@@ -15,6 +23,17 @@ const InvoicesSent = async () => {
 
   return (
     <div className="bg-sidebar flex flex-col gap-6 rounded-3xl px-6 py-8">
+      {user?.invoices.length === 0 && (
+        <Empty>
+          <EmptyHeader>
+            <EmptyMedia variant="icon">
+              <Captions />
+            </EmptyMedia>
+            <EmptyTitle>No data</EmptyTitle>
+            <EmptyDescription>Invoices not found</EmptyDescription>
+          </EmptyHeader>
+        </Empty>
+      )}
       {user?.invoices.map((inv, i) => (
         <div key={i} className="flex items-center justify-between">
           <div className="flex items-center gap-4">

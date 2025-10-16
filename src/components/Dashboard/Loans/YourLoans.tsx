@@ -164,7 +164,7 @@ const YourLoans = ({ data }: { data: Loan[] }) => {
             </TableCell>
           </TableRow>
         ))}
-        <TableRow className="font-bold text-red-500">
+        <TableRow className="text-primary font-bold">
           <TableCell>Total</TableCell>
           <TableCell>${totalAmount.toFixed(2)}</TableCell>
           <TableCell></TableCell>

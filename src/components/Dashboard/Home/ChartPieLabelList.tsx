@@ -79,7 +79,7 @@ export function ChartPieLabelList() {
   return (
     <Card className="flex flex-col">
       <CardHeader className="items-center pb-0">
-        <CardTitle>Your expenses</CardTitle>
+        <CardTitle>Your expenses in %</CardTitle>
         <CardDescription>
           January - {currentMonth} {currentYear}
         </CardDescription>

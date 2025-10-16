@@ -18,15 +18,23 @@ const Investments = async () => {
     },
   })
 
-  const totalInvested = user?.investments.reduce(
-    (prev, curr) => curr.amountInvested + prev,
-    0,
-  )
-  const currInvValue = user?.investments.reduce(
-    (prev, curr) => curr.currentValue + prev,
-    0,
-  )
-  let rateReturn
+  if (!user) throw new Error('401 Unauthorized')
+
+  let totalInvested = 0
+  let currInvValue = 0
+
+  if (user.investments.length > 0) {
+    totalInvested = user.investments.reduce(
+      (prev, curr) => curr.amountInvested + prev,
+      0,
+    )
+    currInvValue = user.investments.reduce(
+      (prev, curr) => curr.currentValue + prev,
+      0,
+    )
+  }
+
+  let rateReturn = 0
   if (!totalInvested || !currInvValue) {
     rateReturn = 0
   } else {

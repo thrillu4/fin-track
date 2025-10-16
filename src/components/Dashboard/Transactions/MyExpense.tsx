@@ -50,7 +50,7 @@ export function MyExpense({ data }: { data: ChartData[] }) {
           <LoaderCircle className="animate-spin" />
         </div>
       ) : chartData.length === 0 ? (
-        <Card>
+        <Card className="mx-6 py-0">
           <CardContent className="flex h-[195px] items-center justify-center">
             <p className="text-muted-foreground">No expense data available</p>
           </CardContent>

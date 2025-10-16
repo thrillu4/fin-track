@@ -8,12 +8,14 @@ import {
 } from '@/components/ui/carousel'
 import { Send } from 'lucide-react'
 import Image from 'next/image'
-import { useState } from 'react'
+import { FormEvent, useState } from 'react'
+import { toast } from 'sonner'
 import { Button } from '../../ui/button'
 import { Input } from '../../ui/input'
 
 const QuickTransfer = () => {
   const [picked, setPicked] = useState<number | null>(null)
+  const [value, setValue] = useState('')
 
   const transfers = [
     {
@@ -44,6 +46,15 @@ const QuickTransfer = () => {
       src: '/dash/transfers/4.png',
     },
   ]
+
+  const handleSend = (e: FormEvent) => {
+    e.preventDefault()
+    if (!picked || !value) return
+    toast.success('The translation was successful!')
+    setPicked(null)
+    setValue('')
+  }
+
   return (
     <div className="mr-5 py-9 pr-6 pl-1">
       <Carousel
@@ -70,17 +81,26 @@ const QuickTransfer = () => {
         </CarouselContent>
         <CarouselNext className="-right-10" />
       </Carousel>
-      <form className="mt-8 flex items-center justify-between">
+      <form
+        onSubmit={handleSend}
+        className="mt-8 flex items-center justify-between"
+      >
         <div className="ml-5 text-sm opacity-60">Write Amount</div>
         <div className="flex max-w-[230px]">
           <Input
             className="rounded-l-full px-6"
             type="number"
-            placeholder="524.25 $"
+            value={value}
+            onChange={e => setValue(e.currentTarget.value)}
+            min={0}
+            placeholder="0.00 $"
           />
           <Button
             type="submit"
-            disabled={!picked}
+            onClick={() => {
+              if (!picked) toast.error('Select one receiver first')
+              if (!value) toast.error('Enter the amount')
+            }}
             className="rounded-r-full !px-6"
           >
             Send <Send />

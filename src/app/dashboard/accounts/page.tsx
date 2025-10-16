@@ -23,6 +23,8 @@ const Accounts = async () => {
     },
   })
 
+  if (!user) throw new Error('401 Unauthorized!')
+
   const amountCalculation = (type: 'income' | 'expense' | 'transfer') => {
     return user?.transactions
       .filter(tr => tr.type === type)
@@ -31,11 +33,15 @@ const Accounts = async () => {
 
   const initialData = await getWeeklyTransactions(0)
 
+  let amount = 0
+
+  if (user?.cards.length > 0) amount = user.cards[0].balance
+
   const accounts = [
     {
       src: '/dash/accounts/balance.png',
       title: 'My Balance',
-      amount: user?.cards[0].balance,
+      amount,
       color: '#FFF5D9',
     },
     {

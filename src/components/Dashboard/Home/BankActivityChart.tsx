@@ -48,16 +48,20 @@ interface ChartDataPoint {
 
 export default function BankActivityChart() {
   const [timeRange, setTimeRange] = useState('90d')
-  const [chartData, setChartData] = useState<ChartDataPoint[] | null>(null)
+  const [chartData, setChartData] = useState<ChartDataPoint[]>([])
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     const loadData = async () => {
+      setLoading(true)
       try {
         const days = timeRange === '7d' ? 7 : timeRange === '30d' ? 30 : 90
         const data = await getBankActivityData(days)
         setChartData(data)
       } catch (error) {
         console.error('Failed to load bank activity data:', error)
+      } finally {
+        setLoading(false)
       }
     }
 
@@ -122,11 +126,7 @@ export default function BankActivityChart() {
         </div>
       </CardHeader>
       <CardContent className="px-2 pt-4 sm:px-6 sm:pt-6">
-        {chartData === null ? (
-          <div className="flex h-[360px] items-center justify-center">
-            <LoaderCircle className="animate-spin" />
-          </div>
-        ) : chartData.length === 0 ? (
+        {loading ? (
           <div className="flex h-[360px] items-center justify-center">
             <LoaderCircle className="animate-spin" />
           </div>
@@ -156,92 +156,104 @@ export default function BankActivityChart() {
               config={chartConfig}
               className="max-h-[250px] w-full"
             >
-              <AreaChart data={chartData}>
-                <defs>
-                  <linearGradient id="fillIncome" x1="0" y1="0" x2="0" y2="1">
-                    <stop
-                      offset="5%"
-                      stopColor="var(--color-income)"
-                      stopOpacity={0.8}
-                    />
-                    <stop
-                      offset="95%"
-                      stopColor="var(--color-income)"
-                      stopOpacity={0.1}
-                    />
-                  </linearGradient>
-                  <linearGradient id="fillExpenses" x1="0" y1="0" x2="0" y2="1">
-                    <stop
-                      offset="5%"
-                      stopColor="var(--color-expenses)"
-                      stopOpacity={0.8}
-                    />
-                    <stop
-                      offset="95%"
-                      stopColor="var(--color-expenses)"
-                      stopOpacity={0.1}
-                    />
-                  </linearGradient>
-                </defs>
-                <CartesianGrid
-                  vertical={false}
-                  strokeDasharray="3 3"
-                  opacity={0.3}
-                />
-                <XAxis
-                  dataKey="date"
-                  tickLine={false}
-                  axisLine={false}
-                  tickMargin={8}
-                  minTickGap={32}
-                  tickFormatter={value => {
-                    const date = new Date(value)
-                    return date.toLocaleDateString('en-US', {
-                      month: 'short',
-                      day: 'numeric',
-                    })
-                  }}
-                />
-                <YAxis
-                  tickLine={false}
-                  axisLine={false}
-                  tickMargin={8}
-                  tickFormatter={value => `$${(value / 1000).toFixed(0)}k`}
-                />
-                <ChartTooltip
-                  cursor={false}
-                  content={
-                    <ChartTooltipContent
-                      labelFormatter={value => {
-                        return new Date(value).toLocaleDateString('en-US', {
-                          month: 'long',
-                          day: 'numeric',
-                          year: 'numeric',
-                        })
-                      }}
-                      formatter={(value, name) => [
-                        formatCurrency(Number(value)),
-                        name === 'income' ? 'Income' : 'Expenses',
-                      ]}
-                      indicator="dot"
-                    />
-                  }
-                />
-                <Area
-                  dataKey="income"
-                  type="monotone"
-                  fill="url(#fillIncome)"
-                  stroke="var(--color-income)"
-                  strokeWidth={2}
-                />
-                <Area
-                  dataKey="expenses"
-                  type="monotone"
-                  fill="url(#fillExpenses)"
-                  stroke="var(--color-expenses)"
-                  strokeWidth={2}
-                />
-              </AreaChart>
+              {chartData.length > 0 ? (
+                <AreaChart data={chartData}>
+                  <defs>
+                    <linearGradient id="fillIncome" x1="0" y1="0" x2="0" y2="1">
+                      <stop
+                        offset="5%"
+                        stopColor="var(--color-income)"
+                        stopOpacity={0.8}
+                      />
+                      <stop
+                        offset="95%"
+                        stopColor="var(--color-income)"
+                        stopOpacity={0.1}
+                      />
+                    </linearGradient>
+                    <linearGradient
+                      id="fillExpenses"
+                      x1="0"
+                      y1="0"
+                      x2="0"
+                      y2="1"
+                    >
+                      <stop
+                        offset="5%"
+                        stopColor="var(--color-expenses)"
+                        stopOpacity={0.8}
+                      />
+                      <stop
+                        offset="95%"
+                        stopColor="var(--color-expenses)"
+                        stopOpacity={0.1}
+                      />
+                    </linearGradient>
+                  </defs>
+                  <CartesianGrid
+                    vertical={false}
+                    strokeDasharray="3 3"
+                    opacity={0.3}
+                  />
+                  <XAxis
+                    dataKey="date"
+                    tickLine={false}
+                    axisLine={false}
+                    tickMargin={8}
+                    minTickGap={32}
+                    tickFormatter={value => {
+                      const date = new Date(value)
+                      return date.toLocaleDateString('en-US', {
+                        month: 'short',
+                        day: 'numeric',
+                      })
+                    }}
+                  />
+                  <YAxis
+                    tickLine={false}
+                    axisLine={false}
+                    tickMargin={8}
+                    tickFormatter={value => `$${(value / 1000).toFixed(0)}k`}
+                  />
+                  <ChartTooltip
+                    cursor={false}
+                    content={
+                      <ChartTooltipContent
+                        labelFormatter={value => {
+                          return new Date(value).toLocaleDateString('en-US', {
+                            month: 'long',
+                            day: 'numeric',
+                            year: 'numeric',
+                          })
+                        }}
+                        formatter={(value, name) => [
+                          formatCurrency(Number(value)),
+                          name === 'income' ? 'Income' : 'Expenses',
+                        ]}
+                        indicator="dot"
+                      />
+                    }
+                  />
+                  <Area
+                    dataKey="income"
+                    type="monotone"
+                    fill="url(#fillIncome)"
+                    stroke="var(--color-income)"
+                    strokeWidth={2}
+                  />
+                  <Area
+                    dataKey="expenses"
+                    type="monotone"
+                    fill="url(#fillExpenses)"
+                    stroke="var(--color-expenses)"
+                    strokeWidth={2}
+                  />
+                </AreaChart>
+              ) : (
+                <div className="text-muted-foreground flex items-center justify-center">
+                  No data available
+                </div>
+              )}
             </ChartContainer>
           </>
         )}

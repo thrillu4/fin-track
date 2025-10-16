@@ -1,4 +1,3 @@
-import { auth } from '@/auth'
 import CreditCard from '@/components/Dashboard/CreditCard'
 import AddNewCardForm from '@/components/Dashboard/CreditCards/AddNewCardForm'
 import { CardExpenseStatistic } from '@/components/Dashboard/CreditCards/CardExpenseStatistic'
@@ -52,7 +51,7 @@ const CreditCards = async () => {
           <h3 className="mb-5 py-0.5 text-2xl font-bold">Card List</h3>
           <CardList user={user} />
         </div>
-        <div className="col-start-1 col-end-5">
+        <div id="add-new-card" className="col-start-1 col-end-5">
           <h3 className="mb-5 py-0.5 text-2xl font-bold">Add New Card</h3>
           <AddNewCardForm />
         </div>

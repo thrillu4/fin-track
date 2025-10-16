@@ -1,6 +1,13 @@
-import { auth } from '@/auth'
+import {
+  Empty,
+  EmptyDescription,
+  EmptyHeader,
+  EmptyMedia,
+  EmptyTitle,
+} from '@/components/ui/empty'
 import { prisma } from '@/lib/prisma'
 import { checkUser } from '@/lib/userCheck'
+import { ChartBarDecreasing } from 'lucide-react'
 import Image from 'next/image'
 
 const MyInvestments = async () => {
@@ -17,6 +24,19 @@ const MyInvestments = async () => {
 
   return (
     <div className="flex flex-col gap-4">
+      {user?.investments.length === 0 && (
+        <Empty>
+          <EmptyHeader>
+            <EmptyMedia variant="icon">
+              <ChartBarDecreasing />
+            </EmptyMedia>
+            <EmptyTitle>No Data</EmptyTitle>
+            <EmptyDescription>
+              You don&apos;t have any investments yet
+            </EmptyDescription>
+          </EmptyHeader>
+        </Empty>
+      )}
       {user?.investments.map((inv, i) => (
         <div
           key={inv.id}

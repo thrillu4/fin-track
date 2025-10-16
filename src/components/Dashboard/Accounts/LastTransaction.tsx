@@ -2,6 +2,15 @@ import { prisma } from '@/lib/prisma'
 import { checkUser } from '@/lib/userCheck'
 import Image from 'next/image'
 
+import {
+  Empty,
+  EmptyDescription,
+  EmptyHeader,
+  EmptyMedia,
+  EmptyTitle,
+} from '@/components/ui/empty'
+import { DollarSign } from 'lucide-react'
+
 const LastTransaction = async () => {
   const { email } = await checkUser()
 
@@ -20,6 +29,19 @@ const LastTransaction = async () => {
 
   return (
     <div className="bg-sidebar flex min-h-[235px] flex-col gap-3 rounded-3xl p-5">
+      {user?.transactions.length === 0 && (
+        <Empty>
+          <EmptyHeader>
+            <EmptyMedia variant="icon">
+              <DollarSign />
+            </EmptyMedia>
+            <EmptyTitle>No data</EmptyTitle>
+            <EmptyDescription>
+              Your latest transitions were not found
+            </EmptyDescription>
+          </EmptyHeader>
+        </Empty>
+      )}
       {user?.transactions.map(item => (
         <div
           key={item.id}

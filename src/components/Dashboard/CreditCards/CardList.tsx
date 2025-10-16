@@ -1,6 +1,17 @@
+import { Button } from '@/components/ui/button'
+import {
+  Empty,
+  EmptyContent,
+  EmptyDescription,
+  EmptyHeader,
+  EmptyMedia,
+  EmptyTitle,
+} from '@/components/ui/empty'
 import { prisma } from '@/lib/prisma'
+import { ROUTES } from '@/lib/routes'
 import { User } from '@prisma/client'
-
+import { CreditCardIcon } from 'lucide-react'
+import Link from 'next/link'
 const CardList = async ({ user }: { user: User | null }) => {
   if (!user) return
 
@@ -10,6 +21,26 @@ const CardList = async ({ user }: { user: User | null }) => {
   })
   return (
     <div className="flex flex-col gap-5">
+      {cards.length === 0 && (
+        <Empty className="max-h-[235px] w-full border border-dashed">
+          <EmptyHeader>
+            <EmptyMedia variant="icon">
+              <CreditCardIcon />
+            </EmptyMedia>
+            <EmptyTitle>You don&apos;t have any credit cards yet</EmptyTitle>
+            <EmptyDescription>
+              Add credit cards to your profile to track bank activity
+            </EmptyDescription>
+          </EmptyHeader>
+          <EmptyContent>
+            <Link href={`${ROUTES.CREDIT_CARDS}/#add-new-card`}>
+              <Button variant="outline" size="sm">
+                Add Card
+              </Button>
+            </Link>
+          </EmptyContent>
+        </Empty>
+      )}
       {cards.map((card, i) => (
         <div
           className="flex items-center justify-between rounded-3xl bg-[var(--sidebar)] p-7"

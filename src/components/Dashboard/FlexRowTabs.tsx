@@ -24,7 +24,7 @@ const FlexRowTabs = async ({ data }: { data: Data[] }) => {
             <div className="text-2xl font-bold">
               {item.percent
                 ? `${item.percent.toFixed(2)}%`
-                : `$${item.amount!.toFixed(2)}`}
+                : `$${item.amount ? item.amount.toFixed(2) : '0.00'}`}
             </div>
           </div>
         </div>

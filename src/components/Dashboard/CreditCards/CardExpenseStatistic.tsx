@@ -1,7 +1,5 @@
 'use client'
 
-import { LabelList, RadialBar, RadialBarChart } from 'recharts'
-
 import { Card, CardContent, CardFooter } from '@/components/ui/card'
 import {
   ChartConfig,
@@ -9,6 +7,15 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from '@/components/ui/chart'
+import {
+  Empty,
+  EmptyDescription,
+  EmptyHeader,
+  EmptyMedia,
+  EmptyTitle,
+} from '@/components/ui/empty'
+import { CircleDotDashed } from 'lucide-react'
+import { LabelList, RadialBar, RadialBarChart } from 'recharts'
 
 export const description = 'A radial chart with a label'
 
@@ -36,6 +43,22 @@ export function CardExpenseStatistic({ data }: { data: PropsData[] }) {
     }
     return acc
   }, {} as ChartConfig)
+
+  if (data.length === 0) {
+    return (
+      <Empty className="mb-5 h-full max-h-[250px] border border-dashed">
+        <EmptyHeader>
+          <EmptyMedia variant="icon">
+            <CircleDotDashed />
+          </EmptyMedia>
+          <EmptyTitle>No card yet</EmptyTitle>
+          <EmptyDescription>
+            Your spending statistics will be displayed here.
+          </EmptyDescription>
+        </EmptyHeader>
+      </Empty>
+    )
+  }
 
   return (
     <Card className="flex flex-col">
