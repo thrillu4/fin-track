@@ -46,7 +46,7 @@ const ContactForm = ({
   }
   return (
     <Form {...form}>
-      <h3 className="text-primary mt-10 mb-4 text-3xl font-bold">
+      <h3 className="text-primary mt-10 mb-4 text-2xl font-bold sm:text-3xl">
         We&apos;d love to help
       </h3>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">

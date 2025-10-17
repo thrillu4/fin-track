@@ -11,20 +11,22 @@ import { checkUser } from '@/lib/userCheck'
 const Help = async () => {
   const { user } = await checkUser()
   return (
-    <div className="p-6">
-      <div className="p-6">
+    <div className="p-3 sm:p-6">
+      <div className="sm:p-6">
         <div className="text-center">
-          <h1 className="mb-5 text-4xl font-bold">Need Assistance?</h1>
-          <p className="text-gray-500">
+          <h1 className="mt-5 mb-5 text-3xl font-bold sm:mt-0 sm:text-4xl">
+            Need Assistance?
+          </h1>
+          <p className="text-sm text-gray-500 sm:text-base">
             If you&apos;re feeling overwhelmed, remember you don&apos;t have to
             face it alone.
           </p>
-          <p className="mb-5 text-gray-500">
+          <p className="mb-5 text-sm text-gray-500 sm:text-base">
             Reach out and get the help you need
           </p>
         </div>
-        <div className="grid grid-cols-2 gap-10 rounded-3xl bg-[var(--sidebar)] p-6">
-          <div>
+        <div className="grid grid-cols-1 gap-10 rounded-3xl bg-[var(--sidebar)] p-4 sm:grid-cols-2 sm:p-6">
+          <div className="order-2 sm:order-1">
             <h3 className="mb-3 text-2xl font-bold">
               Frequently Asked Questions
             </h3>

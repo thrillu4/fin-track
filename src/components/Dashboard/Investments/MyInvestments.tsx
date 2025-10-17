@@ -55,15 +55,17 @@ const MyInvestments = async () => {
               />
             </div>
             <div className="space-y-1">
-              <div className="font-medium">{inv.name}</div>
+              <div className="hidden font-medium sm:block">{inv.name}</div>
               <div className="text-gray-400">{inv.type}</div>
             </div>
           </div>
           <div className="flex-1 space-y-1">
             <div>${inv.currentValue.toFixed(2)}</div>
-            <div className="text-gray-400">Investment Value</div>
+            <div className="hidden text-gray-400 sm:block">
+              Investment Value
+            </div>
           </div>
-          <div className="flex-1 space-y-1">
+          <div className="hidden flex-1 space-y-1 sm:block">
             <div>{inv.profitLoss.toFixed(2)}</div>
             <div className="text-gray-400">Return Value</div>
           </div>

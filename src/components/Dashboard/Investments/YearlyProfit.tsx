@@ -44,7 +44,7 @@ export function YearlyProfit({ data }: { data: ChartData[] }) {
             accessibilityLayer
             data={data}
             margin={{
-              left: 12,
+              left: -20,
               right: 12,
             }}
           >

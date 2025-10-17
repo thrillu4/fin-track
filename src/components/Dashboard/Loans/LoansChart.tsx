@@ -65,9 +65,15 @@ export function LoansChart({ loans }: LoanChartProps) {
             data={data}
             margin={{ top: 20, right: 20, left: 0, bottom: 20 }}
           >
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="loanType" />
-            <YAxis />
+            <CartesianGrid strokeDasharray="2 2" />
+            <XAxis
+              dataKey="loanType"
+              fontSize={12}
+              angle={-45}
+              textAnchor="end"
+              interval={0}
+            />
+            <YAxis fontSize={12} width={50} />
             <Tooltip />
             <Bar dataKey="balance" fill="var(--primary)" />
           </BarChart>

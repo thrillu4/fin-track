@@ -36,26 +36,26 @@ const CreditCards = async () => {
 
   return (
     <>
-      <div className="grid w-full grid-cols-6 gap-x-7 gap-y-6 p-6">
-        <div className="col-start-1 col-end-7">
+      <div className="grid w-full grid-cols-1 gap-x-7 gap-y-6 p-3 sm:grid-cols-6 sm:p-6">
+        <div className="sm:col-start-1 sm:col-end-7">
           <h3 className="mb-5 py-0.5 text-2xl font-bold">My Cards</h3>
           <CreditCard take={user?._count.cards || 0} />
         </div>
-        <div className="col-start-1 col-end-3">
+        <div className="sm:col-start-1 sm:col-end-3">
           <h3 className="mb-5 py-0.5 text-2xl font-bold">
             Card Expense Statistics
           </h3>
           <CardExpenseStatistic data={data} />
         </div>
-        <div className="col-start-3 col-end-7">
+        <div className="sm:col-start-3 sm:col-end-7">
           <h3 className="mb-5 py-0.5 text-2xl font-bold">Card List</h3>
           <CardList user={user} />
         </div>
-        <div id="add-new-card" className="col-start-1 col-end-5">
+        <div id="add-new-card" className="sm:col-start-1 sm:col-end-5">
           <h3 className="mb-5 py-0.5 text-2xl font-bold">Add New Card</h3>
           <AddNewCardForm />
         </div>
-        <div className="col-start-5 col-end-7">
+        <div className="sm:col-start-5 sm:col-end-7">
           <h3 className="mb-5 py-0.5 text-2xl font-bold">Card Setting</h3>
           <CardSetting />
         </div>

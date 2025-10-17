@@ -101,7 +101,7 @@ export function ChartPieLabelList() {
         ) : (
           <ChartContainer
             config={chartConfig}
-            className="mx-auto h-50 w-full font-bold sm:h-93 [&_.recharts-text]:fill-white"
+            className="mx-auto aspect-square h-80 w-full font-bold sm:h-93 [&_.recharts-text]:fill-white"
           >
             <PieChart>
               <ChartTooltip

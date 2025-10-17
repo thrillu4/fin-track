@@ -56,9 +56,9 @@ const YourLoans = ({ data }: { data: Loan[] }) => {
   const getSortIcon = (key: keyof Loan) => {
     if (sortConfig?.key !== key) return null
     return sortConfig.direction === 'asc' ? (
-      <ChevronUp className="ml-1 inline h-4 w-4" />
+      <ChevronUp className="inline- ml-1 h-4 w-4" />
     ) : (
-      <ChevronDown className="ml-1 inline h-4 w-4" />
+      <ChevronDown className="inline- ml-1 h-4 w-4" />
     )
   }
 
@@ -83,7 +83,7 @@ const YourLoans = ({ data }: { data: Loan[] }) => {
         <TableRow>
           <TableHead
             onClick={() => requestSort('loanType')}
-            className="cursor-pointer"
+            className="hidden cursor-pointer sm:table-cell"
           >
             Type {getSortIcon('loanType')}
           </TableHead>
@@ -95,7 +95,7 @@ const YourLoans = ({ data }: { data: Loan[] }) => {
           </TableHead>
           <TableHead
             onClick={() => requestSort('interestRate')}
-            className="cursor-pointer"
+            className="hidden cursor-pointer sm:table-cell"
           >
             Interest % {getSortIcon('interestRate')}
           </TableHead>
@@ -107,19 +107,19 @@ const YourLoans = ({ data }: { data: Loan[] }) => {
           </TableHead>
           <TableHead
             onClick={() => requestSort('startDate')}
-            className="cursor-pointer"
+            className="hidden cursor-pointer sm:table-cell"
           >
             Start Date {getSortIcon('startDate')}
           </TableHead>
           <TableHead
             onClick={() => requestSort('dueDate')}
-            className="cursor-pointer"
+            className="hidden cursor-pointer sm:table-cell"
           >
             Due Date {getSortIcon('dueDate')}
           </TableHead>
           <TableHead
             onClick={() => requestSort('status')}
-            className="cursor-pointer"
+            className="hidden cursor-pointer sm:table-cell"
           >
             Status {getSortIcon('status')}
           </TableHead>
@@ -129,22 +129,28 @@ const YourLoans = ({ data }: { data: Loan[] }) => {
       <TableBody>
         {sortedLoans.map(loan => (
           <TableRow key={loan.id}>
-            <TableCell className="font-medium">{loan.loanType}</TableCell>
+            <TableCell className="hidden font-medium sm:table-cell">
+              {loan.loanType}
+            </TableCell>
             <TableCell>${loan.amount.toFixed(2)}</TableCell>
-            <TableCell>{loan.interestRate}%</TableCell>
+            <TableCell className="hidden sm:table-cell">
+              {loan.interestRate}%
+            </TableCell>
             <TableCell>${loan.balance.toFixed(2)}</TableCell>
-            <TableCell>
+            <TableCell className="hidden sm:table-cell">
               {new Date(loan.startDate).toLocaleDateString()}
             </TableCell>
-            <TableCell>{new Date(loan.dueDate).toLocaleDateString()}</TableCell>
+            <TableCell className="hidden sm:table-cell">
+              {new Date(loan.dueDate).toLocaleDateString()}
+            </TableCell>
             <TableCell
-              className={
+              className={`hidden sm:table-cell ${
                 loan.status === 'paid'
                   ? 'text-green-600'
                   : loan.status === 'overdue'
                     ? 'text-red-600'
                     : 'text-yellow-600'
-              }
+              } `}
             >
               {loan.status}
             </TableCell>
@@ -152,13 +158,23 @@ const YourLoans = ({ data }: { data: Loan[] }) => {
               <Button
                 size="sm"
                 variant="destructive"
+                className="hidden sm:flex"
                 onClick={() => handleDelete(loan.id)}
               >
                 Delete
               </Button>
-              {loan.status !== 'paid' && (
+              {loan.status !== 'paid' ? (
                 <Button size="sm" onClick={() => handleRepay(loan.id)}>
                   Repay
+                </Button>
+              ) : (
+                <Button
+                  size="sm"
+                  variant="destructive"
+                  className="flex sm:hidden"
+                  onClick={() => handleDelete(loan.id)}
+                >
+                  Delete
                 </Button>
               )}
             </TableCell>
@@ -167,12 +183,12 @@ const YourLoans = ({ data }: { data: Loan[] }) => {
         <TableRow className="text-primary font-bold">
           <TableCell>Total</TableCell>
           <TableCell>${totalAmount.toFixed(2)}</TableCell>
-          <TableCell></TableCell>
+          <TableCell className="hidden sm:table-cell"></TableCell>
           <TableCell>${totalBalance.toFixed(2)}</TableCell>
-          <TableCell></TableCell>
-          <TableCell></TableCell>
-          <TableCell></TableCell>
-          <TableCell></TableCell>
+          <TableCell className="hidden sm:table-cell"></TableCell>
+          <TableCell className="hidden sm:table-cell"></TableCell>
+          <TableCell className="hidden sm:table-cell"></TableCell>
+          <TableCell className="hidden sm:table-cell"></TableCell>
         </TableRow>
       </TableBody>
     </Table>

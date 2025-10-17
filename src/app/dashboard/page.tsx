@@ -11,7 +11,7 @@ import Link from 'next/link'
 export default async function Page() {
   return (
     <>
-      <div className="grid w-full grid-cols-1 gap-x-7 gap-y-6 p-6 md:grid-cols-6">
+      <div className="grid w-full grid-cols-1 gap-x-7 gap-y-6 p-3 md:grid-cols-6">
         <div className="md:col-start-1 md:col-end-5">
           <div className="mb-5 flex items-center justify-between">
             <h3 className="text-xl font-bold md:text-2xl">My Cards</h3>

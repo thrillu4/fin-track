@@ -43,7 +43,7 @@ const CardList = async ({ user }: { user: User | null }) => {
       )}
       {cards.map((card, i) => (
         <div
-          className="flex items-center justify-between rounded-3xl bg-[var(--sidebar)] p-7"
+          className="flex items-center justify-between rounded-3xl bg-[var(--sidebar)] p-3 sm:p-7"
           key={card.id}
         >
           <div className="flex flex-1 items-center gap-4">
@@ -75,12 +75,12 @@ const CardList = async ({ user }: { user: User | null }) => {
                 />
               </svg>
             </div>
-            <div>
-              <div className="text-sm text-gray-500">Card Type</div>
-              <div>{card.cardType}</div>
+            <div className="">
+              <div className="text-sm text-gray-500">Brand</div>
+              <div>{card.cardBrand}</div>
             </div>
           </div>
-          <div className="flex flex-1 flex-col items-center">
+          <div className="hidden flex-1 flex-col items-center sm:flex">
             <div className="text-sm text-gray-500">Card Holder</div>
             <div>{user.name}</div>
           </div>
@@ -88,7 +88,7 @@ const CardList = async ({ user }: { user: User | null }) => {
             <div className="text-sm text-gray-500">Card Type</div>
             <div>{card.cardType}</div>
           </div>
-          <div className="flex flex-1 flex-col items-center">
+          <div className="hidden flex-1 flex-col items-center sm:flex">
             <div className="text-sm text-gray-500">Card Number</div>
             <div>{'**** ' + '**** ' + card.cardNumber.slice(-4)}</div>
           </div>

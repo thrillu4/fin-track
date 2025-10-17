@@ -10,18 +10,20 @@ interface Data {
 
 const FlexRowTabs = async ({ data }: { data: Data[] }) => {
   return (
-    <div className="bg-sidebar col-span-6 flex items-center justify-between rounded-3xl px-9 py-6 tracking-wide">
+    <div className="bg-sidebar flex flex-col justify-between gap-5 gap-y-5 rounded-3xl px-2 py-5 pl-5 tracking-wide sm:col-span-6 sm:flex sm:flex-row sm:items-center sm:gap-0 sm:px-9 sm:py-6 sm:pl-0">
       {data.map((item, i) => (
         <div key={i} className="flex items-center gap-4">
           <div
             style={{ backgroundColor: item.color }}
-            className={`flex items-center justify-center rounded-full p-5`}
+            className={`flex items-center justify-center rounded-full p-1 sm:p-5`}
           >
             <Image src={item.src} alt={item.title} width={30} height={30} />
           </div>
           <div>
-            <div className="text-gray-500">{item.title}</div>
-            <div className="text-2xl font-bold">
+            <div className="text-xs text-gray-500 sm:text-base">
+              {item.title}
+            </div>
+            <div className="font-bold sm:text-2xl">
               {item.percent
                 ? `${item.percent.toFixed(2)}%`
                 : `$${item.amount ? item.amount.toFixed(2) : '0.00'}`}

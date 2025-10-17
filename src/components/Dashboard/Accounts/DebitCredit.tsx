@@ -90,7 +90,7 @@ export function DebitCredit({ initialData }: DebitCreditProps) {
       <CardHeader className="space-y-4">
         <div className="flex items-center justify-between">
           <div className="space-y-1">
-            <CardDescription>
+            <CardDescription className="hidden sm:block">
               ${data.totalDebit.toLocaleString()} Debited & $
               {data.totalCredit.toLocaleString()} Credited
             </CardDescription>
@@ -135,7 +135,7 @@ export function DebitCredit({ initialData }: DebitCreditProps) {
           </div>
         </div>
       </CardHeader>
-      <CardContent>
+      <CardContent className="px-1 sm:px-6">
         <ChartContainer config={chartConfig} className="max-h-[260px] w-full">
           <BarChart accessibilityLayer data={data.chartData}>
             <CartesianGrid vertical={false} />

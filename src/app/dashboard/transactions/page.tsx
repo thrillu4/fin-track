@@ -9,7 +9,7 @@ const Transactions = async () => {
   const expenses = await getMonthlyExpenses()
 
   return (
-    <div className="space-y-7 p-6">
+    <div className="space-y-7 p-3 sm:p-6">
       <div className="grid w-full grid-cols-1 gap-x-7 sm:grid-cols-6">
         <div className="sm:col-start-1 sm:col-end-5">
           <div>

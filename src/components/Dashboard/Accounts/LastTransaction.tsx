@@ -45,7 +45,7 @@ const LastTransaction = async () => {
       {user?.transactions.map(item => (
         <div
           key={item.id}
-          className="grid grid-cols-4 items-center justify-center text-center"
+          className="flex items-center justify-between text-center sm:grid sm:grid-cols-4 sm:justify-center"
         >
           <div className="flex items-center gap-4 text-left">
             <div
@@ -77,8 +77,10 @@ const LastTransaction = async () => {
               <div className="opacity-60">{item.date.toLocaleDateString()}</div>
             </div>
           </div>
-          <div>{item.category}</div>
-          <div>{user.cards[0].cardNumber.slice(-8, -4) + ' ' + '****'}</div>
+          <div className="hidden sm:block">{item.category}</div>
+          <div className="hidden sm:block">
+            {user.cards[0].cardNumber.slice(-8, -4) + ' ' + '****'}
+          </div>
           <div
             className={`${item.type === 'income' ? 'text-green-500' : 'text-red-500'} font-medium`}
           >

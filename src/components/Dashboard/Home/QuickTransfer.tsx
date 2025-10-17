@@ -56,7 +56,7 @@ const QuickTransfer = () => {
   }
 
   return (
-    <div className="mr-5 py-9 pl-1 sm:pr-6">
+    <div className="py-9 pl-1 sm:mr-5 sm:pr-6">
       <Carousel
         opts={{
           loop: true,
@@ -66,7 +66,7 @@ const QuickTransfer = () => {
           {transfers.map(item => (
             <CarouselItem
               key={item.id}
-              className={`${picked === item.id ? 'border-primary rounded-2xl border-4' : 'border-4 border-transparent'} flex basis-1/2 cursor-pointer flex-col items-center justify-center gap-4 py-2 pl-0 select-none md:basis-1/2 lg:basis-1/3`}
+              className={`${picked === item.id ? 'border-primary rounded-2xl border-4' : 'border-4 border-transparent'} flex basis-[35%] cursor-pointer flex-col items-center justify-center gap-4 py-2 pl-0 select-none md:basis-1/2 lg:basis-1/3`}
               onClick={() =>
                 item.id === picked ? setPicked(null) : setPicked(item.id)
               }
@@ -79,7 +79,7 @@ const QuickTransfer = () => {
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselNext className="-right-10" />
+        <CarouselNext className="right-0 sm:-right-10" />
       </Carousel>
       <form
         onSubmit={handleSend}

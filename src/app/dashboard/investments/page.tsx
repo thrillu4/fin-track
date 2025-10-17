@@ -52,7 +52,7 @@ const Investments = async () => {
     },
     {
       src: '/dash/investments/pie.png',
-      title: 'Current Investments Value',
+      title: 'Investments Value',
       amount: currInvValue,
       color: '#c2afbb',
     },
@@ -68,26 +68,30 @@ const Investments = async () => {
 
   return (
     <>
-      <div className="grid w-full grid-cols-6 gap-x-7 gap-y-6 px-10 py-8">
+      <div className="grid w-full grid-cols-1 gap-x-7 gap-y-6 p-3 sm:grid-cols-6 sm:px-10 sm:py-8">
         <FlexRowTabs data={investments} />
-        <div className="col-start-1 col-end-4">
-          <h3 className="mb-5 py-0.5 text-2xl font-bold">
+        <div className="sm:col-start-1 sm:col-end-4">
+          <h3 className="mb-5 py-0.5 text-xl font-bold sm:text-2xl">
             Yearly Total Investment
           </h3>
           <YearlyInvestment data={chartData} />
         </div>
-        <div className="col-start-4 col-end-7">
-          <h3 className="mb-5 py-0.5 text-2xl font-bold">
+        <div className="sm:col-start-4 sm:col-end-7">
+          <h3 className="mb-5 py-0.5 text-xl font-bold sm:text-2xl">
             Yearly Investment Profit
           </h3>
           <YearlyProfit data={data} />
         </div>
-        <div className="col-start-1 col-end-5">
-          <h3 className="mb-5 py-0.5 text-2xl font-bold">My Investments</h3>
+        <div className="sm:col-start-1 sm:col-end-5">
+          <h3 className="mb-5 py-0.5 text-xl font-bold sm:text-2xl">
+            My Investments
+          </h3>
           <MyInvestments />
         </div>
-        <div className="col-start-5 col-end-7">
-          <h3 className="mb-5 py-0.5 text-2xl font-bold">Trending Stock</h3>
+        <div className="sm:col-start-5 sm:col-end-7">
+          <h3 className="mb-5 py-0.5 text-xl font-bold sm:text-2xl">
+            Trending Stock
+          </h3>
           <div className="rounded-3xl bg-[var(--sidebar)] px-1 py-3">
             <TrendingStock />
           </div>

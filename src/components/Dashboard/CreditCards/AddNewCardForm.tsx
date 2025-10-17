@@ -55,46 +55,55 @@ const AddNewCardForm = () => {
     }
   }
   return (
-    <div className="rounded-3xl bg-[var(--sidebar)] px-10 py-10">
+    <div className="rounded-3xl bg-[var(--sidebar)] px-4 py-10 sm:px-10">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
-          <div className="grid grid-cols-3 gap-10">
+          <div className="grid grid-cols-1 gap-10 sm:grid-cols-3">
             <FormField
               control={form.control}
               name="number"
               render={({ field }) => (
-                <FormItem className="col-start-1 col-end-4">
+                <FormItem className="sm:col-start-1 sm:col-end-4">
                   <FormLabel>Card Number</FormLabel>
-                  <FormControl>
-                    <InputOTP {...field} maxLength={16}>
-                      <InputOTPGroup>
-                        <InputOTPSlot index={0} />
-                        <InputOTPSlot index={1} />
-                        <InputOTPSlot index={2} />
-                        <InputOTPSlot index={3} />
-                      </InputOTPGroup>
-                      <InputOTPSeparator />
-                      <InputOTPGroup>
-                        <InputOTPSlot index={4} />
-                        <InputOTPSlot index={5} />
-                        <InputOTPSlot index={6} />
-                        <InputOTPSlot index={7} />
-                      </InputOTPGroup>
-                      <InputOTPSeparator />
-                      <InputOTPGroup>
-                        <InputOTPSlot index={8} />
-                        <InputOTPSlot index={9} />
-                        <InputOTPSlot index={10} />
-                        <InputOTPSlot index={11} />
-                      </InputOTPGroup>
-                      <InputOTPSeparator />
-                      <InputOTPGroup>
-                        <InputOTPSlot index={12} />
-                        <InputOTPSlot index={13} />
-                        <InputOTPSlot index={14} />
-                        <InputOTPSlot index={15} />
-                      </InputOTPGroup>
-                    </InputOTP>
+                  <FormControl className="flex sm:hidden">
+                    <Input
+                      placeholder="**** **** **** ****"
+                      maxLength={16}
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormControl className="hidden lg:flex">
+                    <div>
+                      <InputOTP {...field} maxLength={16}>
+                        <InputOTPGroup>
+                          <InputOTPSlot index={0} />
+                          <InputOTPSlot index={1} />
+                          <InputOTPSlot index={2} />
+                          <InputOTPSlot index={3} />
+                        </InputOTPGroup>
+                        <InputOTPSeparator />
+                        <InputOTPGroup>
+                          <InputOTPSlot index={4} />
+                          <InputOTPSlot index={5} />
+                          <InputOTPSlot index={6} />
+                          <InputOTPSlot index={7} />
+                        </InputOTPGroup>
+                        <InputOTPSeparator />
+                        <InputOTPGroup>
+                          <InputOTPSlot index={8} />
+                          <InputOTPSlot index={9} />
+                          <InputOTPSlot index={10} />
+                          <InputOTPSlot index={11} />
+                        </InputOTPGroup>
+                        <InputOTPSeparator />
+                        <InputOTPGroup>
+                          <InputOTPSlot index={12} />
+                          <InputOTPSlot index={13} />
+                          <InputOTPSlot index={14} />
+                          <InputOTPSlot index={15} />
+                        </InputOTPGroup>
+                      </InputOTP>
+                    </div>
                   </FormControl>
 
                   <FormMessage />
@@ -189,7 +198,10 @@ const AddNewCardForm = () => {
               )}
             />
           </div>
-          <Button type="submit" className="mt-10 w-40 text-lg font-semibold">
+          <Button
+            type="submit"
+            className="mt-10 font-semibold sm:w-40 sm:text-lg"
+          >
             {loading ? 'Loading...' : 'Add Card'}
           </Button>
           {serverError && (
