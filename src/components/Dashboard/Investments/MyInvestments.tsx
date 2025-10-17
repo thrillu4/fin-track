@@ -40,7 +40,7 @@ const MyInvestments = async () => {
       {user?.investments.map((inv, i) => (
         <div
           key={inv.id}
-          className="flex items-center justify-between rounded-3xl bg-[var(--sidebar)] p-4"
+          className="flex items-center justify-between rounded-3xl bg-[var(--sidebar)] p-4 md:text-sm lg:text-base"
         >
           <div className="flex flex-2 items-center gap-5">
             <div

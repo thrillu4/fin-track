@@ -25,8 +25,8 @@ const Help = async () => {
             Reach out and get the help you need
           </p>
         </div>
-        <div className="grid grid-cols-1 gap-10 rounded-3xl bg-[var(--sidebar)] p-4 sm:grid-cols-2 sm:p-6">
-          <div className="order-2 sm:order-1">
+        <div className="grid grid-cols-1 gap-10 rounded-3xl bg-[var(--sidebar)] p-4 sm:grid-cols-2 sm:p-6 md:grid-cols-1 lg:grid-cols-2">
+          <div className="order-2 lg:order-1">
             <h3 className="mb-3 text-2xl font-bold">
               Frequently Asked Questions
             </h3>
@@ -39,7 +39,7 @@ const Help = async () => {
               <ContactForm email={user.email} name={user.name} />
             </div>
           </div>
-          <div>
+          <div className="order-1 lg:order-2">
             <Accordion
               type="single"
               collapsible

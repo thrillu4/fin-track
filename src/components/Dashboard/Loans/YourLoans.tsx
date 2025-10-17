@@ -107,7 +107,7 @@ const YourLoans = ({ data }: { data: Loan[] }) => {
           </TableHead>
           <TableHead
             onClick={() => requestSort('startDate')}
-            className="hidden cursor-pointer sm:table-cell"
+            className="hidden cursor-pointer lg:table-cell"
           >
             Start Date {getSortIcon('startDate')}
           </TableHead>
@@ -137,7 +137,7 @@ const YourLoans = ({ data }: { data: Loan[] }) => {
               {loan.interestRate}%
             </TableCell>
             <TableCell>${loan.balance.toFixed(2)}</TableCell>
-            <TableCell className="hidden sm:table-cell">
+            <TableCell className="hidden lg:table-cell">
               {new Date(loan.startDate).toLocaleDateString()}
             </TableCell>
             <TableCell className="hidden sm:table-cell">

@@ -66,7 +66,7 @@ const QuickTransfer = () => {
           {transfers.map(item => (
             <CarouselItem
               key={item.id}
-              className={`${picked === item.id ? 'border-primary rounded-2xl border-4' : 'border-4 border-transparent'} flex basis-[35%] cursor-pointer flex-col items-center justify-center gap-4 py-2 pl-0 select-none md:basis-1/2 lg:basis-1/3`}
+              className={`${picked === item.id ? 'border-primary rounded-2xl border-4' : 'border-4 border-transparent'} flex basis-[35%] cursor-pointer flex-col items-center justify-center gap-4 py-2 pl-0 select-none md:basis-1/3`}
               onClick={() =>
                 item.id === picked ? setPicked(null) : setPicked(item.id)
               }

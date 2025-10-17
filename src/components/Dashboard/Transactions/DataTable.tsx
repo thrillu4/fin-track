@@ -199,7 +199,7 @@ export function DataTable() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+        <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
           <div className="bg-card rounded-lg border p-4">
             <div className="text-muted-foreground text-sm font-medium">
               Total Income
@@ -229,7 +229,7 @@ export function DataTable() {
         </div>
       </div>
 
-      <div className="overflow-hidden rounded-lg border">
+      <div className="w-full overflow-x-auto rounded-lg border">
         <Table>
           <TableHeader className="bg-muted sticky top-0 z-10">
             {table.getHeaderGroups().map(headerGroup => (

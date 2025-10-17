@@ -80,7 +80,7 @@ const CardList = async ({ user }: { user: User | null }) => {
               <div>{card.cardBrand}</div>
             </div>
           </div>
-          <div className="hidden flex-1 flex-col items-center sm:flex">
+          <div className="hidden flex-1 flex-col items-center lg:flex">
             <div className="text-sm text-gray-500">Card Holder</div>
             <div>{user.name}</div>
           </div>

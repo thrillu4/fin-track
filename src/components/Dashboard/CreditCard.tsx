@@ -26,7 +26,7 @@ const CreditCard = async ({ take }: { take: number }) => {
   })
 
   return (
-    <div className="flex max-h-[235px] flex-wrap items-center gap-8 overflow-hidden">
+    <div className="flex max-h-[235px] flex-wrap items-center gap-x-3 gap-y-8 overflow-hidden md:max-h-[265px] lg:gap-x-8 lg:gap-y-8">
       {cards?.cards.length === 0 ? (
         <Empty className="max-h-[235px] w-full border border-dashed">
           <EmptyHeader>
@@ -55,12 +55,12 @@ const CreditCard = async ({ take }: { take: number }) => {
           return (
             <div
               key={card.id}
-              className="bg-primary flex max-h-[265px] w-full flex-col gap-y-6 rounded-3xl p-5 tracking-widest text-white sm:justify-between sm:p-6 md:max-w-[350px]"
+              className="bg-primary flex max-h-[265px] w-full max-w-[270px] flex-col gap-y-6 rounded-3xl p-5 tracking-widest text-white sm:max-w-[300px] sm:justify-between sm:p-6 md:max-w-[350px]"
             >
               <div className="flex items-center justify-between">
                 <div>
-                  <div className="text-xs opacity-70 sm:text-base">Balance</div>
-                  <div className="sm:text-xl">${card.balance}</div>
+                  <div className="text-xs opacity-70 md:text-base">Balance</div>
+                  <div className="md:text-xl">${card.balance}</div>
                 </div>
                 <Image
                   src={'/dash/emv.png'}
@@ -71,20 +71,20 @@ const CreditCard = async ({ take }: { take: number }) => {
               </div>
               <div className="flex items-center gap-14 sm:gap-20">
                 <div>
-                  <div className="text-xs opacity-70 sm:text-base">
+                  <div className="text-xs opacity-70 md:text-base">
                     Card Holder
                   </div>
-                  <div className="text-sm font-medium sm:text-base">
+                  <div className="text-sm font-medium md:text-base">
                     {user.name}
                   </div>
                 </div>
                 <div>
-                  <div className="text-xs opacity-70 sm:text-base">Expiry</div>
-                  <div className="text-sm font-medium sm:text-base">{`${card.expiryMonth}/${card.expiryYear.toString().slice(-2)}`}</div>
+                  <div className="text-xs opacity-70 md:text-base">Expiry</div>
+                  <div className="text-sm font-medium md:text-base">{`${card.expiryMonth}/${card.expiryYear.toString().slice(-2)}`}</div>
                 </div>
               </div>
               <div className="flex items-center justify-between border-t-2 pt-4">
-                <div className="font-bold sm:text-[22px]">{hiddenNumber}</div>
+                <div className="font-bold md:text-[22px]">{hiddenNumber}</div>
                 {card.cardType === 'Visa' ? (
                   <Image
                     src={'/dash/visa.png'}

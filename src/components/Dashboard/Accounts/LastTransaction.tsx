@@ -45,7 +45,7 @@ const LastTransaction = async () => {
       {user?.transactions.map(item => (
         <div
           key={item.id}
-          className="flex items-center justify-between text-center sm:grid sm:grid-cols-4 sm:justify-center"
+          className="flex items-center justify-between text-center lg:grid lg:grid-cols-4 lg:justify-center"
         >
           <div className="flex items-center gap-4 text-left">
             <div
@@ -78,7 +78,7 @@ const LastTransaction = async () => {
             </div>
           </div>
           <div className="hidden sm:block">{item.category}</div>
-          <div className="hidden sm:block">
+          <div className="hidden lg:block">
             {user.cards[0].cardNumber.slice(-8, -4) + ' ' + '****'}
           </div>
           <div

@@ -55,7 +55,7 @@ const EditProfileForm = ({ user, protection }: ProfileProps) => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="grid gap-7 sm:grid-cols-2 sm:gap-10"
+        className="grid gap-7 sm:gap-10 lg:grid-cols-2"
       >
         <FormField
           control={form.control}
@@ -164,7 +164,7 @@ const EditProfileForm = ({ user, protection }: ProfileProps) => {
         <div className="ms:col-span-2 flex justify-end">
           <Button
             disabled={!form.formState.isDirty || !form.formState.isValid}
-            className="flex rounded-3xl font-bold sm:w-1/6"
+            className="flex rounded-3xl font-bold lg:w-1/6"
             type="submit"
           >
             {loading ? 'Changing...' : 'Save Changes'}

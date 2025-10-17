@@ -117,7 +117,7 @@ const CardSetting = () => {
     },
   ]
   return (
-    <div className="flex flex-wrap gap-5 rounded-3xl bg-[var(--sidebar)] px-3 py-7 sm:px-10">
+    <div className="flex flex-wrap gap-5 rounded-3xl bg-[var(--sidebar)] px-3 py-7 sm:grid sm:grid-cols-2 lg:px-10">
       {settings.map(item => (
         <div key={item.id} className="flex items-center gap-6">
           <div

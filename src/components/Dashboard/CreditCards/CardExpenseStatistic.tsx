@@ -89,7 +89,7 @@ export function CardExpenseStatistic({ data }: { data: PropsData[] }) {
           </RadialBarChart>
         </ChartContainer>
       </CardContent>
-      <CardFooter className="mx-auto grid grid-cols-2 gap-4">
+      <CardFooter className="mx-auto grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-2">
         {data.map((obj, i) => (
           <div key={i} className="flex items-center justify-center gap-3">
             <div

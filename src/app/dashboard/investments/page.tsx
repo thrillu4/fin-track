@@ -68,27 +68,27 @@ const Investments = async () => {
 
   return (
     <>
-      <div className="grid w-full grid-cols-1 gap-x-7 gap-y-6 p-3 sm:grid-cols-6 sm:px-10 sm:py-8">
+      <div className="grid w-full grid-cols-1 gap-x-7 gap-y-6 p-3 sm:px-10 sm:py-8 lg:grid-cols-6">
         <FlexRowTabs data={investments} />
-        <div className="sm:col-start-1 sm:col-end-4">
+        <div className="lg:col-start-1 lg:col-end-4">
           <h3 className="mb-5 py-0.5 text-xl font-bold sm:text-2xl">
             Yearly Total Investment
           </h3>
           <YearlyInvestment data={chartData} />
         </div>
-        <div className="sm:col-start-4 sm:col-end-7">
+        <div className="lg:col-start-4 lg:col-end-7">
           <h3 className="mb-5 py-0.5 text-xl font-bold sm:text-2xl">
             Yearly Investment Profit
           </h3>
           <YearlyProfit data={data} />
         </div>
-        <div className="sm:col-start-1 sm:col-end-5">
+        <div className="lg:col-start-1 lg:col-end-5">
           <h3 className="mb-5 py-0.5 text-xl font-bold sm:text-2xl">
             My Investments
           </h3>
           <MyInvestments />
         </div>
-        <div className="sm:col-start-5 sm:col-end-7">
+        <div className="lg:col-start-5 lg:col-end-7">
           <h3 className="mb-5 py-0.5 text-xl font-bold sm:text-2xl">
             Trending Stock
           </h3>

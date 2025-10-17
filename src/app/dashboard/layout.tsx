@@ -25,13 +25,13 @@ const layout = async ({
         <SidebarProvider
           style={
             {
-              '--sidebar-width': 'calc(var(--spacing) * 72)',
+              '--sidebar-width': 'calc(var(--spacing) * 60)',
               '--header-height': 'calc(var(--spacing) * 12)',
             } as React.CSSProperties
           }
         >
           <AppSidebar variant="inset" />
-          <SidebarInset>
+          <SidebarInset className="overflow-x-auto">
             <SiteHeader />
             {children}
           </SidebarInset>

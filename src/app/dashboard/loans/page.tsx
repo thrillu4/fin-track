@@ -63,13 +63,13 @@ const Loans = async () => {
   ]
 
   return (
-    <div className="grid w-full grid-cols-1 gap-x-7 gap-y-6 p-3 sm:grid-cols-6 sm:p-6">
+    <div className="grid w-full grid-cols-1 gap-x-7 gap-y-6 p-3 sm:p-6 lg:grid-cols-6">
       <FlexRowTabs data={data.length > 0 ? data : emptyData} />
-      <div className="sm:col-span-6">
+      <div className="lg:col-span-6">
         <h3 className="mb-5 py-0.5 text-2xl font-bold">Your Loans</h3>
         <YourLoans data={loans} />
       </div>
-      <div className="sm:col-span-6">
+      <div className="lg:col-span-6">
         <h3 className="mb-5 py-0.5 text-2xl font-bold">Loans By Type</h3>
         <LoansChart loans={loans} />
       </div>

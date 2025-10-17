@@ -32,8 +32,8 @@ const Profile = async () => {
             <TabsTrigger value="password">Change Password</TabsTrigger>
           </TabsList>
           <TabsContent value="profile" className="pt-7 sm:pt-12">
-            <div className="grid grid-cols-1 gap-x-14 gap-y-8 sm:grid-cols-[150px_1fr] sm:gap-y-0">
-              <div className="relative mx-auto h-[150px] w-[150px] sm:mx-0">
+            <div className="grid grid-cols-1 gap-x-14 gap-y-8 lg:grid-cols-[150px_1fr] lg:gap-y-0">
+              <div className="relative mx-auto h-[150px] w-[150px] lg:mx-0">
                 <Image
                   src={user.image || '/dash/demo-logo.png'}
                   fill
@@ -49,10 +49,10 @@ const Profile = async () => {
           </TabsContent>
           <TabsContent
             value="password"
-            className="grid gap-8 pt-7 sm:grid-cols-2 sm:gap-14 sm:pt-12"
+            className="grid gap-8 pt-7 sm:gap-14 sm:pt-12 lg:grid-cols-2"
           >
             <ChangePasswordForm />
-            <div className="flex items-center justify-center rounded-4xl bg-[var(--secondary)] py-4 sm:py-0">
+            <div className="flex items-center justify-center rounded-4xl bg-[var(--secondary)] py-4 lg:py-0">
               <LockKeyhole className="h-full w-full max-w-[200px] animate-pulse text-[var(--primary)]" />
             </div>
           </TabsContent>

@@ -57,15 +57,18 @@ const AddNewCardForm = () => {
   return (
     <div className="rounded-3xl bg-[var(--sidebar)] px-4 py-10 sm:px-10">
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)}>
-          <div className="grid grid-cols-1 gap-10 sm:grid-cols-3">
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="mx-auto max-w-sm sm:max-w-full lg:mx-0"
+        >
+          <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3">
             <FormField
               control={form.control}
               name="number"
               render={({ field }) => (
-                <FormItem className="sm:col-start-1 sm:col-end-4">
+                <FormItem className="lg:col-start-1 lg:col-end-4">
                   <FormLabel>Card Number</FormLabel>
-                  <FormControl className="flex sm:hidden">
+                  <FormControl className="flex lg:hidden">
                     <Input
                       placeholder="**** **** **** ****"
                       maxLength={16}
@@ -200,7 +203,7 @@ const AddNewCardForm = () => {
           </div>
           <Button
             type="submit"
-            className="mt-10 font-semibold sm:w-40 sm:text-lg"
+            className="mt-10 w-full font-semibold lg:w-40 lg:text-lg"
           >
             {loading ? 'Loading...' : 'Add Card'}
           </Button>
