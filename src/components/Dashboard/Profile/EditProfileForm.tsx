@@ -161,10 +161,10 @@ const EditProfileForm = ({ user, protection }: ProfileProps) => {
             </FormItem>
           )}
         />
-        <div className="ms:col-span-2 flex justify-end">
+        <div className="flex justify-end lg:col-span-2">
           <Button
             disabled={!form.formState.isDirty || !form.formState.isValid}
-            className="flex rounded-3xl font-bold lg:w-1/6"
+            className="flex rounded-3xl font-bold"
             type="submit"
           >
             {loading ? 'Changing...' : 'Save Changes'}

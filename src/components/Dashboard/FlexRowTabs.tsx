@@ -10,7 +10,7 @@ interface Data {
 
 const FlexRowTabs = async ({ data }: { data: Data[] }) => {
   return (
-    <div className="bg-sidebar flex flex-wrap justify-between gap-5 gap-y-5 rounded-3xl px-2 py-5 pl-5 tracking-wide sm:flex-row sm:items-center sm:px-9 md:py-6 lg:col-span-6">
+    <>
       {data.map((item, i) => (
         <div key={i} className="flex items-center gap-4">
           <div
@@ -31,7 +31,7 @@ const FlexRowTabs = async ({ data }: { data: Data[] }) => {
           </div>
         </div>
       ))}
-    </div>
+    </>
   )
 }
 

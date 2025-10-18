@@ -65,15 +65,17 @@ const Accounts = async () => {
   ]
   return (
     <>
-      <div className="grid w-full grid-cols-1 gap-x-7 gap-y-6 p-3 sm:px-10 sm:py-8 lg:grid-cols-6">
-        <FlexRowTabs data={accounts} />
-        <div className="lg:col-start-1 lg:col-end-5">
+      <div className="grid w-full grid-cols-1 gap-x-7 gap-y-6 p-3 lg:grid-cols-2 xl:grid-cols-6 xl:px-10 xl:py-8">
+        <div className="bg-sidebar flex flex-wrap justify-between gap-5 gap-y-5 rounded-3xl px-2 py-5 pl-5 tracking-wide sm:flex-row sm:items-center sm:px-9 md:py-6 lg:col-span-2 xl:col-span-6">
+          <FlexRowTabs data={accounts} />
+        </div>
+        <div className="lg:col-span-2 xl:col-start-1 xl:col-end-5">
           <h3 className="mb-5 py-0.5 text-xl font-bold sm:text-2xl">
             Resent Transaction
           </h3>
           <LastTransaction />
         </div>
-        <div className="lg:col-start-5 lg:col-end-7">
+        <div className="lg:col-span-2 xl:col-start-5 xl:col-end-7">
           <div className="mb-5 flex items-center justify-between">
             <h3 className="text-xl font-bold sm:text-2xl">My Cards</h3>
             <Link href={ROUTES.CREDIT_CARDS}>
@@ -84,13 +86,13 @@ const Accounts = async () => {
           </div>
           <CreditCard take={3} />
         </div>
-        <div className="lg:col-start-1 lg:col-end-5">
+        <div className="lg:col-span-2 xl:col-start-1 xl:col-end-5">
           <h3 className="mb-5 py-0.5 text-xl font-bold sm:text-2xl">
             Debit & Credit Overview
           </h3>
           <DebitCredit initialData={initialData} />
         </div>
-        <div className="lg:col-start-5 lg:col-end-7">
+        <div className="xl:col-start-5 xl:col-end-7">
           <h3 className="mb-6 text-xl font-bold sm:text-2xl">Invoices Sent</h3>
           <InvoicesSent />
         </div>

@@ -25,11 +25,10 @@ export default function AboutPage() {
 
   return (
     <>
-      <main className="container mx-auto py-20">
-        {/* Hero Section */}
+      <main className="container mx-auto px-2 py-20 lg:px-0">
         <section className="text-center">
           <h1 className="text-6xl font-bold">
-            Who <span className="text-blue-600">We Are</span>
+            Who <span className="text-indigo-600">We Are</span>
           </h1>
           <p className="mx-auto mt-6 max-w-2xl text-lg text-gray-600">
             At <span className="font-semibold">FinTracker</span>, we believe
@@ -39,7 +38,6 @@ export default function AboutPage() {
           </p>
         </section>
 
-        {/* Mission Section */}
         <section className="mt-20 grid items-center gap-14 md:grid-cols-2">
           <div>
             <h2 className="text-4xl font-bold">Our Mission</h2>
@@ -61,7 +59,6 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* Team Section */}
         <section className="mt-28 text-center">
           <h2 className="text-4xl font-bold">Meet Our Team</h2>
           <p className="mt-4 text-gray-600">
@@ -69,7 +66,7 @@ export default function AboutPage() {
             a better way to manage finances.
           </p>
 
-          <div className="mt-14 grid gap-10 md:grid-cols-3">
+          <div className="mt-14 grid gap-10 lg:grid-cols-3">
             {team.map(member => (
               <Card
                 key={member.name}
@@ -85,7 +82,7 @@ export default function AboutPage() {
                 </div>
                 <CardContent className="p-6">
                   <h3 className="text-xl font-semibold">{member.name}</h3>
-                  <p className="text-blue-600">{member.role}</p>
+                  <p className="text-indigo-600">{member.role}</p>
                   <p className="mt-4 text-sm text-gray-600">{member.bio}</p>
                 </CardContent>
               </Card>
@@ -93,7 +90,6 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* Values Section */}
         <section className="mt-28 text-center">
           <h2 className="text-4xl font-bold">Our Values</h2>
           <p className="mx-auto mt-4 max-w-2xl text-gray-600">
@@ -102,7 +98,7 @@ export default function AboutPage() {
           </p>
           <div className="mt-10 grid gap-10 md:grid-cols-3">
             <div>
-              <h3 className="text-2xl font-semibold text-blue-600">
+              <h3 className="text-2xl font-semibold text-indigo-600">
                 Transparency
               </h3>
               <p className="mt-2 text-gray-600">
@@ -110,7 +106,7 @@ export default function AboutPage() {
               </p>
             </div>
             <div>
-              <h3 className="text-2xl font-semibold text-blue-600">
+              <h3 className="text-2xl font-semibold text-indigo-600">
                 Simplicity
               </h3>
               <p className="mt-2 text-gray-600">
@@ -118,7 +114,7 @@ export default function AboutPage() {
               </p>
             </div>
             <div>
-              <h3 className="text-2xl font-semibold text-blue-600">Trust</h3>
+              <h3 className="text-2xl font-semibold text-indigo-600">Trust</h3>
               <p className="mt-2 text-gray-600">
                 Secure data protection and reliable tools you can count on.
               </p>

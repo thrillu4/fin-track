@@ -31,14 +31,14 @@ export default function HowItWorks() {
           dashboard.
         </p>
 
-        <div className="grid grid-cols-3 gap-15">
+        <div className="grid gap-15 lg:grid-cols-3">
           {steps.map((step, i) => (
             <div
               key={step.title}
               className="relative flex min-h-[320px] flex-col items-center justify-center space-y-4 rounded-2xl bg-gray-50 p-6 text-center shadow dark:bg-gray-800"
             >
               <div className="mb-15 text-5xl">{step.icon}</div>
-              <span className="absolute -top-4 -left-4 flex h-10 w-10 items-center justify-center rounded-full bg-blue-600 font-bold text-white">
+              <span className="absolute -top-4 -left-4 flex h-10 w-10 items-center justify-center rounded-full bg-indigo-600 font-bold text-white">
                 {i + 1}
               </span>
               <h3 className="text-xl font-semibold">{step.title}</h3>
@@ -49,11 +49,11 @@ export default function HowItWorks() {
 
         <div className="mt-12 flex justify-center gap-4">
           <Link href={ROUTES.SIGN_UP}>
-            <Button className="cursor-pointer rounded-full bg-[#0601F6] px-9 py-7 text-lg hover:bg-[#0601F6]/80 dark:text-white">
+            <Button className="cursor-pointer rounded-full bg-indigo-600 hover:bg-indigo-600/80 lg:px-9 lg:py-7 lg:text-lg dark:text-white">
               Create Account
             </Button>
           </Link>
-          <DemoUserButton classname="rounded-full bg-gray-200 px-9 py-7 text-lg  text-gray-800 shadow transition cursor-pointer hover:bg-gray-300 dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600">
+          <DemoUserButton classname="rounded-full bg-gray-200 lg:px-9 lg:py-7 lg:text-lg  text-gray-800 shadow transition cursor-pointer hover:bg-gray-300 dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600">
             Try Demo
           </DemoUserButton>
         </div>

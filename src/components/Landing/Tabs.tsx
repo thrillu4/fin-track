@@ -7,10 +7,10 @@ import DemoUserButton from './DemoUserButton'
 
 const Tabs = () => {
   return (
-    <>
-      <section className="mt-14 flex items-center justify-evenly gap-15 rounded-[56px] bg-teal-50 px-26 py-18 dark:text-black">
+    <div className="p-2">
+      <section className="mt-14 flex items-center justify-evenly gap-15 rounded-[56px] bg-teal-50 p-6 lg:px-26 lg:py-18 dark:text-black">
         <div className="max-w-sm space-y-6">
-          <div className="inline-flex items-center justify-center rounded-2xl bg-teal-100 p-4">
+          <div className="hidden items-center justify-center rounded-2xl bg-teal-100 p-4 lg:inline-flex">
             <svg
               width="24"
               height="22"
@@ -45,28 +45,28 @@ const Tabs = () => {
               </Button>
             </Link>
 
-            <DemoUserButton classname="cursor-pointer text-lg bg-transparent text-black hover:bg-transparent hover:text-black transition duration-200 hover:underline">
+            <DemoUserButton classname="cursor-pointer text-lg bg-transparent text-black hover:bg-transparent transition duration-200 hover:text-indigo-500 underline">
               Try Demo
             </DemoUserButton>
           </div>
         </div>
-        <div className="relative h-120 w-full max-w-lg rounded-3xl">
+        <div className="relative h-120 w-full max-w-lg">
           <Image
-            src={'/landing/finance.png'}
+            src={'/landing/transac.png'}
             alt="finance organizer"
             fill
-            className="object-cover"
+            className="rounded-3xl object-contain"
           />
         </div>
       </section>
 
-      <section className="mt-14 flex items-center justify-evenly gap-15 rounded-[56px] bg-[#EDEEFC] px-26 pt-18 dark:text-black">
-        <div className="relative h-120 w-[350px]">
+      <section className="mt-14 flex items-center justify-evenly gap-15 rounded-[56px] bg-[#EDEEFC] px-6 pt-6 lg:px-26 lg:pt-18 dark:text-black">
+        <div className="relative hidden h-120 w-[350px] lg:block">
           <Image
             src={'/landing/iphone.png'}
             alt="iphone app"
             fill
-            className="object-cover"
+            className="object-contain"
           />
         </div>
         <div className="mb-15 max-w-sm space-y-6">
@@ -115,7 +115,7 @@ const Tabs = () => {
               </Button>
             </Link>
 
-            <DemoUserButton classname=" text-lg bg-transparent text-black hover:bg-transparent hover:text-black transition duration-200 hover:underline">
+            <DemoUserButton classname="text-lg bg-transparent text-black hover:bg-transparent  transition duration-200 hover:text-indigo-500 cursor-pointer underline">
               Try Demo
             </DemoUserButton>
           </div>
@@ -123,7 +123,7 @@ const Tabs = () => {
       </section>
 
       <section className="mt-14 flex items-center justify-evenly gap-15 rounded-[56px] bg-orange-50 dark:text-black">
-        <div className="ml-36 max-w-lg space-y-6 py-18 font-bold">
+        <div className="max-w-lg space-y-6 p-8 font-bold lg:py-18">
           <div className="inline-flex items-center justify-center rounded-2xl bg-orange-100 p-4">
             <svg
               width="24"
@@ -166,20 +166,20 @@ const Tabs = () => {
             <Link href={ROUTES.SIGN_UP}>
               <Button
                 variant={'link'}
-                className="flex px-7 py-5 text-lg font-bold text-orange-500"
+                className="flex cursor-pointer px-7 py-5 text-lg font-bold text-orange-500"
               >
                 Get Started <ArrowRight />
               </Button>
             </Link>
 
-            <DemoUserButton classname=" text-lg bg-transparent text-black hover:bg-transparent hover:text-black transition duration-200 hover:underline">
+            <DemoUserButton classname=" text-lg bg-transparent text-black hover:bg-transparent  transition duration-200 hover:text-indigo-500 cursor-pointer underline">
               Try Demo
             </DemoUserButton>
           </div>
         </div>
-        <div className="relative h-[630px] w-[600px]">
+        <div className="relative hidden h-[630px] w-[600px] lg:block">
           <Image
-            src={'/landing/charts.png'}
+            src={'/landing/group.png'}
             alt="charts"
             fill
             className="object-contain"
@@ -187,13 +187,13 @@ const Tabs = () => {
         </div>
       </section>
 
-      <section className="mt-14 flex items-center justify-evenly gap-15 rounded-[56px] bg-fuchsia-100 px-26 py-18 dark:text-black">
-        <div className="relative h-140 w-full max-w-xl">
+      <section className="mt-14 flex items-center justify-evenly gap-15 rounded-[56px] bg-fuchsia-100 p-6 lg:px-26 lg:py-18 dark:text-black">
+        <div className="relative hidden h-140 w-full max-w-xl lg:block">
           <Image
-            src={'/landing/invoice.png'}
+            src={'/landing/inv.png'}
             alt="invoice organizer"
             fill
-            className="object-cover"
+            className="object-contain"
           />
         </div>
         <div className="max-w-sm space-y-6">
@@ -227,19 +227,19 @@ const Tabs = () => {
             <Link href={ROUTES.SIGN_UP}>
               <Button
                 variant={'link'}
-                className="flex px-7 py-5 text-lg font-bold text-fuchsia-500"
+                className="flex cursor-pointer px-7 py-5 text-lg font-bold text-fuchsia-500"
               >
                 Get Started <ArrowRight />
               </Button>
             </Link>
 
-            <DemoUserButton classname=" text-lg bg-transparent text-black hover:bg-transparent hover:text-black transition duration-200 hover:underline">
+            <DemoUserButton classname=" text-lg bg-transparent text-black hover:bg-transparent transition duration-200 hover:text-indigo-500 cursor-pointer underline">
               Try Demo
             </DemoUserButton>
           </div>
         </div>
       </section>
-    </>
+    </div>
   )
 }
 

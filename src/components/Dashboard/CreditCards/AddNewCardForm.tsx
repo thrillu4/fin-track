@@ -66,16 +66,16 @@ const AddNewCardForm = () => {
               control={form.control}
               name="number"
               render={({ field }) => (
-                <FormItem className="lg:col-start-1 lg:col-end-4">
+                <FormItem className="xl:col-start-1 xl:col-end-4">
                   <FormLabel>Card Number</FormLabel>
-                  <FormControl className="flex lg:hidden">
+                  <FormControl className="flex 2xl:hidden">
                     <Input
                       placeholder="**** **** **** ****"
                       maxLength={16}
                       {...field}
                     />
                   </FormControl>
-                  <FormControl className="hidden lg:flex">
+                  <FormControl className="hidden 2xl:flex">
                     <div>
                       <InputOTP {...field} maxLength={16}>
                         <InputOTPGroup>

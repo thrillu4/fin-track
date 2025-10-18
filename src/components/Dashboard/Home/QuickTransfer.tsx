@@ -88,12 +88,14 @@ const QuickTransfer = () => {
         <div className="ml-5 text-sm opacity-60">Write Amount</div>
         <div className="flex max-w-[230px]">
           <Input
-            className="rounded-l-full px-6"
+            className="rounded-l-full pl-6"
             type="number"
+            name="name"
             value={value}
             onChange={e => setValue(e.currentTarget.value)}
             min={0}
             placeholder="0.00 $"
+            autoComplete="transaction-amount"
           />
           <Button
             type="submit"

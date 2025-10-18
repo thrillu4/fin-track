@@ -11,8 +11,8 @@ import { checkUser } from '@/lib/userCheck'
 const Help = async () => {
   const { user } = await checkUser()
   return (
-    <div className="p-3 sm:p-6">
-      <div className="sm:p-6">
+    <div className="p-3 xl:p-6">
+      <div className="xl:p-6">
         <div className="text-center">
           <h1 className="mt-5 mb-5 text-3xl font-bold sm:mt-0 sm:text-4xl">
             Need Assistance?

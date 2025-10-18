@@ -46,7 +46,7 @@ export function CardExpenseStatistic({ data }: { data: PropsData[] }) {
 
   if (data.length === 0) {
     return (
-      <Empty className="mb-5 h-full max-h-[250px] border border-dashed">
+      <Empty className="mb-5 max-h-[250px] border border-dashed">
         <EmptyHeader>
           <EmptyMedia variant="icon">
             <CircleDotDashed />

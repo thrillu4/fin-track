@@ -1,6 +1,5 @@
 'use client'
 
-import * as React from 'react'
 import { LabelList, Pie, PieChart } from 'recharts'
 
 import {
@@ -16,16 +15,7 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from '@/components/ui/chart'
-import { getExpensesByCategory } from '@/lib/actions/getExpensesByCategory'
-import { LoaderCircle } from 'lucide-react'
-
-interface ExpenseData {
-  key: string
-  transaction: string
-  percent: number
-  amount: number
-  fill: string
-}
+import { ExpenseByCategory } from '@/lib/actions/getExpensesByCategory'
 
 const chartConfig = {
   Salary: {
@@ -58,21 +48,7 @@ const chartConfig = {
   },
 } satisfies ChartConfig
 
-export function ChartPieLabelList() {
-  const [chartData, setChartData] = React.useState<ExpenseData[] | null>(null)
-  React.useEffect(() => {
-    const loadData = async () => {
-      try {
-        const data = await getExpensesByCategory()
-        setChartData(data)
-      } catch (error) {
-        console.error('Failed to load expenses data:', error)
-      }
-    }
-
-    loadData()
-  }, [])
-
+export function ChartPieLabelList({ data }: { data: ExpenseByCategory[] }) {
   const currentYear = new Date().getFullYear()
   const currentMonth = new Date().toLocaleString('en-US', { month: 'long' })
 
@@ -85,11 +61,7 @@ export function ChartPieLabelList() {
         </CardDescription>
       </CardHeader>
       <CardContent className="flex-1 px-0 pb-0 sm:px-6">
-        {chartData === null ? (
-          <div className="flex h-[360px] items-center justify-center">
-            <LoaderCircle className="animate-spin" />
-          </div>
-        ) : chartData.length === 0 ? (
+        {data.length === 0 ? (
           <div className="flex h-93 items-center justify-center">
             <div className="text-muted-foreground text-center">
               <p>No expense data available</p>
@@ -107,7 +79,7 @@ export function ChartPieLabelList() {
               <ChartTooltip
                 content={<ChartTooltipContent nameKey="key" hideLabel />}
               />
-              <Pie data={chartData} dataKey="percent">
+              <Pie data={data} dataKey="percent">
                 <LabelList
                   dataKey="key"
                   className="fill-background"

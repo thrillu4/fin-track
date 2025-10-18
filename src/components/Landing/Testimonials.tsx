@@ -12,7 +12,7 @@ import Image from 'next/image'
 const Testimonials = () => {
   return (
     <section className="mt-14 py-18">
-      <div className="mb-3 text-center font-bold text-blue-600">
+      <div className="mb-3 text-center font-bold text-indigo-600">
         TESTIMONIALS
       </div>
       <h3 className="text-center text-5xl font-bold">

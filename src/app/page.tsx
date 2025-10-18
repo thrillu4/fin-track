@@ -19,13 +19,13 @@ export default function Home() {
           <Image
             src={'/landing/promo.png'}
             alt="promo"
-            width={800}
-            height={600}
+            width={900}
+            height={700}
             className="mx-auto"
           />
-          <h1 className="mx-auto max-w-[600px] text-center text-6xl font-bold">
+          <h1 className="mx-auto max-w-[600px] text-center text-4xl font-bold md:text-6xl">
             Manage your finance with{' '}
-            <span className="text-blue-600">FinTracker</span>
+            <span className="text-indigo-600">FinTracker</span>
           </h1>
           <p className="mx-auto mt-8 max-w-[600px] text-center text-gray-600">
             Dashboard platform designed with the aim of making it easier for you
@@ -34,11 +34,11 @@ export default function Home() {
           </p>
           <div className="mt-8 flex items-center justify-center gap-5">
             <Link href={ROUTES.SIGN_UP}>
-              <Button className="flex rounded-full bg-[#0601F6] px-9 py-7 text-lg hover:bg-[#0601F6]/80 dark:text-white">
+              <Button className="flex cursor-pointer rounded-full bg-indigo-600 hover:bg-indigo-600/80 lg:px-9 lg:py-7 lg:text-lg dark:text-white">
                 Get Started
               </Button>
             </Link>
-            <DemoUserButton classname="  bg-gray-200 px-9 py-7 rounded-full text-lg  text-gray-800 shadow transition  hover:bg-gray-300 dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600">
+            <DemoUserButton classname="cursor-pointer  bg-gray-200 lg:px-9 lg:py-7 rounded-full lg:text-lg  text-gray-800 shadow transition  hover:bg-gray-300 dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600">
               Try Demo
             </DemoUserButton>
           </div>
@@ -53,22 +53,20 @@ export default function Home() {
         <section className="relative mt-14 rounded-4xl bg-gray-100 py-18 dark:text-black">
           <h2 className="mx-auto max-w-[530px] text-center text-5xl font-bold">
             Let’s get you started with{' '}
-            <span className="text-blue-600">FinTrack</span>!
+            <span className="text-indigo-600">FinTrack</span>!
           </h2>
           <p className="mx-auto mt-6 max-w-[530px] text-center text-gray-600">
             It only takes a few clicks and you can get started with managing
             your finances like a Professional.
           </p>
           <div className="mx-auto mt-10 flex w-fit flex-col items-center gap-4 md:flex-row">
-            <DemoUserButton classname='bg-[#0601F6] hover:bg-[#0601F6]/80 dark:text-white font-bold" mx-auto mt-10 flex rounded-full px-14 py-8 text-lg'>
+            <DemoUserButton classname='cursor-pointer bg-indigo-600 hover:bg-indigo-600/80 dark:text-white font-bold" mx-auto mt-10 flex rounded-full px-14 py-8 text-lg'>
               Continue as Demo User
             </DemoUserButton>
           </div>
 
           <svg
-            className="absolute bottom-10 left-0 z-20"
-            width="279"
-            height="276"
+            className="absolute bottom-10 left-0 z-20 w-10 lg:w-[279px]"
             viewBox="0 0 279 276"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -109,9 +107,7 @@ export default function Home() {
             </defs>
           </svg>
           <svg
-            className="absolute top-0 right-0 z-20"
-            width="281"
-            height="141"
+            className="absolute top-0 right-0 z-20 w-10 lg:w-[279px]"
             viewBox="0 0 281 141"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"

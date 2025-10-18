@@ -60,7 +60,7 @@ const RegisterForm = () => {
       >
         <div className="flex flex-col items-center gap-2 text-center">
           <h1 className="text-2xl font-bold">
-            Welcome to <span className="text-blue-600">FinTracker</span>
+            Welcome to <span className="text-indigo-600">FinTracker</span>
           </h1>
           <p className="text-muted-foreground text-sm text-balance">
             Register to create your first account and start tracking your
@@ -109,7 +109,7 @@ const RegisterForm = () => {
         {serverError && <p className="text-sm text-red-500">{serverError}</p>}
         <Button
           type="submit"
-          className="bg-[#0601F6] hover:bg-[#0601F6]/70 dark:text-white"
+          className="cursor-pointer bg-indigo-600 hover:bg-indigo-600/70 dark:text-white"
         >
           {loading ? 'Submitting...' : 'Submit'}
         </Button>
@@ -122,7 +122,7 @@ const RegisterForm = () => {
         </div>
         <Button
           variant="outline"
-          className="w-full"
+          className="w-full cursor-pointer"
           onClick={() => signIn('github', { callbackUrl: ROUTES.DASHBOARD })}
         >
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -139,7 +139,7 @@ const RegisterForm = () => {
             Or continue as Demo User
           </span>
         </div>
-        <DemoUserButton classname="w-full ">
+        <DemoUserButton classname="w-full cursor-pointer">
           <HatGlasses /> Try Demo
         </DemoUserButton>
         <div className="text-center text-sm">

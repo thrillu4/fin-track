@@ -4,9 +4,9 @@ import Link from 'next/link'
 
 const Footer = () => {
   return (
-    <footer className="mt-20 border-t bg-black py-10 text-white">
+    <footer className="mt-20 border-t bg-black px-2 py-10 text-white">
       <div className="container mx-auto flex justify-between gap-10">
-        <div className="max-w-60">
+        <div className="hidden max-w-60 lg:block">
           <div className="relative h-20 w-full">
             <Image
               src={'/landing/footer-logo.png'}
@@ -19,7 +19,7 @@ const Footer = () => {
             The only Financial Companion you would ever need.
           </p>
         </div>
-        <div className="flex w-full justify-end gap-28 md:flex">
+        <div className="flex w-full justify-between lg:justify-end lg:gap-28">
           <div>
             <div className="text-bold mb-8 text-lg">Product</div>
             <ul className="space-y-6 text-gray-400">
@@ -101,9 +101,9 @@ const Footer = () => {
           </div>
         </div>
       </div>
-      <div className="container mx-auto mt-30 flex justify-between border-t border-t-gray-400 pt-10 text-sm text-gray-400">
-        <div className="flex justify-between">
-          <div className="flex items-center gap-8">
+      <div className="container mx-auto mt-30 justify-between space-y-5 border-t border-t-gray-400 pt-10 text-center text-sm text-gray-400 lg:flex lg:space-y-0">
+        <div className="flex justify-center lg:justify-between">
+          <div className="flex items-center gap-8 text-xs lg:text-base">
             <div>Privacy Policy</div> | <div>Terms & Conditions</div> |{' '}
             <div>Cookie Policy</div>
           </div>

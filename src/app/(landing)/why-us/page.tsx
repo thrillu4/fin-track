@@ -55,7 +55,7 @@ export default function WhyUs() {
 
         <div className="mt-12">
           <Link href={ROUTES.SIGN_UP}>
-            <Button className="rounded-full bg-[#0601F6] px-10 py-7 text-lg hover:bg-[#0601F6]/80 dark:text-white">
+            <Button className="cursor-pointer rounded-full bg-indigo-600 px-10 py-7 text-lg hover:bg-indigo-600/80 dark:text-white">
               Get Started
             </Button>
           </Link>

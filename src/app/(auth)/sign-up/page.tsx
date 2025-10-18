@@ -1,27 +1,16 @@
 import RegisterForm from '@/components/Auth/RegisterForm'
-import { ROUTES } from '@/lib/routes'
+import Logo from '@/components/Landing/Logo'
 import Image from 'next/image'
-import Link from 'next/link'
 
 export default function SignUp() {
   return (
     <div className="grid min-h-svh lg:grid-cols-2">
       <div className="flex flex-col gap-4 p-6 md:p-10">
         <div className="flex justify-center gap-2 md:justify-start">
-          <Link
-            href={ROUTES.HOME}
-            className="relative h-10 w-full max-w-[139px]"
-          >
-            <Image
-              src={'/landing/logo.png'}
-              fill
-              alt="logo"
-              className="object-contain"
-            />
-          </Link>
+          <Logo />
         </div>
         <div className="flex flex-1 items-center justify-center">
-          <div className="w-full max-w-xs">
+          <div className="w-full max-w-sm">
             <RegisterForm />
           </div>
         </div>

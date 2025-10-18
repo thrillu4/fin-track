@@ -3,7 +3,7 @@
 import { prisma } from '@/lib/prisma'
 import { checkUser } from '../userCheck'
 
-interface ExpenseByCategory {
+export interface ExpenseByCategory {
   key: string
   transaction: string
   percent: number
