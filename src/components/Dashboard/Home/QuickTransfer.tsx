@@ -6,16 +6,42 @@ import {
   CarouselItem,
   CarouselNext,
 } from '@/components/ui/carousel'
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormMessage,
+} from '@/components/ui/form'
+import { TransferSchema, TransferType } from '@/lib/zod'
+import { zodResolver } from '@hookform/resolvers/zod'
 import { Send } from 'lucide-react'
 import Image from 'next/image'
-import { FormEvent, useState } from 'react'
+import { useState } from 'react'
+import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import { Button } from '../../ui/button'
 import { Input } from '../../ui/input'
 
 const QuickTransfer = () => {
   const [picked, setPicked] = useState<number | null>(null)
-  const [value, setValue] = useState('')
+
+  const form = useForm<TransferType>({
+    resolver: zodResolver(TransferSchema),
+    defaultValues: {
+      amount: '',
+    },
+  })
+
+  function onSubmit() {
+    if (!picked) {
+      toast.error('Select receiver!')
+      return
+    }
+    toast.success('The translation was successful!')
+    setPicked(null)
+    form.reset()
+  }
 
   const transfers = [
     {
@@ -47,14 +73,6 @@ const QuickTransfer = () => {
     },
   ]
 
-  const handleSend = (e: FormEvent) => {
-    e.preventDefault()
-    if (!picked || !value) return
-    toast.success('The translation was successful!')
-    setPicked(null)
-    setValue('')
-  }
-
   return (
     <div className="py-9 pl-1 sm:mr-5 sm:pr-6">
       <Carousel
@@ -81,34 +99,41 @@ const QuickTransfer = () => {
         </CarouselContent>
         <CarouselNext className="right-0 sm:-right-10" />
       </Carousel>
-      <form
-        onSubmit={handleSend}
-        className="mt-8 flex flex-col items-center justify-between gap-2 sm:flex-row"
-      >
-        <div className="ml-5 text-sm opacity-60">Write Amount</div>
-        <div className="flex max-w-[230px]">
-          <Input
-            className="rounded-l-full pl-6"
-            type="number"
-            name="name"
-            value={value}
-            onChange={e => setValue(e.currentTarget.value)}
-            min={0}
-            placeholder="0.00 $"
-            autoComplete="transaction-amount"
+      <Form {...form}>
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="mt-8 flex flex-col items-center justify-between gap-2 sm:flex-row"
+        >
+          <div className="ml-5 text-sm opacity-60 xl:text-base">
+            Write Amount
+          </div>
+
+          <FormField
+            control={form.control}
+            name="amount"
+            render={({ field }) => (
+              <FormItem>
+                <FormControl>
+                  <div className="flex max-w-[230px]">
+                    <Input
+                      className="rounded-l-full pl-6"
+                      {...field}
+                      type="number"
+                      min={0}
+                      placeholder="0.00 $"
+                      autoComplete="transaction-amount"
+                    />
+                    <Button type="submit" className="rounded-r-full !px-6">
+                      Send <Send />
+                    </Button>
+                  </div>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
           />
-          <Button
-            type="submit"
-            onClick={() => {
-              if (!picked) toast.error('Select one receiver first')
-              if (!value) toast.error('Enter the amount')
-            }}
-            className="rounded-r-full !px-6"
-          >
-            Send <Send />
-          </Button>
-        </div>
-      </form>
+        </form>
+      </Form>
     </div>
   )
 }

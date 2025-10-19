@@ -17,7 +17,7 @@ export default async function Page() {
       <div className="grid w-full grid-cols-1 gap-x-7 gap-y-6 p-3 lg:grid-cols-2 xl:grid-cols-6">
         <div className="xl:col-start-1 xl:col-end-5">
           <div className="mb-5 flex items-center justify-between">
-            <h3 className="text-xl font-bold md:text-xl">My Cards</h3>
+            <h3 className="text-2xl font-bold">My Cards</h3>
             <Link href={ROUTES.CREDIT_CARDS}>
               <Button variant={'link'} className="py-0">
                 See All

@@ -73,11 +73,15 @@ export type ChangePasswordType = z.infer<typeof ChangePasswordSchema>
 export const ContactFormSchema = z.object({
   name: z.string().min(3, { error: 'Minimum 3 characters' }),
   email: z.email('Enter valid email'),
-  message: z
-    .string()
-    .min(5, {
-      error: 'Please write your message first, at least 5 characters.',
-    }),
+  message: z.string().min(5, {
+    error: 'Please write your message first, at least 5 characters.',
+  }),
 })
 
 export type ContactFormType = z.infer<typeof ContactFormSchema>
+
+export const TransferSchema = z.object({
+  amount: z.string('Enter the amount').min(1, { error: 'Enter the amount' }),
+})
+
+export type TransferType = z.infer<typeof TransferSchema>
