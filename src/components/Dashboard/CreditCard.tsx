@@ -24,7 +24,7 @@ const CreditCard = async ({ take }: { take: number }) => {
   })
 
   return (
-    <div className="flex max-h-[235px] flex-wrap items-center gap-x-3 gap-y-8 overflow-hidden md:max-h-[265px] lg:gap-x-8 lg:gap-y-8">
+    <div className="flex max-h-[265px] flex-wrap items-center gap-x-3 gap-y-8 overflow-hidden md:max-h-[265px] lg:gap-x-8 lg:gap-y-8">
       {cards.length === 0 ? (
         <Empty className="max-h-[235px] w-full border border-dashed">
           <EmptyHeader>
