@@ -1,3 +1,4 @@
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import {
   Empty,
   EmptyDescription,
@@ -7,8 +8,7 @@ import {
 } from '@/components/ui/empty'
 import { prisma } from '@/lib/prisma'
 import { checkUser } from '@/lib/userCheck'
-import { ArrowRightLeft } from 'lucide-react'
-import Image from 'next/image'
+import { ArrowRightLeft, DollarSignIcon } from 'lucide-react'
 
 const RecentTransaction = async () => {
   const { email } = await checkUser()
@@ -40,12 +40,17 @@ const RecentTransaction = async () => {
               <div
                 className={`${trans.category === 'Entertainment' ? 'bg-[var(--chart-3)]' : trans.category === 'Shopping' ? 'bg-[var(--chart-4)]' : trans.category === 'Food' ? 'bg-[var(--chart-2)]' : trans.category === 'Transport' ? 'bg-[var(--chart-1)]' : 'bg-[var(--chart-5)]'} flex items-center justify-center rounded-full p-3.5`}
               >
-                <Image
-                  src={`/dash/transactions/${trans.category}.png`}
-                  alt={trans.type}
-                  width={25}
-                  height={25}
-                />
+                <Avatar>
+                  <AvatarImage
+                    alt={trans.type || 'logo'}
+                    width={25}
+                    height={25}
+                    src={`/dash/transactions/${trans.category}.png`}
+                  />
+                  <AvatarFallback className="bg-transparent text-black">
+                    <DollarSignIcon />
+                  </AvatarFallback>
+                </Avatar>
               </div>
               <div>
                 <div>{trans.description}</div>

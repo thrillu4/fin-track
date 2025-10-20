@@ -1,7 +1,7 @@
 import { prisma } from '@/lib/prisma'
 import { checkUser } from '@/lib/userCheck'
-import Image from 'next/image'
 
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import {
   Empty,
   EmptyDescription,
@@ -9,7 +9,7 @@ import {
   EmptyMedia,
   EmptyTitle,
 } from '@/components/ui/empty'
-import { DollarSign } from 'lucide-react'
+import { DollarSign, DollarSignIcon } from 'lucide-react'
 
 const LastTransaction = async () => {
   const { email } = await checkUser()
@@ -51,26 +51,17 @@ const LastTransaction = async () => {
             <div
               className={`${item.category === 'Entertainment' ? 'bg-[var(--chart-3)]' : item.category === 'Shopping' ? 'bg-[var(--chart-4)]' : item.category === 'Food' ? 'bg-[var(--chart-2)]' : item.category === 'Investment' ? 'bg-[var(--chart-1)]' : 'bg-[var(--chart-5)]'} flex items-center justify-center rounded-full p-3.5`}
             >
-              <Image
-                src={
-                  item.category === 'Transport'
-                    ? '/dash/transactions/Transport.png'
-                    : item.category === 'Food'
-                      ? '/dash/transactions/Food.png'
-                      : item.category === 'Shopping'
-                        ? '/dash/transactions/Shopping.png'
-                        : item.category === 'Entertainment'
-                          ? '/dash/transactions/Entertainment.png'
-                          : item.category === 'Investment'
-                            ? '/dash/transactions/Investment.png'
-                            : item.category === 'Salary'
-                              ? '/dash/transactions/Salary.png'
-                              : '/dash/transactions/service.png'
-                }
-                alt={item.category || 'logo'}
-                width={25}
-                height={25}
-              />
+              <Avatar>
+                <AvatarImage
+                  alt={item.category || 'logo'}
+                  width={25}
+                  height={25}
+                  src={`/dash/transactions/${item.category}.png`}
+                />
+                <AvatarFallback className="bg-transparent text-black">
+                  <DollarSignIcon />
+                </AvatarFallback>
+              </Avatar>
             </div>
             <div>
               <div>{item.description}</div>
