@@ -38,6 +38,8 @@ export const register = async (formData: FormData) => {
   if (!user) {
     return { error: 'User registration failed' }
   }
+
+  return { success: true }
 }
 
 export const logout = async () => {

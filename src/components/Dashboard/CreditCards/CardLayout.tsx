@@ -26,7 +26,7 @@ const CardLayout = ({
   return (
     <div
       key={card.id}
-      className="bg-primary flex max-h-[265px] w-full max-w-[300px] flex-col gap-y-6 rounded-3xl p-5 tracking-widest text-white sm:justify-between sm:p-6 md:max-w-[350px]"
+      className="bg-primary flex h-full max-h-[265px] w-full max-w-[300px] flex-col gap-y-6 rounded-3xl p-5 tracking-widest text-white sm:justify-between sm:p-6 md:max-w-[350px]"
     >
       <div className="flex items-center justify-between">
         <div>

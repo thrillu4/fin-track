@@ -42,13 +42,16 @@ const RegisterForm = () => {
     formData.set('email', values.email)
     formData.set('password', values.password)
 
-    const res = await register(formData)
+    const response = await register(formData)
 
-    if (res?.error) {
-      setServerError(res.error)
+    if (response.error) {
+      setServerError(response.error)
       setLoading(false)
     } else {
-      router.push(ROUTES.DASHBOARD)
+      await signIn('credentials', {
+        email: values.email,
+        password: values.password,
+      })
     }
   }
 
