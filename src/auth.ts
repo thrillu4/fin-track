@@ -4,7 +4,6 @@ import NextAuth from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
 import GitHub from 'next-auth/providers/github'
 import { prisma } from './lib/prisma'
-import { ROUTES } from './lib/routes'
 import { signInSchema } from './lib/zod'
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
@@ -47,5 +46,21 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       },
     }),
   ],
-  pages: { signIn: ROUTES.SIGN_IN, signOut: ROUTES.HOME },
+  callbacks: {
+    async jwt({ token, user }) {
+      if (user) {
+        token.id = user.id
+      }
+      return token
+    },
+    async session({ session, token }) {
+      if (token && session.user) {
+        session.user.id = token.id as string
+      }
+      return session
+    },
+    authorized: async ({ auth }) => {
+      return !!auth
+    },
+  },
 })

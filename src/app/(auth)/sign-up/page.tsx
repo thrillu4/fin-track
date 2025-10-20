@@ -1,8 +1,15 @@
+import { auth } from '@/auth'
 import RegisterForm from '@/components/Auth/RegisterForm'
 import Logo from '@/components/Landing/Logo'
+import { ROUTES } from '@/lib/routes'
 import Image from 'next/image'
+import { redirect } from 'next/navigation'
 
-export default function SignUp() {
+export default async function SignUp() {
+  const session = await auth()
+
+  if (session) redirect(ROUTES.DASHBOARD)
+
   return (
     <div className="grid min-h-svh lg:grid-cols-2">
       <div className="flex flex-col gap-4 p-6 md:p-10">

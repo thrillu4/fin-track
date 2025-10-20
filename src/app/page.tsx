@@ -1,3 +1,4 @@
+import { auth } from '@/auth'
 import DemoUserButton from '@/components/Landing/DemoUserButton'
 import Footer from '@/components/Landing/Footer'
 import NavBar from '@/components/Landing/NavBar'
@@ -9,8 +10,12 @@ import { Button } from '@/components/ui/button'
 import { ROUTES } from '@/lib/routes'
 import Image from 'next/image'
 import Link from 'next/link'
+import { redirect } from 'next/navigation'
 
-export default function Home() {
+export default async function Home() {
+  const session = await auth()
+
+  if (session) redirect(ROUTES.DASHBOARD)
   return (
     <>
       <NavBar />
