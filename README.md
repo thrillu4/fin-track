@@ -1,36 +1,41 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## Getting Started
+# Finance Dashboard Tracker 2025
 
-First, run the development server:
+**Fin-Track Dashboard** is a modern web application for personal finance management, built with Next.js, TypeScript, React, Prisma, and Tailwind CSS. The project allows users to track income and expenses, manage balances, and visualize data through interactive charts.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🌐 Live Demo 
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+You can explore the app and test its features without signing up by using the **Demo User**:
 
-## Learn More
+- [Try Live Demo](https://fin-track-silk.vercel.app/) – click **"Live Demo"** on the landing page to log in automatically as a demo user.  
+- Test all main features: view balances, add incomes/expenses, use interactive tables and charts, and explore drag-and-drop functionality.
 
-To learn more about Next.js, take a look at the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🔹 Key Features
 
-## Deploy on Vercel
+- User authentication using **NextAuth.js** (email and GitHub OAuth)
+- Finance management: incomes, expenses, categories
+- Interactive tables and charts with **Recharts**
+- Dark and light theme support via **next-themes**
+- Forms with validation using **react-hook-form** and **Zod**
+- Animations and interactive UI with **Radix UI**, **Embla Carousel**, and **Sonner**
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🛠 Technologies
+
+- **Framework:** Next.js 15  
+- **Language:** TypeScript  
+- **UI:** Tailwind CSS, Radix UI, Embla Carousel, Lucide Icons  
+- **Authentication:** NextAuth.js with Prisma Adapter, GitHub OAuth  
+- **Database:** PostgreSQL + Prisma ORM  
+- **Supporting Libraries:** Zod, React Hook Form, Recharts  
+- **Other:** Cloudinary for media storage, Faker.js for generating test data
+
+---
+
