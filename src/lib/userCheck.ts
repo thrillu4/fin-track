@@ -1,10 +1,12 @@
 import { auth } from '@/auth'
 import { prisma } from './prisma'
+import { redirect } from 'next/navigation'
+import { ROUTES } from './routes'
 
 export const checkUser = async () => {
   const session = await auth()
 
-  if (!session?.user?.email) throw new Error('401 Unauthorized!')
+  if (!session?.user?.email) redirect(ROUTES.SIGN_IN)
 
   const email = session.user.email
 
@@ -12,7 +14,7 @@ export const checkUser = async () => {
     where: { email },
   })
 
-  if (!user) throw new Error('User not found!')
+  if (!user) redirect(ROUTES.SIGN_IN)
 
   return { email, user }
 }

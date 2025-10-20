@@ -3,10 +3,12 @@ import EditProfileForm from '@/components/Dashboard/Profile/EditProfileForm'
 import UploadImage from '@/components/Dashboard/Profile/UploadImage'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { prisma } from '@/lib/prisma'
+import { ROUTES } from '@/lib/routes'
 import { checkUser } from '@/lib/userCheck'
 import { LockKeyhole } from 'lucide-react'
 
 import Image from 'next/image'
+import { redirect } from 'next/navigation'
 
 const Profile = async () => {
   const { email } = await checkUser()
@@ -16,7 +18,7 @@ const Profile = async () => {
     include: { profile: true },
   })
 
-  if (!user) throw new Error('User not found!')
+  if (!user) redirect(ROUTES.SIGN_IN)
 
   let protectedDemoEmail = false
   if (user.email === process.env.DEMO_USER_EMAIL) {

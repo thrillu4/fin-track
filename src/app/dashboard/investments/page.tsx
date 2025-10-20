@@ -6,7 +6,9 @@ import { YearlyProfit } from '@/components/Dashboard/Investments/YearlyProfit'
 import { getYearlyInvestment } from '@/lib/actions/getYearlyInvestment'
 import { getYearlyProfit } from '@/lib/actions/getYearlyProfit'
 import { prisma } from '@/lib/prisma'
+import { ROUTES } from '@/lib/routes'
 import { checkUser } from '@/lib/userCheck'
+import { redirect } from 'next/navigation'
 
 const Investments = async () => {
   const { email } = await checkUser()
@@ -18,7 +20,7 @@ const Investments = async () => {
     },
   })
 
-  if (!user) throw new Error('401 Unauthorized')
+  if (!user) redirect(ROUTES.SIGN_IN)
 
   let totalInvested = 0
   let currInvValue = 0

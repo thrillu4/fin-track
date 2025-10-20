@@ -9,6 +9,7 @@ import { prisma } from '@/lib/prisma'
 import { ROUTES } from '@/lib/routes'
 import { checkUser } from '@/lib/userCheck'
 import Link from 'next/link'
+import { redirect } from 'next/navigation'
 
 const Accounts = async () => {
   const { email } = await checkUser()
@@ -23,7 +24,7 @@ const Accounts = async () => {
     },
   })
 
-  if (!user) throw new Error('401 Unauthorized!')
+  if (!user) redirect(ROUTES.SIGN_IN)
 
   const amountCalculation = (type: 'income' | 'expense' | 'transfer') => {
     return user?.transactions
