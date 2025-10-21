@@ -20,11 +20,6 @@ const Profile = async () => {
 
   if (!user) redirect(ROUTES.SIGN_IN)
 
-  let protectedDemoEmail = false
-  if (user.email === process.env.DEMO_USER_EMAIL) {
-    protectedDemoEmail = true
-  } // demo user protection
-
   return (
     <div className="px-3 py-3 sm:px-10 sm:py-8">
       <div className="rounded-3xl bg-[var(--sidebar)] p-4 sm:p-8">
@@ -45,7 +40,7 @@ const Profile = async () => {
                 <UploadImage />
               </div>
               <div>
-                <EditProfileForm user={user} protection={protectedDemoEmail} />
+                <EditProfileForm user={user} />
               </div>
             </div>
           </TabsContent>

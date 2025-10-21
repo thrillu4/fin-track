@@ -41,7 +41,7 @@ const ChangePasswordForm = () => {
     },
   })
 
-  const onSubmit = async (data: ChangePasswordType) => {
+  async function onSubmit(data: ChangePasswordType) {
     setLoading(true)
     console.log('Form submitted:', data)
     const res = await changePassword(data)
@@ -68,11 +68,12 @@ const ChangePasswordForm = () => {
           name="currentPassword"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Current Password</FormLabel>
+              <FormLabel htmlFor="currentPassword">Current Password</FormLabel>
               <FormControl>
                 <InputGroup>
                   <InputGroupInput
                     type={showPassword.curr}
+                    id="currentPassword"
                     placeholder="********"
                     {...field}
                   />
@@ -106,11 +107,12 @@ const ChangePasswordForm = () => {
           name="newPassword"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>New Password</FormLabel>
+              <FormLabel htmlFor="newPassword">New Password</FormLabel>
               <FormControl>
                 <InputGroup>
                   <InputGroupInput
                     type={showPassword.new}
+                    id="newPassword"
                     placeholder="********"
                     {...field}
                   />
@@ -144,11 +146,14 @@ const ChangePasswordForm = () => {
           name="confirmNewPassword"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Confirm New Password</FormLabel>
+              <FormLabel htmlFor="confirmNewPassword">
+                Confirm New Password
+              </FormLabel>
               <FormControl>
                 <InputGroup>
                   <InputGroupInput
                     type={showPassword.conf}
+                    id="confirmNewPassword"
                     placeholder="********"
                     {...field}
                   />

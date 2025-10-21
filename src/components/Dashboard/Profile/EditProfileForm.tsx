@@ -25,10 +25,9 @@ interface UserAccount extends User {
 
 interface ProfileProps {
   user: UserAccount
-  protection: boolean
 }
 
-const EditProfileForm = ({ user, protection }: ProfileProps) => {
+const EditProfileForm = ({ user }: ProfileProps) => {
   const [loading, setLoading] = useState(false)
   const { name, email } = user
   const form = useForm<EditProfileType>({
@@ -74,7 +73,7 @@ const EditProfileForm = ({ user, protection }: ProfileProps) => {
         <FormField
           control={form.control}
           name="email"
-          disabled={protection}
+          disabled={true}
           render={({ field }) => (
             <FormItem>
               <FormLabel>Email Address</FormLabel>
@@ -82,9 +81,7 @@ const EditProfileForm = ({ user, protection }: ProfileProps) => {
                 <Input placeholder="example@email.com" {...field} />
               </FormControl>
               <FormDescription>
-                {protection
-                  ? 'You cannot change email address as a demo user '
-                  : 'This is your public email address.'}
+                You cannot change email address
               </FormDescription>
               <FormMessage />
             </FormItem>

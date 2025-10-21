@@ -34,4 +34,6 @@ export const changePassword = async (data: Passwords) => {
   })
 
   if (!updated) return { error: 'Failed to change password.' }
+
+  return { success: true }
 }
